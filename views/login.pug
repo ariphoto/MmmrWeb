@@ -1,0 +1,25 @@
+extends layout_tanplate/layout
+
+
+block content
+    .container.text-center
+        .row
+            .col-xs-8.col-xs-offset-2.col-md-4.col-md-offset-4.text-right
+                button.btn.btn-danger.btn-lg.btn-original 新規登録
+
+        .row
+            .col-xs-12.col-md-4.col-md-offset-4.text-center(style="background-color: #e3f2fd;")
+                // 左側
+                .desc.pull-left
+                    h2 管理システム
+
+                // 右側
+                .login-form.pull-right
+                    form#login_form(method="POST")
+                        h3 保育園ID
+                        input#schoolId
+                        h3 パスワード
+                        input#password(type="password")
+                        p: a#login.btn.btn-primary.btn-lg.btn-original(href='/') ログイン
+                    p.text-left: a(href="#") パスワードを忘れたら
+

@@ -1,0 +1,20 @@
+extends layout
+//おうじ
+
+block content
+    #wrapper
+        p(style="text-align:right"): button#logout(onclick="location.href='/'") ログアウト
+        h1 メニュー
+        #buttonGroup
+            button#student(onclick="location.href='list?kind=student'") 園児
+                br
+                | リスト
+            button#teacher(onclick="location.href='list?kind=teacher'") 保育士
+                br
+                | リスト
+            button#party(onclick="location.href='list?kind=party'") 組
+                br
+                |リスト
+            button#school 保育園
+                br
+                | 情報

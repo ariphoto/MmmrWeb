@@ -1,0 +1,28 @@
+body {
+
+  padding: 20px;
+  font: italic normal bold large/200% "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+table{
+  border-collapse: separate;
+  border-spacing: 10px;
+}
+table.sendbutton{
+  border-collapse: separate;
+  border-spacing: 30px;
+}
+td.left{
+  text-align:right;
+}
+td.right{
+  text-align:left;
+}
+button{
+  text-align: center;
+  vertical-align: middle;
+  width: 120px;
+  height:40px;
+}
+a {
+  color: #00B7FF;
+}

@@ -1,0 +1,76 @@
+extends layout
+    //おうじ
+    block content
+
+    // 絞り込む項目名を格納する二次元配列
+    -
+        var refine_array = [
+            ['名前','あだ名','性別','組','年齢'],
+            ['名前','性別','役職'],
+            ['組']
+        ]
+    // リスト表示する項目名を格納する二次元配列
+    -
+        var display_array = [
+            ['id','名前','読み方','性別','組','年齢','',''],
+            ['id','名前','性別','役職','',''],
+            ['id','名前','','']
+        ]
+    // 仮のデータを格納する三次元配列
+    -
+        var data_array = [
+            [['1','有満','ありみつ','男','ばら','20','',''],['2','友末','ともすえ','男','ばら','20','','']],
+            [['1','久米','男','園長','',''],['2','古磯','男','一般','','']],
+            [['1','ばら','',''],['2','ひまわり','','']]
+        ]
+
+    - var row_num // refine_arrayの行番号
+    - var count // refine_arrayの行番号に対する要素数
+
+    // パラメータの値によって二次元配列の行番号を設定
+    - if(kind == 'student')
+        - row_num = 0;
+    - else if(kind == 'teacher')
+        - row_num = 1;
+    - else
+        - row_num = 2;
+
+    #list_wrapper
+        p(style="text-align:left"): button#menu(onclick="location.href='menu'") メニューへ戻る
+        h1 #{title}
+
+        // 絞り込み用テーブル
+        table(border="1" align="center")
+            thead
+                tr
+                    - count = refine_array[row_num].length
+                    - for (var i = 0; i < count; i++)
+                        th #{refine_array[row_num][i]}
+                tbody: tr
+                    - for (var i = 0; i < count; i++)
+                        td: input
+
+        #refine_exe(style="float:right"): button#refine_exe_btn 絞り込む
+        br(clear="both")
+        #insert_exe(style="float:left"): button#insert_exe_btn 新規追加
+        #delete_exe(style="float:right") 選択した項目を
+            button#delete_exe_btn 削除
+        br(clear="both")
+
+        // リスト表示用テーブル
+        table(border="1" align="center")
+            thead
+                tr
+                    - count = display_array[row_num].length
+                    - for (var i = 0; i < count; i++)
+                        th #{display_array[row_num][i]}
+                tbody
+                    - for (var i = 0; i < 2; i++)
+                        tr
+                            - for (var j = 0; j < data_array[row_num][i].length; j++)
+                                -if(j == data_array[row_num][i].length - 2)
+                                    td: button 編集
+                                - else if(j == data_array[row_num][i].length - 1)
+                                    td: input(type="checkbox")
+                                - else
+                                    td #{data_array[row_num][i][j]}
