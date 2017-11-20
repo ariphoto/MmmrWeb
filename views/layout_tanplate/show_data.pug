@@ -1,0 +1,8 @@
+- for (var j = 0; j < cols + 2; j++)
+// 最後の項目(編集ボタン)用
+- if(j == cols)
+td: button.btn.btn-warning.btn-original 編集
+-else if(j == cols + 1)
+td: button.btn.btn-danger.btn-original 削除
+- else
+td #{data_array[i][j]}

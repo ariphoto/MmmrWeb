@@ -1,20 +1,8 @@
-extends layout
-//おうじ
-
+extends layout_tanplate/layout
 block content
-    #wrapper
-        p(style="text-align:right"): button#logout(onclick="location.href='/'") ログアウト
-        h1 メニュー
-        #buttonGroup
-            button#student(onclick="location.href='list?kind=student'") 園児
-                br
-                | リスト
-            button#teacher(onclick="location.href='list?kind=teacher'") 保育士
-                br
-                | リスト
-            button#party(onclick="location.href='list?kind=party'") 組
-                br
-                |リスト
-            button#school 保育園
-                br
-                | 情報
+    .container.text-center
+        include layout_tanplate/list_header
+
+        .row
+            .col-xs-8.col-xs-offset-2.col-md-4.col-md-offset-4
+                h3 お知らせ

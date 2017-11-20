@@ -1,0 +1,63 @@
+block content
+    .container.text-center
+        include ../../layout_tanplate/list_header
+
+        // 仮のデータを格納するに次元配列
+        -
+            var data_array = [
+            ['久米','男','　　　　　　　　　　　　　　'],
+            ['古磯','男','　　　　　　　　　　　　　　']
+            ]
+
+        .row
+            .col-md-8.col-md-offset-2
+                h1.text-center #{title}
+
+        .row
+            // 絞り込みのボックス
+            .col-xs-10.col-xs-offset-1.col-md-6.col-md-offset-3.refineBox
+
+                // 左部分
+                .col-md-3.refine-other
+                    p 絞り込み
+
+                // 中央部分
+                .col-md-6.refine-other
+
+                    // 名前ボックス
+                    .row
+                        .col-md-12
+                            input(style="width: 100%" placeholder="名前")
+
+                //　右部分
+                .col-md-3.refine-other
+                    button.btn.btn.btn-info.pull-left 実行
+
+        .row
+            .col-md-10.col-md-offset-1
+                .pull-left: button.btn.btn-success.btn-original 新規追加
+                .pull-right 選択した項目を
+                    button.btn.btn-danger.btn-original 削除
+
+        .row
+            .col-md-10.col-md-offset-1
+                // リスト表示用テーブル
+                table.table.table-bordered.table-striped
+                    thead
+                        tr
+                            th.col-md-1
+                            th.col-md-3 名前
+                            th.col-md-2 性別
+                            th.col-md-4 備考
+                            th.col-md-1
+                            th.col-md-1
+                    tbody
+                        - var rows = data_array.length // 仮データの件数
+                        - var cols = data_array[0].length// 仮データの項目数
+
+                        - for (var i = 0; i < rows; i++)
+                        tr
+                            // 1列目のチェックボックス表示
+                            td: input(type="checkbox")
+
+                            include ../../layout_tanplate/show_data
