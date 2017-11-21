@@ -1,8 +1,8 @@
-extends ../../layout_tanplate/layout
+extends ../../layout_template/layout
 
 block content
     .container.text-center
-        include ../../layout_tanplate/list_header
+        include ../../layout_template/list/list_header
 
         // 仮のデータを格納するに次元配列
         -
@@ -61,4 +61,4 @@ block content
                             // 1列目のチェックボックス表示
                             td: input(type="checkbox")
 
-                            include ../../layout_tanplate/show_data
+                            include ../../layout_template/list/show_data

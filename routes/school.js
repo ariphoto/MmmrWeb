@@ -13,8 +13,8 @@ router.get('/edit', function(req, res, next) {
 router.get('/end', function(req, res, next) {
     res.render('contents/school/end', { title: '本登録完了' });
 });
-router.get('/kari', function(req, res, next) {
-    res.render('contents/school/kari', { title: '仮登録完了' });
+router.get('/Provisional', function(req, res, next) {
+    res.render('contents/school/Provisional', { title: '仮登録完了' });
 });
 
 module.exports = router;
