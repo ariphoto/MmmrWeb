@@ -1,7 +1,11 @@
 .row
     .col-md-2.col-md-offset-2.col-xs-2.col-xs-offset-2.text-right
-        img(src='images/chino.png', width='150', height='150')
-        button(class='btn btn-default btn-md active', type='button', onclick='send()') ＋画像の追加
+        img(src='', width='150', height='150')
+        label
+            |ファイル参照
+            input(type='file', id='file_photo', style='display:none;')
+
+
     .col-md-offset-5.text-left
         table
             tbody

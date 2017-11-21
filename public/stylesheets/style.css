@@ -7,6 +7,7 @@ table{
   border-collapse: separate;
   border-spacing: 10px;
 }
+/*セル内文字左寄せ*/
 tr{
   text-align:left
 }
@@ -16,11 +17,19 @@ td.left{
 td.right{
   text-align:left;
 }
+/*各ボタンに対する設定*/
 button{
   text-align: center;
   vertical-align: middle;
   width: 120px;
   height:40px;
+}
+/*画像の追加ボタンに対する設定*/
+label{
+  color: black;
+  background-color: wheat;
+  padding: 2px;
+  border-radius: 4px;
 }
 /* 絞り込み用ボックス */
 .refineBox {
