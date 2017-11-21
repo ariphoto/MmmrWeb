@@ -4,9 +4,6 @@ var router = express.Router();
 //TODO:
 
 
-router.get('/add', function(req, res, next) {
-    res.render('contents/teachers/add', { title: '保育士追加' });
-});
 router.get('/edit', function(req, res, next) {
     res.render('contents/teachers/edit', { title: '保育士編集' });
 });
