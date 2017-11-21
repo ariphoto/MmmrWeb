@@ -1,3 +1,5 @@
+extends ../../layout_tanplate/layout
+
 block content
     .container.text-center
         include ../../layout_tanplate/list_header
@@ -5,8 +7,8 @@ block content
         // 仮のデータを格納するに次元配列
         -
             var data_array = [
-            ['久米','男','　　　　　　　　　　　　　　'],
-            ['古磯','男','　　　　　　　　　　　　　　']
+                ['久米',''],
+                ['古磯','']
             ]
 
         .row
@@ -35,29 +37,28 @@ block content
 
         .row
             .col-md-10.col-md-offset-1
-                .pull-left: button.btn.btn-success.btn-original 新規追加
+                .pull-left: button#btn_insert(onclick="insertRow()").btn.btn-success.btn-original 新規追加
                 .pull-right 選択した項目を
                     button.btn.btn-danger.btn-original 削除
 
         .row
             .col-md-10.col-md-offset-1
                 // リスト表示用テーブル
-                table.table.table-bordered.table-striped
+                table#list_table.table.table-bordered.table-striped
                     thead
                         tr
                             th.col-md-1
                             th.col-md-3 名前
-                            th.col-md-2 性別
-                            th.col-md-4 備考
+                            th.col-md-6 備考
                             th.col-md-1
                             th.col-md-1
                     tbody
                         - var rows = data_array.length // 仮データの件数
-                        - var cols = data_array[0].length// 仮データの項目数
+                        - var cols = data_array[0].length // 仮データの項目数
 
                         - for (var i = 0; i < rows; i++)
-                        tr
-                            // 1列目のチェックボックス表示
-                            td: input(type="checkbox")
+                            tr
+                                // 1列目のチェックボックス表示
+                                td: input(type="checkbox")
 
-                            include ../../layout_tanplate/show_data
+                                include ../../layout_tanplate/show_data

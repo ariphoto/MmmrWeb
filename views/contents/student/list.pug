@@ -1,3 +1,5 @@
+extends ../../layout_tanplate/layout
+
 block content
     .container.text-center
         include ../../layout_tanplate/list_header
@@ -5,8 +7,8 @@ block content
         // 仮のデータを格納するに次元配列
         -
             var data_array = [
-            ['有満','ありみつ','男','ばら','20','　　　　　　'],
-            ['友末','ともすえ','男','ばら','20','　　　　　　']
+                ['有満','ありみつ','男','ばら','20','　　　　　　'],
+                ['友末','ともすえ','男','ばら','20','　　　　　　']
             ]
 
         .row
@@ -42,10 +44,10 @@ block content
                                 option 組
                                 option ばら
                                 option ひまわり
-                            .col-md-3(style="padding:0%"): select.pull-right
+                            .col-md-3(style="padding:0%"): select.text-right
                                 option 年齢
                                 - for(var i = 0;i < 6;i++)
-                                option #{i}
+                                    option #{i}
 
                 //　右部分
                 .col-md-3.refine-student-btn
@@ -78,9 +80,9 @@ block content
                         - var cols = data_array[0].length// 仮データの項目数
 
                         - for (var i = 0; i < rows; i++)
-                        tr
-                            // 1列目のチェックボックス表示
-                            td: input(type="checkbox")
-                            td 写真
+                            tr
+                                // 1列目のチェックボックス表示
+                                td: input(type="checkbox")
+                                td 写真
 
-                            include ../../layout_tanplate/show_data
+                                include ../../layout_tanplate/show_data
