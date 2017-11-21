@@ -7,8 +7,8 @@ block content
         // 仮のデータを格納するに次元配列
         -
             var data_array = [
-            ['ばら','　　　　　　　　　　　　　　　　　　　　　'],
-            ['ひまわり','　　　　　　　　　　　　　　　　　　　']
+                ['ばら','　　　　　　　　　　　　　　　　　　　　　'],
+                ['ひまわり','　　　　　　　　　　　　　　　　　　　']
             ]
 
         .row
@@ -55,9 +55,10 @@ block content
                     tbody
                         - var rows = data_array.length // 仮データの件数
                         - var cols = data_array[0].length // 仮データの項目数
-                        - for (var i = 0; i < rows; i++)
-                        tr
-                            // 1列目のチェックボックス表示
-                            td: input(type="checkbox")
 
-                            include ../../layout_template/list/show_data
+                        - for (var i = 0; i < rows; i++)
+                            tr
+                                // 1列目のチェックボックス表示
+                                td: input(type="checkbox")
+
+                            include ../../layout_tanplate/show_data
