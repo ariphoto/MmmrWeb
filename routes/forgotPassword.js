@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-//TODO:(クラスのこと),,,school
+//TODO:
 
 
 router.get('/edit', function(req, res, next) {
