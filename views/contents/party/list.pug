@@ -37,14 +37,14 @@ block content
 
         .row
             .col-md-10.col-md-offset-1
-                .pull-left: button.btn.btn-success.btn-original 新規追加
+                .pull-left: button#btn_insert(onclick="insertRow()").btn.btn-success.btn-original 新規追加
                 .pull-right 選択した項目を
                     button.btn.btn-danger.btn-original 削除
 
         .row
             .col-md-10.col-md-offset-1
                 // リスト表示用テーブル
-                table.table.table-bordered.table-striped
+                table#list_table.table.table-bordered.table-striped
                     thead
                         tr
                             th.col-md-1
@@ -61,4 +61,4 @@ block content
                                 // 1列目のチェックボックス表示
                                 td: input(type="checkbox")
 
-                            include ../../layout_tanplate/show_data
+                                include ../../layout_template/list/show_data

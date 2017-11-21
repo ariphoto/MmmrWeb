@@ -22,43 +22,9 @@ button{
   width: 120px;
   height:40px;
 }
-/* 絞り込み用ボックス */
-.refineBox {
-  border:1px black solid;
-  padding:2% 0%;
-  font-size: 18px;
-  display:table;
-}
-
-/* 絞り込み実行ボタン */
-.refine-student-btn {
-  vertical-align: bottom;
-  display:table-cell;
-  float:none;
-}
-
-/* 絞り込み実行ボタン以外の絞り込みボックス */
-.refine-other {
-  vertical-align: top;
-  display:table-cell;
-  float:none;
-}
-
-/* ここから下はbootstrapの上書き */
-/* ボタンにmarginをつける */
-.btn-original {
-  margin:10px 5px;
-
-}
-
-/* セル内で垂直方向の中央に配置 */
-.table tbody tr td {
-  vertical-align: middle;
-}
 a {
-  color: #00B7FF;
-}
-
+   color: #00B7FF;
+ }
 
 /* 絞り込み用ボックス */
 .refineBox {
@@ -94,7 +60,17 @@ a {
   vertical-align: middle;
 }
 
-/* テーブルヘッダの中央揃え */
-th {
-  text-align:center;
+/* 絞り込み用ボックス */
+.refineBox {
+  border:1px black solid;
+  padding:2% 0%;
+  font-size: 18px;
+  display:table;
+}
+
+/* 絞り込み実行ボタン */
+.refine-student-btn {
+  vertical-align: bottom;
+  display:table-cell;
+  float:none;
 }
