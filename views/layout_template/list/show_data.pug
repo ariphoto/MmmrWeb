@@ -1,8 +1,24 @@
-- for (var j = 0; j < cols + 2; j++)
-    // 最後の項目(編集ボタン)用
-    - if(j == cols)
-        td: button.btn.btn-warning.btn-original 編集
-    -else if(j == cols + 1)
-        td: button.btn.btn-danger.btn-original 削除
-    - else
-        td #{data_array[i][j]}
+- var rows = data_array.length // 仮データの件数
+- var cols = data_array[0].length // 仮データの項目数
+
+- for (var i = 0; i < rows; i++)
+
+    - var link = "location.href=\'" // リンク先
+    // ID名を動的に生成
+    tr(id="row" + (i + 1))
+        // 1列目のチェックボックス表示
+        td: input(type="checkbox")
+
+        - if(title == "園児一覧")
+            td 写真
+            - link += "edit\'"
+        - else
+            - link += "javascript:edit_row(" + (i + 1) + ");\'"
+
+        - for (var j = 0; j < cols + 2; j++)
+            - if(j == cols)
+                td: button.btn.btn-warning.btn-original(onclick= link) 編集
+            -else if(j == cols + 1)
+                td: button.btn.btn-danger.btn-original 削除
+            - else
+                td: span #{data_array[i][j]}

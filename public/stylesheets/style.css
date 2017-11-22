@@ -48,6 +48,16 @@ a {
   float:none;
 }
 
+/* リストページ 隠し要素用 */
+.hidden {
+  visibility: hidden;
+}
+
+/* 新規追加・編集 行のinput */
+.edit-input {
+  width:80%;
+}
+
 /* ここから下はbootstrapの上書き */
 /* ボタンにmarginをつける */
 .btn-original {

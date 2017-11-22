@@ -62,27 +62,18 @@ block content
         .row
             .col-md-10.col-md-offset-1
                 // リスト表示用テーブル
-                table.table.table-bordered.table-striped
+                table#list_table.table.table-bordered.table-striped
                     thead
                         tr
                             th
-                            th.col-md-2
+                            th.col-md-2 写真
                             th.col-md-3 名前
                             th.col-md-3 ふりがな
                             th.col-md-1 性別
                             th.col-md-1 組
                             th.col-md-1 年齢
                             th.col-md-3 備考
-                            th
-                            th
+                            th 編集
+                            th 削除
                     tbody
-                        - var rows = data_array.length // 仮データの件数
-                        - var cols = data_array[0].length// 仮データの項目数
-
-                        - for (var i = 0; i < rows; i++)
-                            tr
-                                // 1列目のチェックボックス表示
-                                td: input(type="checkbox")
-                                td 写真
-
-                                include ../../layout_template/list/show_data
+                    include ../../layout_template/list/show_data
