@@ -19,6 +19,6 @@
             - if(j == cols)
                 td: button.btn.btn-warning.btn-original(onclick= link) 編集
             -else if(j == cols + 1)
-                td: button.btn.btn-danger.btn-original 削除
+                td: button.btn.btn-danger.btn-original(onclick='location.href="javascript:delete_row(' + (i + 1) + ');"') 削除
             - else
                 td: span #{data_array[i][j]}
