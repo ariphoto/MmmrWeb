@@ -1,24 +1,32 @@
-- var rows = data_array.length // 仮データの件数
-- var cols = data_array[0].length // 仮データの項目数
+- var rows = data.length // 仮データの件数
+- var cols = Object.keys(data).length // 仮データの項目数
+- console.log(cols)
 
 - for (var i = 0; i < rows; i++)
 
     - var link = "location.href=\'" // リンク先
     // ID名を動的に生成
     tr(id="row" + (i + 1))
-        // 1列目のチェックボックス表示
-        td: input(type="checkbox")
+
+        td
+            // 1列目のチェックボックス表示
+            input(type="checkbox")
+            // 隠し項目
+            input(type="hidden" value = data[i].id)
 
         - if(title == "園児一覧")
-            td 写真
+            td: img(src= data[i].picturePath)
             - link += "edit\'"
+            - var j = 2;
         - else
             - link += "javascript:edit_row(" + (i + 1) + ");\'"
+            - var j = 0;
 
-        - for (var j = 0; j < cols + 2; j++)
+        - for (; j < cols + 2; j++)
             - if(j == cols)
                 td: button.btn.btn-warning.btn-original(onclick= link) 編集
             -else if(j == cols + 1)
                 td: button.btn.btn-danger.btn-original(onclick='location.href="javascript:delete_row(' + (i + 1) + ');"') 削除
             - else
-                td: span #{data_array[i][j]}
+                - var colName = dispCol[j]
+                td: span #{data[i].name}

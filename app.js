@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mysql = require('mysql'); // MySQLを使用
+var helmet = require('helmet'); // helmet(セキュリティ対策)
 
 //ページ用変数の宣言
 
@@ -23,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(helmet());
 
 //TODO:
 var teachers = require('./routes/teachers');
@@ -59,5 +62,26 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// MySQL接続設定
+const connection = mysql.createConnection({
+    host: '192.168.20.224',
+    user: 'keijiban',
+    password: '114514',
+    database: 'mimamori'
+});
+
+// MySQL接続処理
+connection.connect(function(err) {
+    if (err) {
+        return console.error('error connecting: ' + err.stack)
+    }else{
+        console.log('connected as id ' + connection.threadId)
+    }
+});
+
+// グローバル変数として設定
+global.connection = connection;
+
 
 module.exports = app;
