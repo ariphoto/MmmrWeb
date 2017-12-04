@@ -1,9 +1,20 @@
+
 .row
     .col-md-2.col-md-offset-2.col-xs-2.col-xs-offset-2.text-right
-        img(src='', width='150', height='150')
-        label
-            |ファイル参照
-            input(type='file', onchange='' id='file_photo', style='display:none;', accept='image/*')
+        form(action="#" method="post" enctype="multipart/form-data")
+            label
+                input(type='checkbox', name='checked', value='1', checked='checked')
+                |現在の画像を使用
+            br
+            label
+                img(src='', class='uploaded thumb', alt='')
+                label.button
+                    |ファイルを選択
+                    input(type='file', name='images', style='display:none;')
+
+
+
+
 
     .col-md-offset-5.text-left
         table

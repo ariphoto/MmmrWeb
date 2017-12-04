@@ -1,7 +1,7 @@
 body {
 
   padding: 20px;
-  font: italic normal bold large/200% "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: italic normal bold 200%/200% "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 table{
   border-collapse: separate;
@@ -25,7 +25,7 @@ button{
   height:40px;
 }
 /*画像の追加ボタンに対する設定*/
-label{
+label.button{
   color: black;
   background-color: wheat;
   padding: 2px;
@@ -107,3 +107,11 @@ a {
 th {
   text-align:center;
 }
+/*画像アップロードjs*/
+
+form img.thumb {
+  margin: 0 5px 5px 0;
+  max-width: 160px;
+  vertical-align: bottom;
+}
+
