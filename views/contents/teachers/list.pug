@@ -1,15 +1,8 @@
 extends ../../layout_template/layout
 
 block content
-    .container.text-center
+    .container.text-center(onload = "javascript:init();")
         include ../../layout_template/list/list_header
-
-        // 仮のデータを格納するに次元配列
-        -
-            var data_array = [
-                ['久米','aaa'],
-                ['古磯','']
-            ]
 
         .row
             .col-md-8.col-md-offset-2
@@ -29,17 +22,20 @@ block content
                     // 名前ボックス
                     .row
                         .col-md-12
-                            input(style="width: 100%" placeholder="名前")
+                            - if(inputData)
+                                input#name_box(style="width: 100%" placeholder="名前" value = inputData)
+                            - else
+                                input#name_box(style="width: 100%" placeholder="名前")
 
                 //　右部分
                 .col-md-3.refine-other
-                    button.btn.btn.btn-info.pull-left 実行
+                    button(onclick="filter()").btn.btn.btn-info.pull-left 実行
 
         .row
             .col-md-10.col-md-offset-1
                 .pull-left: button#btn_insert(onclick="insertRow()").btn.btn-success.btn-original 新規追加
                 .pull-right 選択した項目を
-                    button.btn.btn-danger.btn-original 削除
+                    button(onclick="delete_multi()").btn.btn-danger.btn-original 削除
 
         .row
             .col-md-10.col-md-offset-1
@@ -53,4 +49,5 @@ block content
                             th.col-md-1 編集
                             th.col-md-1 削除
                     tbody
-                        include ../../layout_template/list/show_data
+                    - var cols = 2 // テキスト表示する項目数
+                    include ../../layout_template/list/show_data

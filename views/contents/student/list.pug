@@ -1,23 +1,14 @@
 extends ../../layout_template/layout
 
 block content
-    .container.text-center
+    .container.text-center(onload = "javascript:init();")
         include ../../layout_template/list/list_header
-
-        // 仮のデータを格納するに次元配列
-        -
-            var data_array = [
-                ['有満','ありみつ','男','ばら','20','　　　　　　'],
-                ['友末','ともすえ','男','ばら','20','　　　　　　']
-            ]
-            var dispCol = ['id','pictudePath','name','phonetic', 'gender', 'partyId', 'birthDay']
 
         .row
             .col-md-8.col-md-offset-2
                 h1.text-center #{title}
 
         .row
-
             // 絞り込みのボックス
             .col-xs-10.col-xs-offset-1.col-md-6.col-md-offset-3.refineBox
 
@@ -31,34 +22,41 @@ block content
                     // 名前ボックス
                     .row
                         .col-md-12
-                            input(style="width: 100%" placeholder="名前")
+                            - if(inputData)
+                                input#name_box(style="width: 100%" placeholder="名前" value = inputData[0])
+                                input#gender_h(type="hidden" value = inputData[1])
+                                input#party_h(type="hidden" value = inputData[2])
+                                input#age_h(type="hidden" value = inputData[3])
+                            - else
+                                input#name_box(style="width: 100%" placeholder="名前")
 
                     // プルダウン群
                     .row(style="margin:0%")
                         p
-                            .col-md-3.pull-left(style="padding:0%"): select
+                            .col-md-3.pull-left(style="padding:0%"): select#gender_box
                                 option 性別
                                 option 男
                                 option 女
                                 option その他
-                            .col-md-6: select
+
+                            .col-md-6: select#party_box
                                 option 組
                                 option ばら
-                                option ひまわり
-                            .col-md-3(style="padding:0%"): select.text-right
+                                option ふじ
+                            .col-md-3(style="padding:0%"): select.text-right#age_box
                                 option 年齢
                                 - for(var i = 0;i < 6;i++)
                                     option #{i}
 
                 //　右部分
                 .col-md-3.refine-student-btn
-                    button.btn.btn-info.pull-left 実行
+                    button(onclick="filter()").btn.btn-info.pull-left 実行
 
         .row
             .col-md-10.col-md-offset-1
                 .pull-left: button.btn.btn-success.btn-original 新規追加
                 .pull-right 選択した項目を
-                    button.btn.btn-danger.btn-original 削除
+                    button(onclick="delete_multi()").btn.btn-danger.btn-original 削除
 
         .row
             .col-md-10.col-md-offset-1
@@ -77,4 +75,5 @@ block content
                             th 編集
                             th 削除
                     tbody
+                    - var cols = 6 // テキスト表示する項目数
                     include ../../layout_template/list/show_data
