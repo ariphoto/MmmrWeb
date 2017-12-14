@@ -44,11 +44,11 @@
 
         - if(title == "園児一覧")
             td: img(src= "/image/" + dataRow[1])
-            - link_edit += "edit\'"
             - var j = 2; // dataRowの開始位置
         - else
-            - link_edit += "javascript:edit_row(" + (i + 1) + ", " + page + ");\'"
             - var j = 1; // dataRowの開始位置
+
+        - link_edit += "javascript:edit_row(" + (i + 1) + ", " + page + ");\'"
 
         - for (var k = 0; k < cols + 2; k++)
             - if(k == cols)

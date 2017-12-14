@@ -49,38 +49,43 @@ function insertRow() {
 // 編集ボタン(オレンジ) 編集用テキストボックスを表示する
 function edit_row(idNum, page){
     var row = document.getElementById('row' + idNum); //編集ボタンを押した行オブジェクトを取得
-    var oldData = new Array(2); // 既存のデータを格納
+    if(page == "stu"){
+        var id = row.getElementsByTagName('input')[1].value; // 編集ボタンを押した行のstudentIdを取得
+        execPost('edit', '/contents/student/edit', {'studentId': id});
+    } else {
+        var oldData = new Array(2); // 既存のデータを格納
 
-    for(var i = 0; i < 2;i++){
-        var td = row.getElementsByTagName('td')[i + 1];
-        var span = td.getElementsByTagName('span')[0]; // td内のspan
-        var input = document.createElement('input'); // テキストボックスを定義
-        input.classList.add('edit-input');
-        oldData[i] = span.innerText; // 既存のデータを格納
-        span.classList.add('hidden'); // 既存のspanを隠す
-        input.setAttribute('value',oldData[i]);
-        td.appendChild(input);
+        for (var i = 0; i < 2; i++) {
+            var td = row.getElementsByTagName('td')[i + 1];
+            var span = td.getElementsByTagName('span')[0]; // td内のspan
+            var input = document.createElement('input'); // テキストボックスを定義
+            input.classList.add('edit-input');
+            oldData[i] = span.innerText; // 既存のデータを格納
+            span.classList.add('hidden'); // 既存のspanを隠す
+            input.setAttribute('value', oldData[i]);
+            td.appendChild(input);
+        }
+
+        var td = row.getElementsByTagName('td')[3];
+        var btn = td.getElementsByTagName('button')[0]; // 編集ボタンを取得
+        btn.classList.add('hidden');
+        var newButton = document.createElement('button'); // ボタンを定義
+        newButton.classList.add('btn', 'btn-info', 'btn-original');
+        newButton.setAttribute('onclick', 'location.href="javascript:edit_execute(' + idNum + ', \'' + page + '\')"');
+        var txt = document.createTextNode("更新");
+        newButton.appendChild(txt);
+        td.appendChild(newButton);
+
+        var td = row.getElementsByTagName('td')[4];
+        var btn = td.getElementsByTagName('button')[0]; // 削除ボタンを取得
+        btn.classList.add('hidden');
+        var newButton = document.createElement('button'); // ボタンを定義
+        newButton.classList.add('btn', 'btn-default', 'btn-original');
+        newButton.setAttribute('onclick', 'location.href="javascript:edit_cancel(' + idNum + ');"');
+        var txt = document.createTextNode("キャンセル");
+        newButton.appendChild(txt);
+        td.appendChild(newButton);
     }
-
-    var td = row.getElementsByTagName('td')[3];
-    var btn = td.getElementsByTagName('button')[0]; // 編集ボタンを取得
-    btn.classList.add('hidden');
-    var newButton = document.createElement('button'); // ボタンを定義
-    newButton.classList.add('btn','btn-info','btn-original');
-    newButton.setAttribute('onclick','location.href="javascript:edit_execute(' + idNum + ', \'' + page + '\')"');
-    var txt =  document.createTextNode("更新");
-    newButton.appendChild(txt);
-    td.appendChild(newButton);
-
-    var td = row.getElementsByTagName('td')[4];
-    var btn = td.getElementsByTagName('button')[0]; // 削除ボタンを取得
-    btn.classList.add('hidden');
-    var newButton = document.createElement('button'); // ボタンを定義
-    newButton.classList.add('btn','btn-default','btn-original');
-    newButton.setAttribute('onclick','location.href="javascript:edit_cancel(' + idNum + ');"');
-    var txt =  document.createTextNode("キャンセル");
-    newButton.appendChild(txt);
-    td.appendChild(newButton);
 }
 
 // 編集行 キャンセルボタン(グレー)
@@ -368,51 +373,130 @@ function execPost(order, link, data) {
 }
 
 // リストページ表示時処理
-function init(){
-    if(document.title == "園児一覧"){
-        var gender = document.getElementById("gender_h").value;
-        var party = document.getElementById("party_h").value;
+function init() {
+    var gender = document.getElementById("gender_h").value;
+    var party = document.getElementById("party_h").value;
+    if (document.title == "園児編集") {
+        var birthDay = new Date(document.getElementById("birthDay_h").value);
+    } else {
         var age = document.getElementById("age_h").value;
-        var pulldown_option;
-        switch(gender){
-            case "man":
-                gender = "男";
+    }
+    var pulldown_option;
+    if (party == "") {
+        party = "組";
+    }
+    if (age == "") {
+        age = "組";
+    }
+    if (document.title == "園児編集") {
+        pulldown_option = document.getElementById("genderTd").getElementsByTagName('input');
+        for (var i = 0; i < pulldown_option.length; i++) {
+            if (pulldown_option[i].value == gender) {
+                pulldown_option[i].checked = true;
                 break;
-            case "woman":
-                gender = "女";
+            }
+        }
+        pulldown_option = document.getElementById("party_box").getElementsByTagName('option');
+        for (var i = 0; i < pulldown_option.length; i++) {
+            if (pulldown_option[i].value == party) {
+                pulldown_option[i].selected = true;
                 break;
-            case "other":
-                gender = "その他";
-                break;
-            default:
-                gender = "性別";
+            }
         }
-        if(party == ""){
-            party = "組";
-        }
-        if(age == ""){
-            age = "組";
-        }
-        pulldown_option = document.getElementById("gender_box").getElementsByTagName('option');
+        pulldown_option = document.getElementById("year").getElementsByTagName('option');
         for(var i = 0; i < pulldown_option.length;i++) {
+            if (pulldown_option[i].value == birthDay.getFullYear()) {
+                pulldown_option[i].selected = true;
+                break;
+            }
+        }
+        pulldown_option = document.getElementById("month").getElementsByTagName('option');
+        for(var i = 0; i < pulldown_option.length;i++) {
+            if (pulldown_option[i].value == birthDay.getMonth() + 1) {
+                pulldown_option[i].selected = true;
+                break;
+            }
+        }
+        pulldown_option = document.getElementById("day").getElementsByTagName('option');
+        for(var i = 0; i < pulldown_option.length;i++) {
+            if (pulldown_option[i].value == birthDay.getDate()) {
+                pulldown_option[i].selected = true;
+                break;
+            }
+        }
+    } else {
+        pulldown_option = document.getElementById("gender_box").getElementsByTagName('option');
+        for (var i = 0; i < pulldown_option.length; i++) {
             if (pulldown_option[i].value == gender) {
                 pulldown_option[i].selected = true;
                 break;
             }
         }
         pulldown_option = document.getElementById("party_box").getElementsByTagName('option');
-        for(var i = 0; i < pulldown_option.length;i++) {
+        for (var i = 0; i < pulldown_option.length; i++) {
             if (pulldown_option[i].value == party) {
                 pulldown_option[i].selected = true;
                 break;
             }
         }
         pulldown_option = document.getElementById("age_box").getElementsByTagName('option');
-        for(var i = 0; i < pulldown_option.length;i++) {
+        for (var i = 0; i < pulldown_option.length; i++) {
             if (pulldown_option[i].value == age) {
                 pulldown_option[i].selected = true;
                 break;
             }
         }
     }
+}
+
+// 園児編集画面 源氏の画像のチェックボックスの処理
+function defPic(){
+    var checkbox = document.getElementById("picCheck")
+    var pictureSelect = document.getElementById("pictureSelect")
+    if(checkbox.checked == false){
+        pictureSelect.removeAttribute('disabled') // 新規追加ボタンを有効化する
+    } else {
+        pictureSelect.setAttribute('disabled',true); // 新規追加ボタンを無効化する
+    }
+}
+
+$(function() {
+    $('#pictureSelect').on("change", function() {
+        var studentPicture = document.getElementById("studentPicture");
+        studentPicture.setAttribute('src', )
+    });
+});
+
+function send(){
+    var data = []
+    var checkbox = document.getElementById("picCheck");
+    data.id = document.getElementById("id_h").value;
+    if(checkbox.checked == false){
+        data.picturePath = document.getElementById("pictureSelect").value
+    } else {
+        data.picturePath = document.getElementById("path_h").value
+    }
+    data.name = document.getElementById("name_box").value;
+    data.phonetic = document.getElementById("phonetic_box").value;
+    data.nickname = document.getElementById("nickname_box").value;
+    var target = document.getElementById("year");
+    var num = target.selectedIndex;
+    var year = target.getElementsByTagName('option')[num].value;
+    var target = document.getElementById("month");
+    var num = target.selectedIndex;
+    var month = target.getElementsByTagName('option')[num + 1].value;
+    var target = document.getElementById("day");
+    var num = target.selectedIndex;
+    var day = target.getElementsByTagName('option')[num].value;
+    var inputDate = new Date(year, month, day);
+    data.birthDay = inputDate;
+    var option = document.getElementById("genderTd").getElementsByTagName('input');
+    for (var i = 0; i < option.length; i++) {
+        if (option[i].checked == true) {
+            data.gender = option[i].value;
+            break;
+        }
+    }
+    data.party = document.getElementById("party_box").value;
+    execPost('upd', '/contents/student/list_post', data);
 }

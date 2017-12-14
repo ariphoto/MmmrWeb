@@ -41,8 +41,8 @@ block content
 
                             .col-md-6: select#party_box
                                 option 組
-                                option ばら
-                                option ふじ
+                                - for(var i = 0;i < parties.length;i++)
+                                    option #{parties[i].name}
                             .col-md-3(style="padding:0%"): select.text-right#age_box
                                 option 年齢
                                 - for(var i = 0;i < 6;i++)
