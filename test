@@ -1,0 +1,22 @@
+(1,'名前','ふりがな','あだな','性別','YYYY-MM-DD',1,'path'),
+
+INSERT INTO student VALUES
+(1,'newName','','','','',1,''),
+(1,'','','','','',1,''),
+(1,'','','','','',1,''),
+\{(\t|\n)*studentId:(.*)\n\t*name:(.*)\n\t*nickname:(.*)\n\t*phonetic:(.*)\n\t*gender:(.*)\n\t*picturePath:(.*)
+birthDay:new Date\.UTC\((.*)\n\t*partyId:(.*)\n\t*\}\, 
+
+("d5162515-7ed3-48d7-b4de-046f13552ce4","北島 有紀子","ゆき","きたじまゆきこ","woman","y_kitajima.jpg",2012,4,5),"99898d8f-1a0f-4d12-bff7-c1bdad402d6b")
+("e7d3f661-661b-4e57-ad56-7d002e8be43f","星 美伸","みのぶ","ほしみのぶ","man","m_hoshi.jpg",2012,6,7),"99898d8f-1a0f-4d12-bff7-c1bdad402d6b")
+("12d7589d-2a79-4899-974e-b7c725655bf5","角田 祥三","しょう","かくたしょうぞう","man","s_kakuta.jpg",2012,8,20),"99898d8f-1a0f-4d12-bff7-c1bdad402d6b")
+("6446e971-715f-42eb-a8e2-879635c42ffe","高山 登喜雄","ときお","たかやまときお","man","t_takayama.jpg",2012,9,17),"99898d8f-1a0f-4d12-bff7-c1bdad402d6b")
+("fe087cc4-b68f-4329-a689-aec885fcd1f6","野沢 佳久","よし","のざわよしひさ","man","y_nozawa.jpg",2012,3,5),"99898d8f-1a0f-4d12-bff7-c1bdad402d6b")
+("a1036336-fe4a-4958-bca1-4eece2d25dc9","黒木 千絵子","ちえ","くろきちえこ","woman","c_kuroki.jpg",2012,1,23),"99898d8f-1a0f-4d12-bff7-c1bdad402d6b")
+("15b44e6c-f722-4949-be69-8c26da20dc9a","根本 境二","きょう","ねもときょうじ","man","k_nemoto.jpg",2012,7,5),"99898d8f-1a0f-4d12-bff7-c1bdad402d6b")
+("e1e249b0-2485-424d-8418-eaa9a222bcd2","下村 寿彦","とし","しもむらとしひこ","man","t_shimomura.jpg",2015,10,20),"f53a2baa-a22e-4d92-8e88-877c2df1096b")
+("e2065376-f95a-4cb4-aa9f-793a8eb8f359","奥村 久江","ひさ","おくむらひさえ","woman","h_okumura.jpg",2013,11,6),"355db0d4-cdc5-4c5e-9012-95c680161c9f")
+("e536b799-6ac1-4563-b40d-8c8244617078","荻野 つばさ","つばさ","おぎのつばさ","man","t_ogino.jpg",2013,8,3),"355db0d4-cdc5-4c5e-9012-95c680161c9f")
+("d7086629-7c6a-4b97-9fe3-0a1aac51cd46","比嘉 有子","ゆう","ひがゆうこ","woman","y_higa.jpg",2014,3,27),"22f70121-d40e-4934-bf21-9dad567309d9")
+("bc332213-fcea-4ae5-97fe-4bb4f911c1d0","福井 智勝","とも","ふくいともかつ","man","t_hukui.jpg",2014,2,15),"22f70121-d40e-4934-bf21-9dad567309d9")
+("bcbdc394-f8ab-42ab-b4b6-e88a9a369cd0","松岡 泰秀","やす","まつおかやすひで","man","y_matsuoka.jpg",2014,8,1),"22f70121-d40e-4934-bf21-9dad567309d9")
