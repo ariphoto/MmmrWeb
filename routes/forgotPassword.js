@@ -6,7 +6,6 @@ var router = express.Router();
 
 router.get('/edit', function(req, res, next) {
     res.render('forgotPassword/edit', { title: '新規パスワード入力' });
-    //pugの参照
 });
 
 router.get('/end', function(req, res, next) {

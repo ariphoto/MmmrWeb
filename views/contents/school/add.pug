@@ -1,6 +1,8 @@
-extends ../../layout_template/contents/add
+extends ../../layout_template/layout
 block content
-    title 保育園追加
-    h1= title
-    include template
+    title=title
+
+    form( method='post', action='/contents/school/Provisional')
+        include template
+        button(class='', type='submit',  onclick="") 送信
 

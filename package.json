@@ -11,8 +11,17 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.15.5",
+    "express-session": "^1.15.6",
+    "googleapis": "^23.0.0",
     "morgan": "~1.9.0",
+    "mysql2": "^1.5.1",
+    "nodemailer": "^4.4.0",
+    "nodemailer-smtp-transport": "^2.7.4",
     "pug": "2.0.0-beta11",
-    "serve-favicon": "~2.4.5"
+    "sendmail": "^1.2.0",
+    "sequelize": "^4.25.1",
+    "serve-favicon": "~2.4.5",
+    "uuid": "^3.1.0",
+    "xoauth2": "^1.2.0"
   }
 }
