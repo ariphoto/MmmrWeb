@@ -1,8 +1,59 @@
-- for (var j = 0; j < cols + 2; j++)
-    // 最後の項目(編集ボタン)用
-    - if(j == cols)
-        td: button.btn.btn-warning.btn-original 編集
-    -else if(j == cols + 1)
-        td: button.btn.btn-danger.btn-original 削除
+- var rows = data.length // データの件数
+- var dataRow = [] // 1行のデータを項目ごとに保持する
+
+- for (var i = 0; i < rows; i++)
+
+    - var link_edit = "location.href=\'" // リンク先
+    - var link_delete = "location.href=\'" // リンク先
+    - var page = ""
+
+    - if(title == "園児一覧")
+        - page = '"stu"'
+        - dataRow[0] = data[i].studentId
+        - dataRow[1] = data[i].picturePath
+        - dataRow[2] = data[i].name
+        - dataRow[3] = data[i].phonetic
+        - if(data[i].gender == "man")
+            - dataRow[4] = "男"
+        - else if(data[i].gender == "woman")
+            - dataRow[4] = "女"
+        - else
+            - dataRow[4] = "その他"
+
+        - dataRow[5] = data[i]['party.name']
+        - dataRow[6] = data[i].age
     - else
-        td #{data_array[i][j]}
+        - dataRow[1] = data[i].name
+        - dataRow[2] = data[i].remarks
+
+        - if(title == "保育士一覧")
+            - page = '"tea"'
+            - dataRow[0] = data[i].teacherId
+        - else
+            - page = '"par"'
+            - dataRow[0] = data[i].partyId
+
+    - link_delete += "javascript:delete_row(" + (i + 1) + ", " + page + ");\'"
+    // ID名を動的に生成
+    tr(id="row" + (i + 1))
+        td
+            // 1列目のチェックボックス表示
+            input(type="checkbox")
+            // 隠し項目
+            input(type="hidden" value = dataRow[0])
+
+        - if(title == "園児一覧")
+            td: img(src= "/image/" + dataRow[1])
+            - var j = 2; // dataRowの開始位置
+        - else
+            - var j = 1; // dataRowの開始位置
+
+        - link_edit += "javascript:edit_row(" + (i + 1) + ", " + page + ");\'"
+
+        - for (var k = 0; k < cols + 2; k++)
+            - if(k == cols)
+                td: button.btn.btn-warning.btn-original(onclick= link_edit) 編集
+            -else if(k == cols + 1)
+                td: button.btn.btn-danger.btn-original(onclick= link_delete) 削除
+            - else
+                td: span #{dataRow[j + k]}
