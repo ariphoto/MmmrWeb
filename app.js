@@ -22,6 +22,10 @@ const goHome = require('./models/goHome');
 
 const creates = require('./creates/creates');
 
+//sessionの設定
+//const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
 sequelize.drop().then(() => {
     schoolM.sync().then(() => {
         creates.schools(schoolM);
@@ -147,6 +151,18 @@ connection.connect(function (err) {
 
 // グローバル変数として設定
 global.connection = connection;
+
+//sessionの設定
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie:{
+        httpOnly: true,
+        secure: false,
+        maxage: 1000 * 60 * 30
+    }
+}));
 
 
 module.exports = app;

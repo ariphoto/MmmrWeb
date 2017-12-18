@@ -20,5 +20,8 @@
     "sequelize": "^4.25.1",
     "serve-favicon": "~2.4.5",
     "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "express-session": "^1.15.6"
   }
 }
