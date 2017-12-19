@@ -23,7 +23,6 @@ const goHome = require('./models/goHome');
 const creates = require('./creates/creates');
 
 //sessionの設定
-//const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 sequelize.drop().then(() => {
@@ -78,10 +77,10 @@ sequelize.drop().then(() => {
 
 //ページ用変数の宣言
 
-var login = require('./routes/login');
-var menu = require('./routes/menu');
-
-var app = express();
+const login = require('./routes/login');
+const menu = require('./routes/menu');
+const index = require('./routes/index')
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -95,22 +94,35 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
+//sessionの設定
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie:{
+        httpOnly: true,
+        secure: false,
+        maxage: 1000 * 60 * 30
+    }
+}));
 
 //TODO:
-var teachers = require('./routes/teachers');
+//ルーティングの設定
+const teachers = require('./routes/teachers');
 app.use('/contents/teachers', teachers);
-var party = require('./routes/party');
+const party = require('./routes/party');
 app.use('/contents/party', party);
-var student = require('./routes/student');
+const student = require('./routes/student');
 app.use('/contents/student', student);
-var school = require('./routes/school');
+const school = require('./routes/school');
 app.use('/contents/school', school);
 
-var forgotPassword = require('./routes/forgotPassword');
+const forgotPassword = require('./routes/forgotPassword');
 app.use('/forgotPassword', forgotPassword);
 //localhost下のurlでパス忘れたときにアクセス
 
 app.use('/login', login);
+app.use('/', index);
 app.use('/menu', menu);
 
 
@@ -152,17 +164,7 @@ connection.connect(function (err) {
 // グローバル変数として設定
 global.connection = connection;
 
-//sessionの設定
-app.use(session({
-    secret: 'secret',
-    resave: false,
-    saveUninitialized: false,
-    cookie:{
-        httpOnly: true,
-        secure: false,
-        maxage: 1000 * 60 * 30
-    }
-}));
+
 
 
 module.exports = app;

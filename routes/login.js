@@ -12,7 +12,7 @@ const partyM = require('../models/party');
 /* GET home page. */
 //TODO:
 router.get('/', function(req, res, next) {
-    res.render('login', { title: 'ログイン' });
+    res.render('./login/login', { title: 'ログイン画面' });
 });
 
 //Login POST
@@ -20,25 +20,24 @@ router.post('/', (req, res, next) =>{
     const userId = req.body.userId;
     const password = req.body.password;
 
-    if (req.session.schoolId){
-
-    }else if(userId && password) {
+    if(userId && password) {
         schoolM.findById(userId).then(model => {
             //ソルトを使用したリクエスト内のパスワードのハッシュ化
             if (model && hasher(password, model.salt) === model.password) {
                 //セッションの発行
                 req.session.schoolId = userId;
-                next(req, res, next);
-
+                //next(req, res, next);
+                res.redirect('../');
             } else {
-
+                const  err = 'data is wrong';
+                res.render('login',{error:err});
             }
         }).catch(err => {
-
+            res.render("server_error")
         });
     }else {
         //ユーザIDとパスワードの両方が入力されていなかった場合
-        alert("ユーザーID、パスワードを入力してください")
+        res.redirect('/login');
     }
 
 });
