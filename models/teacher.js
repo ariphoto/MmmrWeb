@@ -27,6 +27,10 @@ const teacher = loader.database.define('teacher', {
         validate: {
             len: [8,20]
         }
+    },
+    remarks:{
+        type: Sequelize.TEXT,
+        allowNull:true
     }
 },{charset: 'utf8mb4',collate: 'utf8mb4_general_ci'});
 module.exports = teacher;

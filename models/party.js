@@ -12,7 +12,11 @@ const party = loader.database.define('party', {
     },
     schoolId:{
         type: Sequelize.STRING(128),
-        allowNull: false
+        allowNull: false,
+    },
+    remarks:{
+        type: Sequelize.TEXT,
+        allowNull:true
     }
 },{charset: 'utf8mb4',collate: 'utf8mb4_general_ci'});
 module.exports = party;

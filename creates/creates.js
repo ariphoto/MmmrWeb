@@ -47,61 +47,71 @@ const teacherCreate = (model) => {
 			name: "鶴田 貴浩",
 			password: hasher("tsuruta", salt),
 			salt: salt,
-			schoolId: takahashi.schoolId
+			schoolId: takahashi.schoolId,
+			remarks: "tsuru"
 		}, {
 			teacherId: "f032a9fa-5591-4429-afff-69fea70c1588",
 			name: "村上 正宣",
 			password: hasher("murakami", salt),
 			salt: salt,
-			schoolId: guriko.schoolId
+			schoolId: guriko.schoolId,
+            remarks: "mura"
 		}, {
 			teacherId: "e9f5ef2b-e082-4a05-9526-f773f4e1b888",
 			name: "白石 右京",
 			password: hasher("shiraishi", salt),
 			salt: salt,
-			schoolId: takahashi.schoolId
+			schoolId: takahashi.schoolId,
+            remarks: "shira"
 		}, {
 			teacherId: "7db42d9c-e661-4071-8b77-282ab132b671",
 			name: "平井 玲一",
 			password: hasher("hirai", salt),
 			salt: salt,
-			schoolId: guriko.schoolId
+			schoolId: guriko.schoolId,
+            remarks: "hira"
 		}, {
 			teacherId: "7e0060bf-b2f0-4169-aa8d-36e071bdc224",
 			name: "村上 正宣",
 			password: hasher("murakami", salt),
 			salt: salt,
-			schoolId: takahashi.schoolId
+			schoolId: takahashi.schoolId,
+            remarks: "mura"
 		}, {
 			teacherId: "fe012f42-b3a0-43f3-9499-dcf59cd1ddf7",
 			name: "望月 正次",
 			password: hasher("mochiduki", salt),
 			salt: salt,
-			schoolId: guriko.schoolId
+			schoolId: guriko.schoolId,
+            remarks: "mochi"
 		}, {
 			teacherId: "5f515b55-2389-4b4a-b050-e6950f15b9ad",
 			name: "中井 政広",
 			password: hasher("nakai", salt),
 			salt: salt,
-			schoolId: takahashi.schoolId
+			schoolId: takahashi.schoolId,
+            remarks: "naka"
 		}, {
 			teacherId: "572291de-00b5-4455-ac48-82e218604017",
 			name: "大平 忠和",
 			password: hasher("ohira", salt),
 			salt: salt,
-			schoolId: guriko.schoolId
+			schoolId: guriko.schoolId,
+            remarks: "oo"
 		}, {
 			teacherId: "3de45556-925c-47fa-ad7b-82ce0dac04dc",
 			name: "米田 一世",
 			password: hasher("yoneda", salt),
 			salt: salt,
-			schoolId: takahashi.schoolId
+			schoolId: takahashi.schoolId,
+            remarks: "yone"
 		}, {
 			teacherId: "3f0713de-8070-43b1-a4fa-aa6edd0bde6b",
 			name: "横井 留三",
 			password: hasher("yokoi", salt),
 			salt: salt,
-			schoolId: guriko.schoolId
+			schoolId: guriko.schoolId,
+            remarks: "yoko"
 		}
 	],{
 		updateOnDuplicate:true
@@ -111,23 +121,27 @@ const teacherCreate = (model) => {
 const bara = {
 	partyId: '99898d8f-1a0f-4d12-bff7-c1bdad402d6b',
 	name: "ばら",
-	schoolId: takahashi.schoolId
+	schoolId: takahashi.schoolId,
+    remarks: "ba"
 }; 
 
 const fuji = {
 	partyId: 'f53a2baa-a22e-4d92-8e88-877c2df1096b',
 	name: "ふじ",
-	schoolId: takahashi.schoolId
+	schoolId: takahashi.schoolId,
+    remarks: "fu"
 };
 const tampopo = {
 	partyId: '355db0d4-cdc5-4c5e-9012-95c680161c9f',
 	name: "たんぽぽ",
-	schoolId: guriko.schoolId
+	schoolId: guriko.schoolId,
+    remarks: "ta"
 };
 const sumire = {
 	partyId: '22f70121-d40e-4934-bf21-9dad567309d9',
 	name: "すみれ",
-	schoolId: guriko.schoolId
+	schoolId: guriko.schoolId,
+    remarks: "su"
 };
 
 const partyCreate = (model) => {

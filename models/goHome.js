@@ -14,11 +14,13 @@ const goHome = loader.database.define('goHome', {
 	},
 	studentId: {
 		type: Sequelize.UUID,
-		allowNull: false
+		allowNull: false,
+        onDelete: "CASCADE"
 	},
 	teacherId: {
 		type: Sequelize.UUID,
-		allowNull: false
+		allowNull: false,
+        onDelete: "CASCADE"
 	},
 },{
 	charset: 'utf8mb4',

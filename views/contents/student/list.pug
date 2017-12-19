@@ -1,22 +1,14 @@
 extends ../../layout_template/layout
 
 block content
-    .container.text-center
+    .container.text-center(onload = "javascript:init();")
         include ../../layout_template/list/list_header
-
-        // 仮のデータを格納するに次元配列
-        -
-            var data_array = [
-                ['有満','ありみつ','男','ばら','20','　　　　　　'],
-                ['友末','ともすえ','男','ばら','20','　　　　　　']
-            ]
 
         .row
             .col-md-8.col-md-offset-2
                 h1.text-center #{title}
 
         .row
-
             // 絞り込みのボックス
             .col-xs-10.col-xs-offset-1.col-md-6.col-md-offset-3.refineBox
 
@@ -30,59 +22,58 @@ block content
                     // 名前ボックス
                     .row
                         .col-md-12
-                            input(style="width: 100%" placeholder="名前")
+                            - if(inputData)
+                                input#name_box(style="width: 100%" placeholder="名前" value = inputData[0])
+                                input#gender_h(type="hidden" value = inputData[1])
+                                input#party_h(type="hidden" value = inputData[2])
+                                input#age_h(type="hidden" value = inputData[3])
+                            - else
+                                input#name_box(style="width: 100%" placeholder="名前")
 
                     // プルダウン群
                     .row(style="margin:0%")
                         p
-                            .col-md-3.pull-left(style="padding:0%"): select
+                            .col-md-3.pull-left(style="padding:0%"): select#gender_box
                                 option 性別
                                 option 男
                                 option 女
                                 option その他
-                            .col-md-6: select
+
+                            .col-md-6: select#party_box
                                 option 組
-                                option ばら
-                                option ひまわり
-                            .col-md-3(style="padding:0%"): select.text-right
+                                - for(var i = 0;i < parties.length;i++)
+                                    option #{parties[i].name}
+                            .col-md-3(style="padding:0%"): select.text-right#age_box
                                 option 年齢
                                 - for(var i = 0;i < 6;i++)
                                     option #{i}
 
                 //　右部分
                 .col-md-3.refine-student-btn
-                    button.btn.btn.btn-info.pull-left 実行
+                    button(onclick="filter()").btn.btn-info.pull-left 実行
 
         .row
             .col-md-10.col-md-offset-1
                 .pull-left: button.btn.btn-success.btn-original 新規追加
                 .pull-right 選択した項目を
-                    button.btn.btn-danger.btn-original 削除
+                    button(onclick="delete_multi()").btn.btn-danger.btn-original 削除
 
         .row
             .col-md-10.col-md-offset-1
                 // リスト表示用テーブル
-                table.table.table-bordered.table-striped
+                table#list_table.table.table-bordered.table-striped
                     thead
                         tr
                             th
-                            th
-                            th 名前
-                            th ふりがな
-                            th 性別
-                            th 組
-                            th 年齢
-                            th 備考
-                            th
-                            th
+                            th.col-md-2 写真
+                            th.col-md-3 名前
+                            th.col-md-3 ふりがな
+                            th.col-md-1 性別
+                            th.col-md-1 組
+                            th.col-md-1 年齢
+                            th.col-md-3 備考
+                            th 編集
+                            th 削除
                     tbody
-                        - var rows = data_array.length // 仮データの件数
-                        - var cols = data_array[0].length// 仮データの項目数
-
-                        - for (var i = 0; i < rows; i++)
-                            tr
-                                // 1列目のチェックボックス表示
-                                td: input(type="checkbox")
-                                td 写真
-
-                                include ../../layout_template/list/show_data
+                    - var cols = 6 // テキスト表示する項目数
+                    include ../../layout_template/list/show_data

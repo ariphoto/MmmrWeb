@@ -32,7 +32,8 @@ const student = loader.database.define('student', {
 	},
 	partyId:{
 		type: Sequelize.UUID,
-		allowNull: false
+		allowNull: false,
+		onDelete: 'cascade'
 	}
 },{charset: 'utf8mb4',collate: 'utf8mb4_general_ci'});
 module.exports = student;
