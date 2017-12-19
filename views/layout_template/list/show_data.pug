@@ -12,16 +12,15 @@
         - dataRow[0] = data[i].studentId
         - dataRow[1] = data[i].picturePath
         - dataRow[2] = data[i].name
-        - dataRow[3] = data[i].phonetic
         - if(data[i].gender == "man")
-            - dataRow[4] = "男"
+            - dataRow[3] = "男"
         - else if(data[i].gender == "woman")
-            - dataRow[4] = "女"
+            - dataRow[3] = "女"
         - else
-            - dataRow[4] = "その他"
+            - dataRow[3] = "その他"
 
-        - dataRow[5] = data[i]['party.name']
-        - dataRow[6] = data[i].age
+        - dataRow[4] = data[i]['party.name']
+        - dataRow[5] = data[i].age
     - else
         - dataRow[1] = data[i].name
         - dataRow[2] = data[i].remarks
@@ -43,7 +42,7 @@
             input(type="hidden" value = dataRow[0])
 
         - if(title == "園児一覧")
-            td: img(src= "/image/" + dataRow[1])
+            td: img(src= "/image/" + dataRow[0] + ".jpg")
             - var j = 2; // dataRowの開始位置
         - else
             - var j = 1; // dataRowの開始位置

@@ -1,41 +1,33 @@
+/*jshint esversion: 6 */
 var express = require('express');
 var router = express.Router();
 const sequelize = require('../models/sequelize-loader').database;
 // 画像投稿用
-const multer = require('multer');
 
 const studentM = require('../models/student');
 const partyM = require('../models/party');
 
-//TODO:
+// ルーティングを行うためのモジュール
+// 画像投稿用
+const multer = require('multer');
+const uuidv4 = require('uuid/v4');
+
 // バイナリファイルをROMに保存する設定
 const storage = multer.diskStorage({
     destination: (req, file, cb)=> {
         // 画像の保存場所
-        cb(null, './public/image')
+        cb(null, './public/image');
     },
     filename: (req, file, cb)=> {
-
-        const filename = file.fieldname + '-' + Date.now();
-
-        // mimetypeによって新ファイルの拡張子を設定
-        switch(file.mimetype) {
-            case "image/jpeg":
-                return cb(null, `${filename}.jpg`);
-            case "image/png":
-                return cb(null, `${filename}.jpg`);
-            case "image/gif":
-                return cb(null, `${filename}.gif`);
-            default:
-                return cb(null, filename)
-        }
+        return cb(null, `${req.body.id}.jpg`);
     }
 });
 
-// diskStrage設定を読み込む
+// diskStorage設定を読み込む
 const upload = multer({
     storage: storage,
 });
+
 
 router.get('/add', function(req, res, next) {
     res.render('contents/student/add', { title: '園児追加' });
@@ -165,6 +157,7 @@ router.post('/list_post', function(req, res, next) {
             });
             break;
         case "upd":
+            console.log("update");
             partyM.findAll({
                 raw:true,
                 where:{
@@ -185,11 +178,17 @@ router.post('/list_post', function(req, res, next) {
                         studentId: req.body.id
                     }
                 }).then(result => {
+
                     return res.redirect('/contents/student/list');
                 });
             });
             break;
     }
+
+});
+router.post('/picture',upload.single('image'), (req, res, next)=>{
+    console.log(req.body.id);
+    res.end();
 
 });
 

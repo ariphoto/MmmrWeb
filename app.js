@@ -1,5 +1,5 @@
 "use strict";
-
+/*jshint esversion: 6 */
 const sequelize = require('./models/sequelize-loader').database;
 var express = require('express');
 var path = require('path');
@@ -127,26 +127,5 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
-// MySQL接続設定
-const connection = mysql.createConnection({
-    host: '192.168.20.224',
-    user: 'keijiban',
-    password: '114514',
-    database: 'mimamori'
-});
-
-// MySQL接続処理
-connection.connect(function (err) {
-    if (err) {
-        return console.error('error connecting: ' + err.stack)
-    } else {
-        console.log('connected as id ' + connection.threadId)
-    }
-});
-
-// グローバル変数として設定
-global.connection = connection;
-
 
 module.exports = app;

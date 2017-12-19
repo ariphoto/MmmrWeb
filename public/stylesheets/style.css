@@ -61,6 +61,11 @@ label.button{
   width:80%;
 }
 
+/* 園児の写真 */
+img {
+  max-width: 100%;
+}
+
 /* ここから下はbootstrapの上書き */
 /* ボタンにmarginをつける */
 .btn-original {

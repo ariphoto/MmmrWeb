@@ -18,10 +18,6 @@ const student = loader.database.define('student', {
 		type: Sequelize.STRING,
 		allowNull: false
 	},
-	picturePath: {
-		type: Sequelize.STRING,
-		allowNull: true
-	},
 	gender: {
 		type: Sequelize.ENUM(['man', 'woman', 'other']),
 		allowNull: false
@@ -34,6 +30,10 @@ const student = loader.database.define('student', {
 		type: Sequelize.UUID,
 		allowNull: false,
 		onDelete: 'cascade'
-	}
+	},
+    remarks:{
+        type: Sequelize.TEXT,
+        allowNull:true
+    }
 },{charset: 'utf8mb4',collate: 'utf8mb4_general_ci'});
 module.exports = student;

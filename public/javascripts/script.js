@@ -1,28 +1,27 @@
 // 新規追加ボタン(緑) リストに新規行を追加する処理
 function insertRow() {
-    var btn_insert = document.getElementById('btn_insert'); // 新規追加ボタン
-    var list_table = document.getElementById('list_table'); // テーブル
+    let btn_insert = document.getElementById('btn_insert'); // 新規追加ボタン
+    let list_table = document.getElementById('list_table'); // テーブル
 
     btn_insert.setAttribute('disabled','true'); // 新規追加ボタンを無効化する
 
-    var col_num = list_table.rows[0].cells.length; // テーブルの項目数を取得
-    var rows = list_table.insertRow(1); // 新規行を追加する
+    let col_num = list_table.rows[0].cells.length; // テーブルの項目数を取得
+    let rows = list_table.insertRow(1); // 新規行を追加する
     rows.setAttribute('id','new_line');
 
     // テーブルにセル追加
-    for(var i = 0;i < col_num;i++) {
+    for(let i = 0;i < col_num;i++) {
+        let td = rows.insertCell(-1); // セルを追加する
         switch (i){
-            // 名前 テキストボックス
+            // 名前・備考 テキストボックス
             case 1:
             case 2:
-                var td = rows.insertCell(-1); // セルを追加する
-                var box = document.createElement('input');
+                let box = document.createElement('input');
                 box.classList.add('edit-input');
                 td.appendChild(box);
                 break;
             // 追加 ボタン
             case 3:
-                var td = rows.insertCell(-1); // セルを追加する
                 var btn = document.createElement('button');
                 btn.classList.add('btn','btn-info','btn-original');
                 btn.setAttribute('onclick','location.href="javascript:insert_execute();"');
@@ -32,33 +31,32 @@ function insertRow() {
                 break;
             // キャンセル ボタン
             case 4:
-                var td = rows.insertCell(-1); // セルを追加する
                 var btn = document.createElement('button');
                 btn.classList.add('btn','btn-default','btn-default');
                 btn.setAttribute('onclick','location.href="javascript:insert_cancel();"');
                 var txt = document.createTextNode("キャンセル");
                 btn.appendChild(txt);
                 td.appendChild(btn);
-                break;
-            default:
-                td = rows.insertCell(-1); // セルを追加する
+
         }
     }
 }
 
 // 編集ボタン(オレンジ) 編集用テキストボックスを表示する
 function edit_row(idNum, page){
-    var row = document.getElementById('row' + idNum); //編集ボタンを押した行オブジェクトを取得
+    let row = document.getElementById('row' + idNum); // 編集ボタンを押した行オブジェクトを取得
+    // 保育士一覧の場合、IDをポストして別ページに遷移する
     if(page == "stu"){
-        var id = row.getElementsByTagName('input')[1].value; // 編集ボタンを押した行のstudentIdを取得
+        let id = row.getElementsByTagName('input')[1].value; // 編集ボタンを押した行のstudentIdを取得
         execPost('edit', '/contents/student/edit', {'studentId': id});
     } else {
-        var oldData = new Array(2); // 既存のデータを格納
+        let oldData = new Array(2); // 既存のデータを格納
 
-        for (var i = 0; i < 2; i++) {
-            var td = row.getElementsByTagName('td')[i + 1];
-            var span = td.getElementsByTagName('span')[0]; // td内のspan
-            var input = document.createElement('input'); // テキストボックスを定義
+        // 既存の内容を含むspanを隠し、入力テキストボックスを表示
+        for (let i = 0; i < 2; i++) {
+            let td = row.getElementsByTagName('td')[i + 1];
+            let span = td.getElementsByTagName('span')[0]; // td内のspan
+            let input = document.createElement('input'); // テキストボックスを定義
             input.classList.add('edit-input');
             oldData[i] = span.innerText; // 既存のデータを格納
             span.classList.add('hidden'); // 既存のspanを隠す
@@ -90,12 +88,13 @@ function edit_row(idNum, page){
 
 // 編集行 キャンセルボタン(グレー)
 function edit_cancel(idNum){
-    var row = document.getElementById('row' + idNum); //編集ボタンを押した行オブジェクトを取得
+    let row = document.getElementById('row' + idNum); //編集ボタンを押した行オブジェクトを取得
 
-    for(var i = 0; i < 2;i++){
-        var td = row.getElementsByTagName('td')[i + 1];
-        var span = td.getElementsByTagName('span')[0]; // td内のspan
-        var input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
+    // 入力テキストボックスを削除し、既存のspanを戻す
+    for(let i = 0; i < 2;i++){
+        let td = row.getElementsByTagName('td')[i + 1];
+        let span = td.getElementsByTagName('span')[0]; // td内のspan
+        let input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
         td.removeChild(input);
         span.classList.remove('hidden'); // 既存のspanを戻す
     }
@@ -115,8 +114,8 @@ function edit_cancel(idNum){
 
 // 追加行 キャンセルボタン(グレー)
 function insert_cancel(){
-    var btn_insert = document.getElementById('btn_insert'); // 新規追加ボタン
-    var list_table = document.getElementById('list_table'); // テーブル
+    let btn_insert = document.getElementById('btn_insert'); // 新規追加ボタン
+    let list_table = document.getElementById('list_table'); // テーブル
 
     btn_insert.removeAttribute('disabled'); // 新規追加ボタンを有効化する
 
@@ -125,22 +124,23 @@ function insert_cancel(){
 
 // 追加行 追加ボタン(青)
 function insert_execute() {
-    var list_table = document.getElementById('list_table'); // テーブル
-    var tbody = list_table.getElementsByTagName('tbody')[0];
-    var new_line = document.getElementById('new_line');
-    var col_num = list_table.rows[0].cells.length; // テーブルの項目数を取得
-    var data = [];
-    var page;
+    let list_table = document.getElementById('list_table'); // テーブル
+    let tbody = list_table.getElementsByTagName('tbody')[0];
+    let new_line = document.getElementById('new_line');
+    let col_num = list_table.rows[0].cells.length; // テーブルの項目数を取得
+    let data = [];
+    let page;
     if(document.title == "保育士一覧"){
         page = "tea";
     } else {
         page = "par";
     }
 
-    for(var i = 0; i < 2;i++){
-        var td = new_line.getElementsByTagName('td')[i + 1];
-        var span = td.getElementsByTagName('span')[0]; // td内のspan
-        var input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
+    // 入力内容を取得
+    for(let i = 0; i < 2;i++){
+        let td = new_line.getElementsByTagName('td')[i + 1];
+        let span = td.getElementsByTagName('span')[0]; // td内のspan
+        let input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
         data[i] = input.value;
     }
 
@@ -148,110 +148,48 @@ function insert_execute() {
         if (page == "tea") {
             execPost('ins', '/contents/teachers/list_post', {'name': data[0], 'remarks': data[1]});
         } else {
+            // 保育士一覧
             execPost('ins', '/contents/party/list_post', {'name': data[0], 'remarks': data[1]});
         }
     }
-
-
-    /*for (var i = 0; i < 2; i++) {
-        var target = document.getElementsByClassName('edit-input')[i];
-        values[i] = target.value;
-    }
-
-    btn_insert.removeAttribute('disabled'); // 新規追加ボタンを有効化する
-    list_table.deleteRow(1); // 新規行を削除する
-    var new_insert_row = tbody.insertRow(-1);
-    var rows = list_table.rows.length - 1; // 仮データの件数
-    new_insert_row.setAttribute('id', 'row' + rows);
-
-    for (var i = 0; i < col_num; i++){
-         var td = new_insert_row.insertCell(-1); // セルを追加する
-
-        switch (i) {
-            case 0:
-                var input = document.createElement('input');
-                input.setAttribute('type', 'checkbox');
-                td.appendChild(input);
-                break;
-            case 1:
-            case 2:
-                var span = document.createElement('span');
-                var txt = document.createTextNode(values[i - 1]);
-                span.appendChild(txt);
-                td.appendChild(span);
-                break;
-            case 3:
-                var btn = document.createElement('button');
-                btn.classList.add('btn', 'btn-warning', 'btn-original');
-                btn.setAttribute('onclick', 'location.href="javascript:edit_row(' + rows + ');"');
-                var txt = document.createTextNode("編集");
-                btn.appendChild(txt);
-                td.appendChild(btn);
-                break;
-            // 削除 ボタン
-            default:
-                var btn = document.createElement('button');
-                btn.classList.add('btn', 'btn-danger', 'btn-default');
-                btn.setAttribute('onclick', 'javascript:delete_row(' + rows + ');"');
-                var txt = document.createTextNode("削除");
-                btn.appendChild(txt);
-                td.appendChild(btn);
-        }
-    }*/
 }
 
 // 編集行 更新ボタン(青)
 function edit_execute(idNum, page){
-    var row = document.getElementById('row' + idNum); //更新ボタンを押した行オブジェクトを取得
-    var id = row.getElementsByTagName('input')[1].value;
-    var data = [];
+    let row = document.getElementById('row' + idNum); //更新ボタンを押した行オブジェクトを取得
+    let id = row.getElementsByTagName('input')[1].value;
+    let data = [];
 
-    for(var i = 0; i < 2;i++){
-        var td = row.getElementsByTagName('td')[i + 1];
-        var span = td.getElementsByTagName('span')[0]; // td内のspan
-        var input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
+    for(let i = 0; i < 2;i++){
+        let td = row.getElementsByTagName('td')[i + 1];
+        let span = td.getElementsByTagName('span')[0]; // td内のspan
+        let input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
         data[i] = input.value
-        // var txt = document.createTextNode(input.value);
-        // td.removeChild(input);
-        // span.classList.remove('hidden'); // 既存のspanを戻す
-        // span.innerText = "";
-        // span.appendChild(txt);
     }
 
     if(window.confirm(`更新します\nよろしいですか？`)) {
         if(page == "tea"){
             execPost('upd', '/contents/teachers/list_post', {'teacherId': id, 'name' : data[0], 'remarks' : data[1]});
         } else {
+            // 保育士一覧
             execPost('upd', '/contents/party/list_post', {'partyId': id, 'name': data[0], 'remarks': data[1]});
         }
-/*
-        var td = row.getElementsByTagName('td')[3];
-        var btn = td.getElementsByTagName('button')[1]; // 更新ボタンを取得
-        td.removeChild(btn);
-        var btn = td.getElementsByTagName('button')[0]; // 編集ボタンを取得
-        btn.classList.remove('hidden');
-
-        var td = row.getElementsByTagName('td')[4];
-        var btn = td.getElementsByTagName('button')[1]; // キャンセルボタンを取得
-        td.removeChild(btn);
-        var btn = td.getElementsByTagName('button')[0]; // 削除ボタンを取得
-        btn.classList.remove('hidden');
-*/
     }
 }
 
 // 一行 削除ボタン(赤)
 function delete_row(idNum, page){
-    var list_table = document.getElementById('list_table'); // テーブル
-    var tbody = list_table.getElementsByTagName('tbody')[1];
-    var del_row = document.getElementById('row' + idNum);
-    var name = del_row.getElementsByTagName('span')[0].innerText;
-    var id = del_row.getElementsByTagName('input')[1].value;
-    var comment; // 表示する警告文
+    let list_table = document.getElementById('list_table'); // テーブル
+    let tbody = list_table.getElementsByTagName('tbody')[1];
+    let del_row = document.getElementById('row' + idNum);
+    let name = del_row.getElementsByTagName('span')[0].innerText;
+    let id = del_row.getElementsByTagName('input')[1].value;
+    let comment; // 表示する警告文
 
     if(document.title == "クラス一覧"){
         comment = "このクラスに含まれる園児情報、\n登園 降園情報も削除されます。";
     } else {
+        // 園児一覧・保育士一覧
         comment = "関連する登園 降園情報も削除されます。";
     }
 
@@ -263,33 +201,33 @@ function delete_row(idNum, page){
         } else {
             execPost('del', '/contents/party/list_post', {'partyId': id});
         }
-        //tbody.removeChild(del_row); // 新規行を削除する
     }
-
 }
 
 // 複数行 削除ボタン(赤)
 function delete_multi(){
-    var list_table = document.getElementById('list_table'); // テーブル
-    var tbody = list_table.getElementsByTagName('tbody')[1];
-    var rows = tbody.rows.length;
-    var comment; // 表示する警告文
-    var id = [];
+    let list_table = document.getElementById('list_table'); // テーブル
+    let tbody = list_table.getElementsByTagName('tbody')[1];
+    let rows = tbody.rows.length;
+    let comment; // 表示する警告文
+    let id = [];
 
     if(document.title == "クラス一覧"){
         comment = "このクラスに含まれる園児情報、\n登園 降園情報も削除されます。";
     } else {
+        // 園児一覧・保育士一覧
         comment = "関連する登園 降園情報も削除されます。";
     }
 
-    for(var i = 1;i < rows + 1;i++){
-        var row = document.getElementById('row' + i);
-        var check = row.getElementsByTagName('input')[0].checked;
+    // 選択行を取得
+    for(let i = 1;i < rows + 1;i++){
+        let row = document.getElementById('row' + i);
+        let check = row.getElementsByTagName('input')[0].checked;
         if(check) {
-            id.push(row.getElementsByTagName('input')[1].value)
+            id.push(row.getElementsByTagName('input')[1].value) // 選択行に含まれるID(UUID)を格納
         }
-
     }
+
     if(window.confirm(`選択した ${id.length} 項目を削除します\nよろしいですか？\n\n${comment}`)) {
         if(document.title == "園児一覧"){
             execPost('del', '/contents/student/list_post', {'studentId': id});
@@ -299,39 +237,17 @@ function delete_multi(){
             execPost('del', '/contents/party/list_post', {'partyId': id});
         }
     }
-
 }
 
 // 絞り込み実行ボタン(青)
 function filter(){
     var data = {};
-    data.name = document.getElementById("name_box").value;
+    data.name = document.getElementById("name_box").value; // 絞り込み(名前)の値
 
     if(document.title == "園児一覧") {
-        switch (document.getElementById("gender_box").value) {
-            case "男":
-                data.gender = "man";
-                break;
-            case "女":
-                data.gender = "woman";
-                break;
-            case "その他":
-                data.gender = "other";
-                break;
-            default:
-                data.gender = "";
-        }
-        if (document.getElementById("party_box").value != "組") {
-            data.partyName = document.getElementById("party_box").value;
-        } else {
-            data.partyName = "";
-        }
-
-        if (document.getElementById("age_box").value != "年齢") {
-            data.age = document.getElementById("age_box").value;
-        } else {
-            data.age = "";
-        }
+        data.gender = $('#gender_box').val();
+        data.partyName = $('#party_box').val();
+        data.age = $('#age_box').val();
     }
 
     if(document.title == "園児一覧"){
@@ -344,9 +260,9 @@ function filter(){
 }
 
 // すべての処理をポストする処理
-function execPost(order, link, data) {
+function execPost(order, link, data) { // order…実行する命令 link…送信先(node.js) data…送信するデータ
     // フォームの生成
-    var form = document.createElement("form");
+    let form = document.createElement("form");
     form.setAttribute("action", link);
     form.setAttribute("method", "post");
     form.style.display = "none";
@@ -360,8 +276,8 @@ function execPost(order, link, data) {
         input.setAttribute('value', order);
         form.appendChild(input);
 
-        for (var paramName in data) {
-            var input = document.createElement('input');
+        for (let paramName in data) {
+            let input = document.createElement('input');
             input.setAttribute('type', 'hidden');
             input.setAttribute('name', paramName);
             input.setAttribute('value', data[paramName]);
@@ -372,87 +288,44 @@ function execPost(order, link, data) {
     form.submit();
 }
 
-// リストページ表示時処理
+// ページ表示時、データをセットする(プルダウンの選択含む)
 function init() {
-    var gender = document.getElementById("gender_h").value;
-    var party = document.getElementById("party_h").value;
+
+    let gender = "";
+    let party = "";
+    let birthDay = "";
+    let age = "";
+    let pulldown_option;
+
+    if (document.title == "園児編集" || (document.title == "園児一覧" && document.getElementById('age_h'))) {
+        gender = document.getElementById("gender_h").value;
+        party = document.getElementById("party_h").value;
+        if (document.title == "園児編集") {
+            birthDay = new Date(document.getElementById("birthDay_h").value);
+        } else {
+            // 園児リストの場合 かつ 絞り込みがあれば
+            age = document.getElementById("age_h").value;
+        }
+    }
+
     if (document.title == "園児編集") {
-        var birthDay = new Date(document.getElementById("birthDay_h").value);
+        $('input[name=gender]').val([gender]);
+        $("#party_box").val(party);
+        $("#year").val(birthDay.getFullYear());
+        $("#month").val(birthDay.getMonth() + 1);
+        $("#day").val(birthDay.getDate());
     } else {
-        var age = document.getElementById("age_h").value;
-    }
-    var pulldown_option;
-    if (party == "") {
-        party = "組";
-    }
-    if (age == "") {
-        age = "組";
-    }
-    if (document.title == "園児編集") {
-        pulldown_option = document.getElementById("genderTd").getElementsByTagName('input');
-        for (var i = 0; i < pulldown_option.length; i++) {
-            if (pulldown_option[i].value == gender) {
-                pulldown_option[i].checked = true;
-                break;
-            }
-        }
-        pulldown_option = document.getElementById("party_box").getElementsByTagName('option');
-        for (var i = 0; i < pulldown_option.length; i++) {
-            if (pulldown_option[i].value == party) {
-                pulldown_option[i].selected = true;
-                break;
-            }
-        }
-        pulldown_option = document.getElementById("year").getElementsByTagName('option');
-        for(var i = 0; i < pulldown_option.length;i++) {
-            if (pulldown_option[i].value == birthDay.getFullYear()) {
-                pulldown_option[i].selected = true;
-                break;
-            }
-        }
-        pulldown_option = document.getElementById("month").getElementsByTagName('option');
-        for(var i = 0; i < pulldown_option.length;i++) {
-            if (pulldown_option[i].value == birthDay.getMonth() + 1) {
-                pulldown_option[i].selected = true;
-                break;
-            }
-        }
-        pulldown_option = document.getElementById("day").getElementsByTagName('option');
-        for(var i = 0; i < pulldown_option.length;i++) {
-            if (pulldown_option[i].value == birthDay.getDate()) {
-                pulldown_option[i].selected = true;
-                break;
-            }
-        }
-    } else {
-        pulldown_option = document.getElementById("gender_box").getElementsByTagName('option');
-        for (var i = 0; i < pulldown_option.length; i++) {
-            if (pulldown_option[i].value == gender) {
-                pulldown_option[i].selected = true;
-                break;
-            }
-        }
-        pulldown_option = document.getElementById("party_box").getElementsByTagName('option');
-        for (var i = 0; i < pulldown_option.length; i++) {
-            if (pulldown_option[i].value == party) {
-                pulldown_option[i].selected = true;
-                break;
-            }
-        }
-        pulldown_option = document.getElementById("age_box").getElementsByTagName('option');
-        for (var i = 0; i < pulldown_option.length; i++) {
-            if (pulldown_option[i].value == age) {
-                pulldown_option[i].selected = true;
-                break;
-            }
-        }
+        // 園児一覧
+        $("#gender_box").val(gender);
+        $("#party_box").val(party);
+        $("#age_box").val(age);
     }
 }
 
 // 園児編集画面 源氏の画像のチェックボックスの処理
 function defPic(){
-    var checkbox = document.getElementById("picCheck")
-    var pictureSelect = document.getElementById("pictureSelect")
+    let checkbox = document.getElementById("picCheck")
+    let pictureSelect = document.getElementById("pictureSelect")
     if(checkbox.checked == false){
         pictureSelect.removeAttribute('disabled') // 新規追加ボタンを有効化する
     } else {
@@ -460,43 +333,72 @@ function defPic(){
     }
 }
 
+// 画像が選択された場合
 $(function() {
     $('#pictureSelect').on("change", function() {
-        var studentPicture = document.getElementById("studentPicture");
-        studentPicture.setAttribute('src', )
+        let studentPicture = document.getElementById("studentPicture");
+        //studentPicture.setAttribute('src', )
     });
 });
 
+// 園児情報を取得・送信
 function send(){
-    var data = []
-    var checkbox = document.getElementById("picCheck");
-    data.id = document.getElementById("id_h").value;
+    let picture = 0;
+    let formData = new FormData(document.getElementById('picture_form'));
+    let checkbox = document.getElementById("picCheck")
     if(checkbox.checked == false){
-        data.picturePath = document.getElementById("pictureSelect").value
+        $.ajax({
+            type: "post",
+            async: false,
+            url: "/contents/student/picture",
+            // Ajaxがdataを整形しない指定
+            processData: false,
+            // contentTypeもfalseに指定
+            contentType: false,
+            // dataに FormDataを指定
+            data: formData,
+            success: function(res){
+                pictureId = res;
+                picture = 1;
+            },
+            error: function() {
+                alert('error');
+            }
+        });
     } else {
-        data.picturePath = document.getElementById("path_h").value
+        picture = 1;
     }
-    data.name = document.getElementById("name_box").value;
-    data.phonetic = document.getElementById("phonetic_box").value;
-    data.nickname = document.getElementById("nickname_box").value;
-    var target = document.getElementById("year");
-    var num = target.selectedIndex;
-    var year = target.getElementsByTagName('option')[num].value;
-    var target = document.getElementById("month");
-    var num = target.selectedIndex;
-    var month = target.getElementsByTagName('option')[num + 1].value;
-    var target = document.getElementById("day");
-    var num = target.selectedIndex;
-    var day = target.getElementsByTagName('option')[num].value;
-    var inputDate = new Date(year, month, day);
-    data.birthDay = inputDate;
-    var option = document.getElementById("genderTd").getElementsByTagName('input');
-    for (var i = 0; i < option.length; i++) {
-        if (option[i].checked == true) {
-            data.gender = option[i].value;
-            break;
+
+    if(picture){
+        let data = []
+        let checkbox = document.getElementById("picCheck");
+        data.id = document.getElementById("id_h").value;
+        if(checkbox.checked == false){
+            data.picturePath = pictureId;
+        } else {
+            data.picturePath = document.getElementById("path_h").value
         }
+        data.name = document.getElementById("name_box").value;
+        data.phonetic = document.getElementById("phonetic_box").value;
+        data.nickname = document.getElementById("nickname_box").value;
+        var target = document.getElementById("year");
+        var num = target.selectedIndex;
+        let year = target.getElementsByTagName('option')[num].value;
+        var target = document.getElementById("month");
+        var num = target.selectedIndex;
+        let month = target.getElementsByTagName('option')[num].value;
+        var target = document.getElementById("day");
+        var num = target.selectedIndex;
+        let day = target.getElementsByTagName('option')[num].value;
+        data.birthDay = new Date(year, month - 1, day).toISOString();
+        let option = document.getElementById("genderTd").getElementsByTagName('input');
+        for (let i = 0; i < option.length; i++) {
+            if (option[i].checked == true) {
+                data.gender = option[i].value;
+                break;
+            }
+        }
+        data.party = document.getElementById("party_box").value;
+        execPost('upd', '/contents/student/list_post', data);
     }
-    data.party = document.getElementById("party_box").value;
-    execPost('upd', '/contents/student/list_post', data);
 }

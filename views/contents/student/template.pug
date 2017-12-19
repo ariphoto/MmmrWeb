@@ -1,21 +1,25 @@
 
 .row
-    form#student_form(action="#" method="post" enctype="multipart/form-data")
+    form#picture_form(action="/contents/student/test" method="post" enctype="multipart/form-data")
         .col-md-2.col-md-offset-2.col-xs-2.col-xs-offset-2.text-right
+            input(type='hidden' name='order' value='upd')
+            - if(data)
+                input#id_h(type="hidden" name='id' value = data[0].studentId)
+
             label
                 input#picCheck(type='checkbox', name='checked', value='1', checked='checked' onclick="javascript:defPic();")
                 |現在の画像を使用
             br
-            label
-                - if(data)
-                    img#studentPicture(src = `/image/${data[0].picturePath}`, class='uploaded thumb', alt='')
-                - else
-                    img#studentPicture(src='', class='uploaded thumb', alt='')
+            - if(data)
+                img#studentPicture(src = `/image/${data[0].studentId}.jpg`, class='uploaded thumb', alt='')
+            - else
+                img#studentPicture(src='', class='uploaded thumb', alt='')
 
-                label.button
-                    |ファイルを選択
-                    input#pictureSelect(type='file', name='image', style='display:none;' accept="image/*" disabled=true)
+            label.button
+                |ファイルを選択
+                input#pictureSelect(type='file', name='image', style='display:none;' accept="image/*" disabled=true)
 
+        form#student_form(action="/contents/student/test" method="post" enctype="multipart/form-data")
         .col-md-offset-5.text-left
             table
                 tbody
@@ -24,7 +28,6 @@
                         td
                             - if(data)
                                 input#name_box(type='text', name='name', size=20 value = data[0].name)
-                                input#id_h(type="hidden" value = data[0].studentId)
                                 input#birthDay_h(type="hidden" value = data[0].birthDay)
                                 input#gender_h(type="hidden" value = data[0].gender)
                                 input#party_h(type="hidden" value = data[0]['party.name'])
@@ -51,30 +54,30 @@
                             select#year(name='')
                                 - var thisYear = new Date().getFullYear()
                                 - for(var target = thisYear - 5;thisYear >= target;target++)
-                                    option #{target}
+                                    option(value = i) #{target}
                             |
                             | 年
                             |
                             select#month(name='')
                                - for(var i = 1;i < 13;i++)
-                                  option #{i}
+                                  option(value = i) #{i}
                             |
                             | 月
                             |
                             select#day(name='')
                                 - for(var i = 1;i < 32;i++)
-                                    option #{i}
+                                    option(value = i) #{i}
                             |
                             | 日
                             |
                     tr
                         td 性別
                         td#genderTd
-                            input(type='radio', name='sex', value="man" checked=true)
+                            input(type='radio', name='gender', value='man' checked=true)
                             | 男
-                            input(type='radio', name='sex', value="woman")
+                            input(type='radio', name='gender', value='woman')
                             | 女
-                            input(type='radio', name='sex', value="other")
+                            input(type='radio', name='gender', value='other')
                             | その他
                     tr
                         td 組
