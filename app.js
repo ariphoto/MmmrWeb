@@ -1,14 +1,14 @@
 "use strict";
 
 const sequelize = require('./models/sequelize-loader').database;
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mysql = require('mysql'); // MySQLを使用
-var helmet = require('helmet'); // helmet(セキュリティ対策)
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const mysql = require('mysql'); // MySQLを使用
+const helmet = require('helmet'); // helmet(セキュリティ対策)
 
 
 // マスタのモデルの読み込み
@@ -79,7 +79,7 @@ sequelize.drop().then(() => {
 
 const login = require('./routes/login');
 const menu = require('./routes/menu');
-const index = require('./routes/index')
+const index = require('./routes/index');
 const app = express();
 
 // view engine setup
@@ -116,11 +116,10 @@ const student = require('./routes/student');
 app.use('/contents/student', student);
 const school = require('./routes/school');
 app.use('/contents/school', school);
-
 const forgotPassword = require('./routes/forgotPassword');
 app.use('/forgotPassword', forgotPassword);
-//localhost下のurlでパス忘れたときにアクセス
 
+//localhost下のurlでパス忘れたときにアクセス
 app.use('/login', login);
 app.use('/', index);
 app.use('/menu', menu);

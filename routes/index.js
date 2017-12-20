@@ -5,10 +5,10 @@ const router = express.Router();
 
 router.get('/',sessionCheck);
 
-// loginしてる場合はindex pageへ、してない場合はlogin pageへ
+// loginしてる場合はmenuへ、してない場合はlogin pageへ
 function sessionCheck(req, res, next) {
-    if (req.session.user){
-        res.render('',{title: req.session.user.name})
+    if (req.session.schoolId){
+        res.render('menu',{title:req.session.schoolId})
     }else {
         res.redirect('/login');
     }
