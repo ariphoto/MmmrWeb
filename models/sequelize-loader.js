@@ -22,6 +22,11 @@ const sequelize = new Sequelize(
     }
 );
 
+// uri = "mysql://root:@localhost/node_base";
+// uri = "mysql://" + user + ":" + pass +"@" + host + "/" + db;
+
+
+
 module.exports = {
     database: sequelize,
     Sequelize: Sequelize

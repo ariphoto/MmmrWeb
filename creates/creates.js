@@ -21,11 +21,21 @@ const guriko = {
 	name:"ぐりこ幼稚園",
 	password:hasher('guriko',salt),
 	salt:salt
-};  
+};
+const kirara = {
+    schoolId:'kirara',
+    mailAddress:"kirara@hoiku.en.jp",
+    name:"きらら保育園",
+    password:hasher('kirara',salt),
+    salt:salt,
+    provisional_flg:false,
+	hidden_key:823784798
+};
 const schoolCreate = (model) => {
 	model.bulkCreate([
 		takahashi,
-		guriko
+		guriko,
+		kirara
 	],{
 		updateOnDuplicate:true
 	});
