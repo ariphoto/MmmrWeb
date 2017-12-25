@@ -19,9 +19,9 @@ block content
 
                     form#login_form(method="POST" action="/login")
                         h3 保育園ID
-                        input#schoolId(name="schoolId")
+                        input#schoolId(name="schoolId",required)
                         h3 パスワード
-                        input#password(name="password"  type="password")
+                        input#password(name="password"  type="password",required)
                         p: button#login.btn.btn-primary.btn-lg.btn-original(type="submit") ログイン
-                    p.text-left: a(href="forgotPassword/edit") パスワードを忘れたら
+                    p.text-left: a(href="forgotPassword/inputAddress") パスワードを忘れたら
 
