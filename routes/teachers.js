@@ -24,7 +24,7 @@ router.get('/list', function(req, res, next) {
 });
 router.post('/list', function(req, res, next) {
     const Op = sequelize.Op;
-    var input = req.body.name;
+    const input = req.body.name;
     teachersM.findAll({
         raw:true,
         where:{
