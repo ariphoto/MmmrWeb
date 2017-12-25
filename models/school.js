@@ -32,10 +32,12 @@ const school = loader.database.define('school', {
         allowNull: false
     },
     provisional_flg:{
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull:false
     },
     hidden_key:{
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
+        allowNull:false
     }
 },{charset: 'utf8mb4',collate: 'utf8mb4_general_ci'});
 module.exports = school;

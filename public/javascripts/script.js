@@ -1,42 +1,42 @@
 // 新規追加ボタン(緑) リストに新規行を追加する処理
 function insertRow() {
-    var btn_insert = document.getElementById('btn_insert'); // 新規追加ボタン
-    var list_table = document.getElementById('list_table'); // テーブル
+    const btn_insert = document.getElementById('btn_insert'); // 新規追加ボタン
+    const list_table = document.getElementById('list_table'); // テーブル
 
     btn_insert.setAttribute('disabled','true'); // 新規追加ボタンを無効化する
 
-    var col_num = list_table.rows[0].cells.length; // テーブルの項目数を取得
-    var rows = list_table.insertRow(1); // 新規行を追加する
+    let col_num = list_table.rows[0].cells.length; // テーブルの項目数を取得
+    let rows = list_table.insertRow(1); // 新規行を追加する
     rows.setAttribute('id','new_line');
 
     // テーブルにセル追加
-    for(var i = 0;i < col_num;i++) {
+    for(let i = 0;i < col_num;i++) {
         switch (i){
             // 名前 テキストボックス
             case 1:
             case 2:
-                var td = rows.insertCell(-1); // セルを追加する
-                var box = document.createElement('input');
+                let td = rows.insertCell(-1); // セルを追加する
+                let box = document.createElement('input');
                 box.classList.add('edit-input');
                 td.appendChild(box);
                 break;
             // 追加 ボタン
             case 3:
-                var td = rows.insertCell(-1); // セルを追加する
-                var btn = document.createElement('button');
+                let td = rows.insertCell(-1); // セルを追加する
+                let btn = document.createElement('button');
                 btn.classList.add('btn','btn-info','btn-original');
                 btn.setAttribute('onclick','location.href="javascript:insert_execute();"');
-                var txt = document.createTextNode("追加");
+                let txt = document.createTextNode("追加");
                 btn.appendChild(txt);
                 td.appendChild(btn);
                 break;
             // キャンセル ボタン
             case 4:
-                var td = rows.insertCell(-1); // セルを追加する
-                var btn = document.createElement('button');
+                let td = rows.insertCell(-1); // セルを追加する
+                let btn = document.createElement('button');
                 btn.classList.add('btn','btn-default','btn-default');
                 btn.setAttribute('onclick','location.href="javascript:insert_cancel();"');
-                var txt = document.createTextNode("キャンセル");
+                let txt = document.createTextNode("キャンセル");
                 btn.appendChild(txt);
                 td.appendChild(btn);
                 break;
@@ -48,17 +48,17 @@ function insertRow() {
 
 // 編集ボタン(オレンジ) 編集用テキストボックスを表示する
 function edit_row(idNum, page){
-    var row = document.getElementById('row' + idNum); //編集ボタンを押した行オブジェクトを取得
+    let row = document.getElementById('row' + idNum); //編集ボタンを押した行オブジェクトを取得
     if(page == "stu"){
-        var id = row.getElementsByTagName('input')[1].value; // 編集ボタンを押した行のstudentIdを取得
+        let id = row.getElementsByTagName('input')[1].value; // 編集ボタンを押した行のstudentIdを取得
         execPost('edit', '/contents/student/edit', {'studentId': id});
     } else {
-        var oldData = new Array(2); // 既存のデータを格納
+        let oldData = new Array(2); // 既存のデータを格納
 
-        for (var i = 0; i < 2; i++) {
-            var td = row.getElementsByTagName('td')[i + 1];
-            var span = td.getElementsByTagName('span')[0]; // td内のspan
-            var input = document.createElement('input'); // テキストボックスを定義
+        for (let i = 0; i < 2; i++) {
+            let td = row.getElementsByTagName('td')[i + 1];
+            let span = td.getElementsByTagName('span')[0]; // td内のspan
+            let input = document.createElement('input'); // テキストボックスを定義
             input.classList.add('edit-input');
             oldData[i] = span.innerText; // 既存のデータを格納
             span.classList.add('hidden'); // 既存のspanを隠す
@@ -66,23 +66,23 @@ function edit_row(idNum, page){
             td.appendChild(input);
         }
 
-        var td = row.getElementsByTagName('td')[3];
-        var btn = td.getElementsByTagName('button')[0]; // 編集ボタンを取得
+        let td = row.getElementsByTagName('td')[3];
+        let btn = td.getElementsByTagName('button')[0]; // 編集ボタンを取得
         btn.classList.add('hidden');
-        var newButton = document.createElement('button'); // ボタンを定義
+        let newButton = document.createElement('button'); // ボタンを定義
         newButton.classList.add('btn', 'btn-info', 'btn-original');
         newButton.setAttribute('onclick', 'location.href="javascript:edit_execute(' + idNum + ', \'' + page + '\')"');
-        var txt = document.createTextNode("更新");
+        let txt = document.createTextNode("更新");
         newButton.appendChild(txt);
         td.appendChild(newButton);
 
-        var td = row.getElementsByTagName('td')[4];
-        var btn = td.getElementsByTagName('button')[0]; // 削除ボタンを取得
+        let td = row.getElementsByTagName('td')[4];
+        let btn = td.getElementsByTagName('button')[0]; // 削除ボタンを取得
         btn.classList.add('hidden');
-        var newButton = document.createElement('button'); // ボタンを定義
+        let newButton = document.createElement('button'); // ボタンを定義
         newButton.classList.add('btn', 'btn-default', 'btn-original');
         newButton.setAttribute('onclick', 'location.href="javascript:edit_cancel(' + idNum + ');"');
-        var txt = document.createTextNode("キャンセル");
+        let txt = document.createTextNode("キャンセル");
         newButton.appendChild(txt);
         td.appendChild(newButton);
     }
@@ -90,33 +90,33 @@ function edit_row(idNum, page){
 
 // 編集行 キャンセルボタン(グレー)
 function edit_cancel(idNum){
-    var row = document.getElementById('row' + idNum); //編集ボタンを押した行オブジェクトを取得
+    let row = document.getElementById('row' + idNum); //編集ボタンを押した行オブジェクトを取得
 
-    for(var i = 0; i < 2;i++){
-        var td = row.getElementsByTagName('td')[i + 1];
-        var span = td.getElementsByTagName('span')[0]; // td内のspan
-        var input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
+    for(let i = 0; i < 2;i++){
+        let td = row.getElementsByTagName('td')[i + 1];
+        let span = td.getElementsByTagName('span')[0]; // td内のspan
+        let input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
         td.removeChild(input);
         span.classList.remove('hidden'); // 既存のspanを戻す
     }
 
-    var td = row.getElementsByTagName('td')[3];
-    var btn = td.getElementsByTagName('button')[1]; // 更新ボタンを取得
+    let td = row.getElementsByTagName('td')[3];
+    let btn = td.getElementsByTagName('button')[1]; // 更新ボタンを取得
     td.removeChild(btn);
-    var btn = td.getElementsByTagName('button')[0]; // 編集ボタンを取得
+    let btn = td.getElementsByTagName('button')[0]; // 編集ボタンを取得
     btn.classList.remove('hidden');
 
-    var td = row.getElementsByTagName('td')[4];
-    var btn = td.getElementsByTagName('button')[1]; // キャンセルボタンを取得
+    let td = row.getElementsByTagName('td')[4];
+    let btn = td.getElementsByTagName('button')[1]; // キャンセルボタンを取得
     td.removeChild(btn);
-    var btn = td.getElementsByTagName('button')[0]; // 削除ボタンを取得
+    let btn = td.getElementsByTagName('button')[0]; // 削除ボタンを取得
     btn.classList.remove('hidden');
 }
 
 // 追加行 キャンセルボタン(グレー)
 function insert_cancel(){
-    var btn_insert = document.getElementById('btn_insert'); // 新規追加ボタン
-    var list_table = document.getElementById('list_table'); // テーブル
+    let btn_insert = document.getElementById('btn_insert'); // 新規追加ボタン
+    let list_table = document.getElementById('list_table'); // テーブル
 
     btn_insert.removeAttribute('disabled'); // 新規追加ボタンを有効化する
 
@@ -125,22 +125,22 @@ function insert_cancel(){
 
 // 追加行 追加ボタン(青)
 function insert_execute() {
-    var list_table = document.getElementById('list_table'); // テーブル
-    var tbody = list_table.getElementsByTagName('tbody')[0];
-    var new_line = document.getElementById('new_line');
-    var col_num = list_table.rows[0].cells.length; // テーブルの項目数を取得
-    var data = [];
-    var page;
+    let list_table = document.getElementById('list_table'); // テーブル
+    let tbody = list_table.getElementsByTagName('tbody')[0];
+    let new_line = document.getElementById('new_line');
+    let col_num = list_table.rows[0].cells.length; // テーブルの項目数を取得
+    let data = [];
+    let page;
     if(document.title == "保育士一覧"){
         page = "tea";
     } else {
         page = "par";
     }
 
-    for(var i = 0; i < 2;i++){
-        var td = new_line.getElementsByTagName('td')[i + 1];
-        var span = td.getElementsByTagName('span')[0]; // td内のspan
-        var input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
+    for(let i = 0; i < 2;i++){
+        let td = new_line.getElementsByTagName('td')[i + 1];
+        let span = td.getElementsByTagName('span')[0]; // td内のspan
+        let input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
         data[i] = input.value;
     }
 
@@ -153,47 +153,47 @@ function insert_execute() {
     }
 
 
-    /*for (var i = 0; i < 2; i++) {
-        var target = document.getElementsByClassName('edit-input')[i];
+    /*for (let i = 0; i < 2; i++) {
+        let target = document.getElementsByClassName('edit-input')[i];
         values[i] = target.value;
     }
 
     btn_insert.removeAttribute('disabled'); // 新規追加ボタンを有効化する
     list_table.deleteRow(1); // 新規行を削除する
-    var new_insert_row = tbody.insertRow(-1);
-    var rows = list_table.rows.length - 1; // 仮データの件数
+    let new_insert_row = tbody.insertRow(-1);
+    let rows = list_table.rows.length - 1; // 仮データの件数
     new_insert_row.setAttribute('id', 'row' + rows);
 
-    for (var i = 0; i < col_num; i++){
-         var td = new_insert_row.insertCell(-1); // セルを追加する
+    for (let i = 0; i < col_num; i++){
+         let td = new_insert_row.insertCell(-1); // セルを追加する
 
         switch (i) {
             case 0:
-                var input = document.createElement('input');
+                let input = document.createElement('input');
                 input.setAttribute('type', 'checkbox');
                 td.appendChild(input);
                 break;
             case 1:
             case 2:
-                var span = document.createElement('span');
-                var txt = document.createTextNode(values[i - 1]);
+                let span = document.createElement('span');
+                let txt = document.createTextNode(values[i - 1]);
                 span.appendChild(txt);
                 td.appendChild(span);
                 break;
             case 3:
-                var btn = document.createElement('button');
+                let btn = document.createElement('button');
                 btn.classList.add('btn', 'btn-warning', 'btn-original');
                 btn.setAttribute('onclick', 'location.href="javascript:edit_row(' + rows + ');"');
-                var txt = document.createTextNode("編集");
+                let txt = document.createTextNode("編集");
                 btn.appendChild(txt);
                 td.appendChild(btn);
                 break;
             // 削除 ボタン
             default:
-                var btn = document.createElement('button');
+                let btn = document.createElement('button');
                 btn.classList.add('btn', 'btn-danger', 'btn-default');
                 btn.setAttribute('onclick', 'javascript:delete_row(' + rows + ');"');
-                var txt = document.createTextNode("削除");
+                let txt = document.createTextNode("削除");
                 btn.appendChild(txt);
                 td.appendChild(btn);
         }
@@ -202,16 +202,16 @@ function insert_execute() {
 
 // 編集行 更新ボタン(青)
 function edit_execute(idNum, page){
-    var row = document.getElementById('row' + idNum); //更新ボタンを押した行オブジェクトを取得
-    var id = row.getElementsByTagName('input')[1].value;
-    var data = [];
+    let row = document.getElementById('row' + idNum); //更新ボタンを押した行オブジェクトを取得
+    let id = row.getElementsByTagName('input')[1].value;
+    let data = [];
 
-    for(var i = 0; i < 2;i++){
-        var td = row.getElementsByTagName('td')[i + 1];
-        var span = td.getElementsByTagName('span')[0]; // td内のspan
-        var input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
+    for(let i = 0; i < 2;i++){
+        let td = row.getElementsByTagName('td')[i + 1];
+        let span = td.getElementsByTagName('span')[0]; // td内のspan
+        let input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
         data[i] = input.value
-        // var txt = document.createTextNode(input.value);
+        // let txt = document.createTextNode(input.value);
         // td.removeChild(input);
         // span.classList.remove('hidden'); // 既存のspanを戻す
         // span.innerText = "";
@@ -225,16 +225,16 @@ function edit_execute(idNum, page){
             execPost('upd', '/contents/party/list_post', {'partyId': id, 'name': data[0], 'remarks': data[1]});
         }
 /*
-        var td = row.getElementsByTagName('td')[3];
-        var btn = td.getElementsByTagName('button')[1]; // 更新ボタンを取得
+        let td = row.getElementsByTagName('td')[3];
+        let btn = td.getElementsByTagName('button')[1]; // 更新ボタンを取得
         td.removeChild(btn);
-        var btn = td.getElementsByTagName('button')[0]; // 編集ボタンを取得
+        let btn = td.getElementsByTagName('button')[0]; // 編集ボタンを取得
         btn.classList.remove('hidden');
 
-        var td = row.getElementsByTagName('td')[4];
-        var btn = td.getElementsByTagName('button')[1]; // キャンセルボタンを取得
+        let td = row.getElementsByTagName('td')[4];
+        let btn = td.getElementsByTagName('button')[1]; // キャンセルボタンを取得
         td.removeChild(btn);
-        var btn = td.getElementsByTagName('button')[0]; // 削除ボタンを取得
+        let btn = td.getElementsByTagName('button')[0]; // 削除ボタンを取得
         btn.classList.remove('hidden');
 */
     }
@@ -242,12 +242,12 @@ function edit_execute(idNum, page){
 
 // 一行 削除ボタン(赤)
 function delete_row(idNum, page){
-    var list_table = document.getElementById('list_table'); // テーブル
-    var tbody = list_table.getElementsByTagName('tbody')[1];
-    var del_row = document.getElementById('row' + idNum);
-    var name = del_row.getElementsByTagName('span')[0].innerText;
-    var id = del_row.getElementsByTagName('input')[1].value;
-    var comment; // 表示する警告文
+    let list_table = document.getElementById('list_table'); // テーブル
+    let tbody = list_table.getElementsByTagName('tbody')[1];
+    let del_row = document.getElementById('row' + idNum);
+    let name = del_row.getElementsByTagName('span')[0].innerText;
+    let id = del_row.getElementsByTagName('input')[1].value;
+    let comment; // 表示する警告文
 
     if(document.title == "クラス一覧"){
         comment = "このクラスに含まれる園児情報、\n登園 降園情報も削除されます。";
@@ -270,11 +270,11 @@ function delete_row(idNum, page){
 
 // 複数行 削除ボタン(赤)
 function delete_multi(){
-    var list_table = document.getElementById('list_table'); // テーブル
-    var tbody = list_table.getElementsByTagName('tbody')[1];
-    var rows = tbody.rows.length;
-    var comment; // 表示する警告文
-    var id = [];
+    let list_table = document.getElementById('list_table'); // テーブル
+    let tbody = list_table.getElementsByTagName('tbody')[1];
+    let rows = tbody.rows.length;
+    let comment; // 表示する警告文
+    let id = [];
 
     if(document.title == "クラス一覧"){
         comment = "このクラスに含まれる園児情報、\n登園 降園情報も削除されます。";
@@ -282,9 +282,9 @@ function delete_multi(){
         comment = "関連する登園 降園情報も削除されます。";
     }
 
-    for(var i = 1;i < rows + 1;i++){
-        var row = document.getElementById('row' + i);
-        var check = row.getElementsByTagName('input')[0].checked;
+    for(let i = 1;i < rows + 1;i++){
+        let row = document.getElementById('row' + i);
+        let check = row.getElementsByTagName('input')[0].checked;
         if(check) {
             id.push(row.getElementsByTagName('input')[1].value)
         }
@@ -304,7 +304,7 @@ function delete_multi(){
 
 // 絞り込み実行ボタン(青)
 function filter(){
-    var data = {};
+    let data = {};
     data.name = document.getElementById("name_box").value;
 
     if(document.title == "園児一覧") {
@@ -346,7 +346,7 @@ function filter(){
 // すべての処理をポストする処理
 function execPost(order, link, data) {
     // フォームの生成
-    var form = document.createElement("form");
+    let form = document.createElement("form");
     form.setAttribute("action", link);
     form.setAttribute("method", "post");
     form.style.display = "none";
@@ -354,14 +354,14 @@ function execPost(order, link, data) {
     // パラメタの設定
     if (data !== undefined) {
         // 実行する命令
-        var input = document.createElement('input');
+        let input = document.createElement('input');
         input.setAttribute('type', 'hidden');
         input.setAttribute('name', 'order');
         input.setAttribute('value', order);
         form.appendChild(input);
 
-        for (var paramName in data) {
-            var input = document.createElement('input');
+        for (let paramName in data) {
+            let input = document.createElement('input');
             input.setAttribute('type', 'hidden');
             input.setAttribute('name', paramName);
             input.setAttribute('value', data[paramName]);
