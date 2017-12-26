@@ -42,8 +42,7 @@ router.post('/', (req, res, next) =>{
             res.render("server_error")
         });
     }else {
-        //ユーザIDとパスワードの両方が入力されていなかった場合
-        //res.redirect('/login');
+        //ユーザIDとパスワードのどちらか一つでも入力されていなかった場合
         res.render('login',{message: "IDとパスワードを入力してください"})
     }
 });

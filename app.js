@@ -106,6 +106,8 @@ app.use(session({
 //ログイン
 const login = require('./routes/login');
 app.use('/login', login);
+const forgotPassword = require('./routes/forgotPassword');
+app.use('/forgotPassword', forgotPassword);
 //セッションチェック
 const sessionCheck = require('./routes/sessionCheck');
 app.use(sessionCheck);
@@ -115,14 +117,15 @@ app.use('/',menu);
 app.use('/menu',sessionCheck,menu);
 const teachers = require('./routes/teachers');
 app.use('/contents/teachers', teachers);
+const logout = require('./routes/logout');
+app.use('/logout',logout);
 const party = require('./routes/party');
 app.use('/contents/party', party);
 const student = require('./routes/student');
 app.use('/contents/student', student);
 const school = require('./routes/school');
 app.use('/contents/school', school);
-const forgotPassword = require('./routes/forgotPassword');
-app.use('/forgotPassword', forgotPassword);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
