@@ -22,21 +22,21 @@ function insertRow() {
                 break;
             // 追加 ボタン
             case 3:
-                var btn = document.createElement('button');
-                btn.classList.add('btn','btn-info','btn-original');
-                btn.setAttribute('onclick','location.href="javascript:insert_execute();"');
-                var txt = document.createTextNode("追加");
-                btn.appendChild(txt);
-                td.appendChild(btn);
+                let btnInsert = document.createElement('button');
+                btnInsert.classList.add('btn','btn-info','btn-original');
+                btnInsert.setAttribute('onclick','location.href="javascript:insert_execute();"');
+                let txtInsert = document.createTextNode("追加");
+                btnInsert.appendChild(txtInsert);
+                td.appendChild(btnInsert);
                 break;
             // キャンセル ボタン
             case 4:
-                var btn = document.createElement('button');
-                btn.classList.add('btn','btn-default','btn-default');
-                btn.setAttribute('onclick','location.href="javascript:insert_cancel();"');
-                var txt = document.createTextNode("キャンセル");
-                btn.appendChild(txt);
-                td.appendChild(btn);
+                let btnCancel = document.createElement('button');
+                btnCancel.classList.add('btn','btn-default','btn-default');
+                btnCancel.setAttribute('onclick','location.href="javascript:insert_cancel();"');
+                let txtCancel = document.createTextNode("キャンセル");
+                btnCancel.appendChild(txtCancel);
+                td.appendChild(btnCancel);
 
         }
     }
@@ -46,9 +46,9 @@ function insertRow() {
 function edit_row(idNum, page){
     let row = document.getElementById('row' + idNum); // 編集ボタンを押した行オブジェクトを取得
     // 保育士一覧の場合、IDをポストして別ページに遷移する
-    if(page == "stu"){
-        let id = row.getElementsByTagName('input')[1].value; // 編集ボタンを押した行のstudentIdを取得
-        execPost('edit', '/contents/student/edit', {'studentId': id});
+    if(page === "stu"){
+        let studentEditId = row.getElementsByTagName('input')[1].value; // 編集ボタンを押した行のstudentIdを取得
+        execPost('edit', '/contents/student/edit', {'studentId': studentEditId});
     } else {
         let oldData = new Array(2); // 既存のデータを格納
 
@@ -64,25 +64,25 @@ function edit_row(idNum, page){
             td.appendChild(input);
         }
 
-        var td = row.getElementsByTagName('td')[3];
-        var btn = td.getElementsByTagName('button')[0]; // 編集ボタンを取得
-        btn.classList.add('hidden');
-        var newButton = document.createElement('button'); // ボタンを定義
-        newButton.classList.add('btn', 'btn-info', 'btn-original');
-        newButton.setAttribute('onclick', 'location.href="javascript:edit_execute(' + idNum + ', \'' + page + '\')"');
-        var txt = document.createTextNode("更新");
-        newButton.appendChild(txt);
-        td.appendChild(newButton);
+        let tdBtn1 = row.getElementsByTagName('td')[3];
+        let btn1 = tdBtn1.getElementsByTagName('button')[0]; // 編集ボタンを取得
+        btn1.classList.add('hidden');
+        let newButton1 = document.createElement('button'); // ボタンを定義
+        newButton1.classList.add('btn', 'btn-info', 'btn-original');
+        newButton1.setAttribute('onclick', 'location.href="javascript:edit_execute(' + idNum + ', \'' + page + '\')"');
+        let newTxt1 = document.createTextNode("更新");
+        newButton1.appendChild(newTxt1);
+        tdBtn1.appendChild(newButton1);
 
-        var td = row.getElementsByTagName('td')[4];
-        var btn = td.getElementsByTagName('button')[0]; // 削除ボタンを取得
-        btn.classList.add('hidden');
-        var newButton = document.createElement('button'); // ボタンを定義
-        newButton.classList.add('btn', 'btn-default', 'btn-original');
-        newButton.setAttribute('onclick', 'location.href="javascript:edit_cancel(' + idNum + ');"');
-        var txt = document.createTextNode("キャンセル");
-        newButton.appendChild(txt);
-        td.appendChild(newButton);
+        let tdBtn2 = row.getElementsByTagName('td')[4];
+        let btn2 = tdBtn2.getElementsByTagName('button')[0]; // 削除ボタンを取得
+        btn2.classList.add('hidden');
+        let newButton2 = document.createElement('button'); // ボタンを定義
+        newButton2.classList.add('btn', 'btn-default', 'btn-original');
+        newButton2.setAttribute('onclick', 'location.href="javascript:edit_cancel(' + idNum + ');"');
+        let newTxt2 = document.createTextNode("キャンセル");
+        newButton2.appendChild(newTxt2);
+        tdBtn2.appendChild(newButton2);
     }
 }
 
@@ -99,17 +99,17 @@ function edit_cancel(idNum){
         span.classList.remove('hidden'); // 既存のspanを戻す
     }
 
-    var td = row.getElementsByTagName('td')[3];
-    var btn = td.getElementsByTagName('button')[1]; // 更新ボタンを取得
-    td.removeChild(btn);
-    var btn = td.getElementsByTagName('button')[0]; // 編集ボタンを取得
-    btn.classList.remove('hidden');
+    let tdEditCancel1 = row.getElementsByTagName('td')[3];
+    let btnCancel_update = tdEditCancel1.getElementsByTagName('button')[1]; // 更新ボタンを取得
+    tdEditCancel1.removeChild(btnCancel_update);
+    let btnCancel_edit = tdEditCancel1.getElementsByTagName('button')[0]; // 編集ボタンを取得
+    btnCancel_edit.classList.remove('hidden');
 
-    var td = row.getElementsByTagName('td')[4];
-    var btn = td.getElementsByTagName('button')[1]; // キャンセルボタンを取得
-    td.removeChild(btn);
-    var btn = td.getElementsByTagName('button')[0]; // 削除ボタンを取得
-    btn.classList.remove('hidden');
+    let tdEditCancel2 = row.getElementsByTagName('td')[4];
+    let btnCancel_cancel = tdEditCancel2.getElementsByTagName('button')[1]; // キャンセルボタンを取得
+    tdEditCancel2.removeChild(btnCancel_cancel);
+    let btnCancel_delete = tdEditCancel2.getElementsByTagName('button')[0]; // 削除ボタンを取得
+    btnCancel_delete.classList.remove('hidden');
 }
 
 // 追加行 キャンセルボタン(グレー)
@@ -130,7 +130,7 @@ function insert_execute() {
     let col_num = list_table.rows[0].cells.length; // テーブルの項目数を取得
     let data = [];
     let page;
-    if(document.title == "保育士一覧"){
+    if(document.title === "保育士一覧"){
         page = "tea";
     } else {
         page = "par";
@@ -145,7 +145,7 @@ function insert_execute() {
     }
 
     if(window.confirm(`追加します\nよろしいですか？`)) {
-        if (page == "tea") {
+        if (page  ==="tea") {
             execPost('ins', '/contents/teachers/list_post', {'name': data[0], 'remarks': data[1]});
         } else {
             // 保育士一覧
@@ -157,7 +157,7 @@ function insert_execute() {
 // 編集行 更新ボタン(青)
 function edit_execute(idNum, page){
     let row = document.getElementById('row' + idNum); //更新ボタンを押した行オブジェクトを取得
-    let id = row.getElementsByTagName('input')[1].value;
+    let editId = row.getElementsByTagName('input')[1].value;
     let data = [];
 
     for(let i = 0; i < 2;i++){
@@ -168,11 +168,11 @@ function edit_execute(idNum, page){
     }
 
     if(window.confirm(`更新します\nよろしいですか？`)) {
-        if(page == "tea"){
-            execPost('upd', '/contents/teachers/list_post', {'teacherId': id, 'name' : data[0], 'remarks' : data[1]});
+        if(page === "tea"){
+            execPost('upd', '/contents/teachers/list_post', {'teacherId': editId, 'name' : data[0], 'remarks' : data[1]});
         } else {
             // 保育士一覧
-            execPost('upd', '/contents/party/list_post', {'partyId': id, 'name': data[0], 'remarks': data[1]});
+            execPost('upd', '/contents/party/list_post', {'partyId': editId, 'name': data[0], 'remarks': data[1]});
         }
     }
 }
@@ -183,10 +183,10 @@ function delete_row(idNum, page){
     let tbody = list_table.getElementsByTagName('tbody')[1];
     let del_row = document.getElementById('row' + idNum);
     let name = del_row.getElementsByTagName('span')[0].innerText;
-    let id = del_row.getElementsByTagName('input')[1].value;
+    let deleteId = del_row.getElementsByTagName('input')[1].value;
     let comment; // 表示する警告文
 
-    if(document.title == "クラス一覧"){
+    if(document.title === "クラス一覧"){
         comment = "このクラスに含まれる園児情報、\n登園 降園情報も削除されます。";
     } else {
         // 園児一覧・保育士一覧
@@ -194,12 +194,12 @@ function delete_row(idNum, page){
     }
 
     if(window.confirm(`${name} を削除します\nよろしいですか？\n\n${comment}`)) {
-        if(page == "stu"){
-            execPost('del', '/contents/student/list_post', {'studentId': id});
-        } else if(page == "tea"){
-            execPost('del', '/contents/teachers/list_post', {'teacherId': id});
+        if(page === "stu"){
+            execPost('del', '/contents/student/list_post', {'studentId': deleteId});
+        } else if(page === "tea"){
+            execPost('del', '/contents/teachers/list_post', {'teacherId': deleteId});
         } else {
-            execPost('del', '/contents/party/list_post', {'partyId': id});
+            execPost('del', '/contents/party/list_post', {'partyId': deleteId});
         }
     }
 }
@@ -210,9 +210,9 @@ function delete_multi(){
     let tbody = list_table.getElementsByTagName('tbody')[1];
     let rows = tbody.rows.length;
     let comment; // 表示する警告文
-    let id = [];
+    let deleteIds = [];
 
-    if(document.title == "クラス一覧"){
+    if(document.title === "クラス一覧"){
         comment = "このクラスに含まれる園児情報、\n登園 降園情報も削除されます。";
     } else {
         // 園児一覧・保育士一覧
@@ -224,38 +224,38 @@ function delete_multi(){
         let row = document.getElementById('row' + i);
         let check = row.getElementsByTagName('input')[0].checked;
         if(check) {
-            id.push(row.getElementsByTagName('input')[1].value) // 選択行に含まれるID(UUID)を格納
+            deleteIds.push(row.getElementsByTagName('input')[1].value) // 選択行に含まれるID(UUID)を格納
         }
     }
 
-    if(window.confirm(`選択した ${id.length} 項目を削除します\nよろしいですか？\n\n${comment}`)) {
-        if(document.title == "園児一覧"){
-            execPost('del', '/contents/student/list_post', {'studentId': id});
-        } else if(document.title == "保育士一覧"){
-            execPost('del', '/contents/teachers/list_post', {'teacherId': id});
+    if(window.confirm(`選択した ${deleteIds.length} 項目を削除します\nよろしいですか？\n\n${comment}`)) {
+        if(document.title === "園児一覧"){
+            execPost('del', '/contents/student/list_post', {'studentId': deleteIds});
+        } else if(document.title === "保育士一覧"){
+            execPost('del', '/contents/teachers/list_post', {'teacherId': deleteIds});
         } else {
-            execPost('del', '/contents/party/list_post', {'partyId': id});
+            execPost('del', '/contents/party/list_post', {'partyId': deleteIds});
         }
     }
 }
 
 // 絞り込み実行ボタン(青)
 function filter(){
-    var data = {};
-    data.name = document.getElementById("name_box").value; // 絞り込み(名前)の値
+    let filterData = {};
+    filterData.name = document.getElementById("name_box").value; // 絞り込み(名前)の値
 
-    if(document.title == "園児一覧") {
-        data.gender = $('#gender_box').val();
-        data.partyName = $('#party_box').val();
-        data.age = $('#age_box').val();
+    if(document.title === "園児一覧") {
+        filterData.gender = $('#gender_box').val();
+        filterData.partyName = $('#party_box').val();
+        filterData.age = $('#age_box').val();
     }
 
-    if(document.title == "園児一覧"){
-        execPost('fil', '/contents/student/list', data);
-    } else if(document.title == "保育士一覧"){
-        execPost('fil', '/contents/teachers/list', data);
+    if(document.title === "園児一覧"){
+        execPost('fil', '/contents/student/list', filterData);
+    } else if(document.title === "保育士一覧"){
+        execPost('fil', '/contents/teachers/list', filterData);
     } else {
-        execPost('fil', '/contents/party/list', data);
+        execPost('fil', '/contents/party/list', filterData);
     }
 }
 
@@ -270,11 +270,11 @@ function execPost(order, link, data) { // order…実行する命令 link…送�
     // パラメタの設定
     if (data !== undefined) {
         // 実行する命令
-        var input = document.createElement('input');
-        input.setAttribute('type', 'hidden');
-        input.setAttribute('name', 'order');
-        input.setAttribute('value', order);
-        form.appendChild(input);
+        let inputAttr = document.createElement('input');
+        inputAttr.setAttribute('type', 'hidden');
+        inputAttr.setAttribute('name', 'order');
+        inputAttr.setAttribute('value', order);
+        form.appendChild(inputAttr);
 
         for (let paramName in data) {
             let input = document.createElement('input');
@@ -297,18 +297,19 @@ function init() {
     let age = "";
     let pulldown_option;
 
-    if (document.title == "園児編集" || (document.title == "園児一覧" && document.getElementById('age_h'))) {
+    if (document.title === "園児編集" || (document.title === "園児一覧" && document.getElementById('age_h'))) {
         gender = document.getElementById("gender_h").value;
         party = document.getElementById("party_h").value;
-        if (document.title == "園児編集") {
+        if (document.title === "園児編集") {
             birthDay = new Date(document.getElementById("birthDay_h").value);
+            document.getElementById('pictureSelect').setAttribute('disabled', true);
         } else {
             // 園児リストの場合 かつ 絞り込みがあれば
             age = document.getElementById("age_h").value;
         }
     }
 
-    if (document.title == "園児編集") {
+    if (document.title === "園児編集") {
         $('input[name=gender]').val([gender]);
         $("#party_box").val(party);
         $("#year").val(birthDay.getFullYear());
@@ -326,7 +327,7 @@ function init() {
 function defPic(){
     let checkbox = document.getElementById("picCheck")
     let pictureSelect = document.getElementById("pictureSelect")
-    if(checkbox.checked == false){
+    if(checkbox.checked === false){
         pictureSelect.removeAttribute('disabled') // 新規追加ボタンを有効化する
     } else {
         pictureSelect.setAttribute('disabled',true); // 新規追加ボタンを無効化する
@@ -335,70 +336,87 @@ function defPic(){
 
 // 画像が選択された場合
 $(function() {
-    $('#pictureSelect').on("change", function() {
-        let studentPicture = document.getElementById("studentPicture");
-        //studentPicture.setAttribute('src', )
+    $('#pictureSelect').on("change", function(e) {
+        let file = e.target.files[0],
+            reader = new FileReader(),
+            $preview = $("#preview");
+        t = this;
+
+        // 画像ファイル以外の場合は何もしない
+        if(file.type.indexOf("image") < 0){
+            return false;
+        }
+
+        // ファイル読み込みが完了した際のイベント登録
+        reader.onload = (function(file) {
+            return function(e) {
+                //既存のプレビューを削除
+                $preview.empty();
+                // .prevewの領域の中にロードした画像を表示するimageタグを追加
+                $preview.append($('<img>').attr({
+                    id: 'studentPicture',
+                    class: 'uploaded thumb',
+                    src: e.target.result
+                }));
+            };
+        })(file);
+
+        reader.readAsDataURL(file);
     });
 });
 
 // 園児情報を取得・送信
 function send(){
-    let picture = 0;
-    let formData = new FormData(document.getElementById('picture_form'));
-    let checkbox = document.getElementById("picCheck")
-    if(checkbox.checked == false){
-        $.ajax({
-            type: "post",
-            async: false,
-            url: "/contents/student/picture",
-            // Ajaxがdataを整形しない指定
-            processData: false,
-            // contentTypeもfalseに指定
-            contentType: false,
-            // dataに FormDataを指定
-            data: formData,
-            success: function(res){
-                pictureId = res;
-                picture = 1;
-            },
-            error: function() {
-                alert('error');
-            }
-        });
-    } else {
-        picture = 1;
+    let msg = "更新";
+    if(document.title === "園児追加"){
+        msg = "追加";
     }
-
-    if(picture){
-        let data = []
-        let checkbox = document.getElementById("picCheck");
-        data.id = document.getElementById("id_h").value;
-        if(checkbox.checked == false){
-            data.picturePath = pictureId;
-        } else {
-            data.picturePath = document.getElementById("path_h").value
+    if(window.confirm(`${msg}します\nよろしいですか？`)) {
+        let formData = new FormData(document.getElementById('picture_form'));
+        let checkbox = document.getElementById("picCheck")
+        // 画像を既存のものから変更する場合、新規追加の場合
+        if( document.title === "園児追加" || checkbox.checked === false){
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/contents/student/picture",
+                // Ajaxがdataを整形しない指定
+                processData: false,
+                // contentTypeもfalseに指定
+                contentType: false,
+                // dataに FormDataを指定
+                data: formData
+            });
         }
+
+        let data = []
+        data.id = document.getElementById("id_h").value;
         data.name = document.getElementById("name_box").value;
         data.phonetic = document.getElementById("phonetic_box").value;
         data.nickname = document.getElementById("nickname_box").value;
-        var target = document.getElementById("year");
-        var num = target.selectedIndex;
-        let year = target.getElementsByTagName('option')[num].value;
-        var target = document.getElementById("month");
-        var num = target.selectedIndex;
-        let month = target.getElementsByTagName('option')[num].value;
-        var target = document.getElementById("day");
-        var num = target.selectedIndex;
-        let day = target.getElementsByTagName('option')[num].value;
+        data.remarks = document.getElementById("remarks_box").value;
+        let targetYear = document.getElementById("year");
+        let numYear = targetYear.selectedIndex;
+        let year = targetYear.getElementsByTagName('option')[numYear].value;
+        let targetMonth = document.getElementById("month");
+        let numMonth = targetMonth.selectedIndex;
+        let month = targetMonth.getElementsByTagName('option')[numMonth].value;
+        let targetDay = document.getElementById("day");
+        let numDay = targetDay.selectedIndex;
+        let day = targetDay.getElementsByTagName('option')[numDay].value;
         data.birthDay = new Date(year, month - 1, day).toISOString();
         let option = document.getElementById("genderTd").getElementsByTagName('input');
         for (let i = 0; i < option.length; i++) {
-            if (option[i].checked == true) {
+            if (option[i].checked === true) {
                 data.gender = option[i].value;
                 break;
             }
         }
         data.party = document.getElementById("party_box").value;
-        execPost('upd', '/contents/student/list_post', data);
+        if(document.title === "園児追加") {
+            execPost('ins', '/contents/student/list_post', data);
+        } else {
+            execPost('upd', '/contents/student/list_post', data);
+        }
     }
 }

@@ -1,13 +1,11 @@
 /*jshint esversion: 6 */
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const sequelize = require('../models/sequelize-loader').database;
-// 画像投稿用
 
 const studentM = require('../models/student');
 const partyM = require('../models/party');
 
-// ルーティングを行うためのモジュール
 // 画像投稿用
 const multer = require('multer');
 const uuidv4 = require('uuid/v4');
@@ -28,11 +26,9 @@ const upload = multer({
     storage: storage,
 });
 
-
+// 園児追加ページヘの遷移
 router.get('/add', function(req, res, next) {
-    res.render('contents/student/add', { title: '園児追加' });
-});
-router.post('/edit', function(req, res, next) {
+    // 組 ドロップダウンのためにデータ取得
     partyM.findAll({
         raw:true,
         where:{
@@ -40,8 +36,22 @@ router.post('/edit', function(req, res, next) {
         },
         required:true
     }).then(parties => {
+        res.render('contents/student/add', {title: '園児追加', 'parties': parties, newId: uuidv4()});
+    });
+});
 
-        studentM.findAll({
+// 園児編集ページヘの遷移
+router.post('/edit', function(req, res, next) {
+    // 組 ドロップダウンのためにデータ取得
+    partyM.findAll({
+        raw:true,
+        where:{
+            schoolId : "takahashi"
+        },
+        required:true
+    }).then(parties => {
+        // 選択された園児のデータを取得
+        studentM.findOne({
             raw:true,
             include:[
                 {
@@ -64,6 +74,7 @@ router.post('/edit', function(req, res, next) {
 
 // リストページ初回表示
 router.get('/list', function(req, res, next) {
+    // 組 ドロップダウンのためにデータ取得
     partyM.findAll({
         raw:true,
         where:{
@@ -71,7 +82,7 @@ router.get('/list', function(req, res, next) {
         },
         required:true
     }).then(parties => {
-
+        // 全データ取得
         studentM.findAll({
             raw:true,
             attributes: { include: [[sequelize.fn('timestampdiff', sequelize.literal('year'), sequelize.col('birthDay'), sequelize.fn('CURDATE')), 'age']] },
@@ -90,14 +101,13 @@ router.get('/list', function(req, res, next) {
         });
     });
 });
+
+// 絞り込みが行われた場合
 router.post('/list', function(req, res, next) {
     const Op = sequelize.Op;
-    var input = [];
-    input[0] = req.body.name;
-    input[1] = req.body.gender;
-    input[2] = req.body.partyName;
-    input[3] = req.body.age;
+    const input = [req.body.name,req.body.gender,req.body.partyName,req.body.age];
 
+    // 選択された組に対するpartyIdを取得
     partyM.findAll({
         raw:true,
         where:{
@@ -105,6 +115,7 @@ router.post('/list', function(req, res, next) {
         },
         required:true
     }).then(parties => {
+        // studentテーブルから抽出する
         studentM.findAll({
             raw: true,
             attributes: {include: [[sequelize.fn('timestampdiff', sequelize.literal('year'), sequelize.col('birthDay'), sequelize.fn('CURDATE')), 'age']]},
@@ -144,10 +155,13 @@ router.post('/list', function(req, res, next) {
         });
     });
 });
+
+// studentテーブルに対する追加・更新・削除
 router.post('/list_post', function(req, res, next) {
     switch (req.body.order){
+        // 削除
         case "del":
-            var id = req.body.studentId.split(",");
+            const id = req.body.studentId.split(",");
             studentM.destroy({
                 where: {
                     studentId: [id]
@@ -156,8 +170,8 @@ router.post('/list_post', function(req, res, next) {
                 return res.redirect('/contents/student/list');
             });
             break;
+        // 更新
         case "upd":
-            console.log("update");
             partyM.findAll({
                 raw:true,
                 where:{
@@ -172,9 +186,10 @@ router.post('/list_post', function(req, res, next) {
                     birthDay: req.body.birthDay,
                     gender: req.body.gender,
                     partyId: parties[0].partyId,
-                    picturePath: req.body.picturePath
-                },
-                    {where: {
+                    picturePath: req.body.picturePath,
+                    remarks: req.body.remarks
+                }, {
+                    where: {
                         studentId: req.body.id
                     }
                 }).then(result => {
@@ -183,13 +198,35 @@ router.post('/list_post', function(req, res, next) {
                 });
             });
             break;
+        // 追加
+        default:
+            partyM.findAll({
+                raw:true,
+                where:{
+                    name : req.body.party
+                },
+                required:true
+            }).then(parties => {
+                studentM.upsert({
+                    studentId: req.body.id,
+                    name: req.body.name,
+                    phonetic: req.body.phonetic,
+                    nickname: req.body.nickname,
+                    birthDay: req.body.birthDay,
+                    gender: req.body.gender,
+                    partyId: parties[0].partyId,
+                    picturePath: req.body.picturePath,
+                    remarks: req.body.remarks
+                }).then(result => {
+                    return res.redirect('/contents/student/list');
+                });
+            });
     }
-
 });
-router.post('/picture',upload.single('image'), (req, res, next)=>{
-    console.log(req.body.id);
-    res.end();
 
+// 画像投稿
+router.post('/picture', upload.single('image') ,(req, res, next)=>{
+    res.end();
 });
 
 module.exports = router;

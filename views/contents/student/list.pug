@@ -45,7 +45,7 @@ block content
                                     option(value=parties[i].name) #{parties[i].name}
                             .col-md-3(style="padding:0%"): select.text-right#age_box
                                 option(value='') 年齢
-                                - for(var i = 0;i < 6;i++)
+                                - for(let i = 0;i < 6;i++)
                                     option(value=i) #{i}
 
                 //　右部分
@@ -54,25 +54,24 @@ block content
 
         .row
             .col-md-10.col-md-offset-1
-                .pull-left: button.btn.btn-success.btn-original 新規追加
+                .pull-left: button.btn.btn-success.btn-original(onclick="location.href='add'") 新規追加
                 .pull-right 選択した項目を
                     button(onclick="delete_multi()").btn.btn-danger.btn-original 削除
 
         .row
             .col-md-10.col-md-offset-1
                 // リスト表示用テーブル
-                table#list_table.table.table-bordered.table-striped
+                table#list_table.table.table-bordered.table-striped(style='table-layout:fixed')
                     thead
                         tr
-                            th
-                            th.col-md-2 写真
-                            th.col-md-3 名前
-                            th.col-md-1 性別
-                            th.col-md-1 組
-                            th.col-md-1 年齢
-                            th.col-md-6 備考
-                            th 編集
-                            th 削除
+                            .row
+                                th.col-md-1
+                                th.col-md-2 写真
+                                th.col-md-2 名前
+                                th.col-md-2 組
+                                th.col-md-1 年齢
+                                th.col-md-2 編集
+                                th.col-md-2 削除
                     tbody
-                    - var cols = 5 // テキスト表示する項目数
+                    - let cols = 3 // テキスト表示する項目数
                     include ../../layout_template/list/show_data

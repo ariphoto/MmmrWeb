@@ -107,7 +107,7 @@ a {
 /* ここから下はbootstrapの上書き */
 /* ボタンにmarginをつける */
 .btn-original {
-  margin:10px 5px;
+  margin:10px 0px;
 
 }
 

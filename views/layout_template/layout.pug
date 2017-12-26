@@ -1,12 +1,9 @@
 doctype html
-center
-  html
-    head
-      title= title
-      include bootstrap
-      link(rel='stylesheet', href='/stylesheets/style.css')
-      script(src="/javascripts/script.js")
-      body(onload="init();")
-        block content
-
-
+html
+  head
+    title= title
+    include bootstrap
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="/javascripts/script.js")
+  body(onload="init();")
+    block content
