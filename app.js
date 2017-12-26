@@ -1,14 +1,14 @@
 "use strict";
 /*jshint esversion: 6 */
 const sequelize = require('./models/sequelize-loader').database;
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mysql = require('mysql'); // MySQLを使用
-var helmet = require('helmet'); // helmet(セキュリティ対策)
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const mysql = require('mysql'); // MySQLを使用
+const helmet = require('helmet'); // helmet(セキュリティ対策)
 
 
 // マスタのモデルの読み込み
@@ -74,10 +74,10 @@ sequelize.drop().then(() => {
 
 //ページ用変数の宣言
 
-var login = require('./routes/login');
-var menu = require('./routes/menu');
+const login = require('./routes/login');
+const menu = require('./routes/menu');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -93,16 +93,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
 
 //TODO:
-var teachers = require('./routes/teachers');
+const teachers = require('./routes/teachers');
 app.use('/contents/teachers', teachers);
-var party = require('./routes/party');
+const party = require('./routes/party');
 app.use('/contents/party', party);
-var student = require('./routes/student');
+const student = require('./routes/student');
 app.use('/contents/student', student);
-var school = require('./routes/school');
+const school = require('./routes/school');
 app.use('/contents/school', school);
 
-var forgotPassword = require('./routes/forgotPassword');
+const forgotPassword = require('./routes/forgotPassword');
 app.use('/forgotPassword', forgotPassword);
 //localhost下のurlでパス忘れたときにアクセス
 
@@ -112,7 +112,7 @@ app.use('/menu', menu);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
+    const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });

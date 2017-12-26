@@ -16,4 +16,7 @@ html
                     - else
                         button(class='btn btn-default btn-lg active', type='button') キャンセル
                 .col-md-3.col-xs-3.text-right
-                    button(class='btn btn-primary btn-lg active', onclick='send();') 変更
+                    - if(title === '園児編集')
+                        button(class='btn btn-primary btn-lg active', onclick='send();') 変更
+                    - else
+                        button(class='btn btn-primary btn-lg active' onclick='school_form.submit()') 変更

@@ -11,6 +11,9 @@ html
             block content
             p
                 .col-md-5.col-xs-5.text-right
-                    button(class='btn btn-default btn-lg active', type='button', onclick='location.href="/contents/student/list"') キャンセル
+                    - if(title === '園児追加')
+                        button(class='btn btn-default btn-lg active', type='button', onclick='location.href="/contents/student/list"') キャンセル
+                    - else
+                        button(class='btn btn-default btn-lg active', type='button') キャンセル
                 .col-md-3.col-xs-3.text-right
                     button(class='btn btn-primary btn-lg active', type='button', onclick='send()') 追加

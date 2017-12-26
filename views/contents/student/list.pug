@@ -41,7 +41,7 @@ block content
 
                             .col-md-6: select#party_box
                                 option(value='') 組
-                                - for(var i = 0;i < parties.length;i++)
+                                - for(let i = 0;i < parties.length;i++)
                                     option(value=parties[i].name) #{parties[i].name}
                             .col-md-3(style="padding:0%"): select.text-right#age_box
                                 option(value='') 年齢
@@ -73,5 +73,5 @@ block content
                                 th.col-md-2 編集
                                 th.col-md-2 削除
                     tbody
-                    - let cols = 3 // テキスト表示する項目数
+                    - const cols = 3 // テキスト表示する項目数
                     include ../../layout_template/list/show_data

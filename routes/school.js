@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 const schoolM = require('../models/school');
 //TODO:
@@ -17,6 +17,10 @@ router.get('/edit', function(req, res, next) {
     }).then(models => {
         res.render('contents/school/edit', { title: '保育園編集' , 'data': models});
     });
+});
+router.post('/edit', function(req, res, next) {
+    console.log(req.body);const
+    res.render('contents/school/edit', { title: '保育園編集'});
 });
 router.get('/end', function(req, res, next) {
     res.render('contents/school/end', { title: '本登録完了' });

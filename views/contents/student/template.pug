@@ -53,20 +53,20 @@
                         td 誕生日
                         td: |
                             select#year(name='')
-                                - var thisYear = new Date().getFullYear()
-                                - for(var target = thisYear - 5;thisYear >= target;target++)
+                                - const thisYear = new Date().getFullYear()
+                                - for(let target = thisYear - 5;thisYear >= target;target++)
                                     option(value = i) #{target}
                             |
                             | 年
                             |
                             select#month(name='')
-                               - for(var i = 1;i < 13;i++)
+                               - for(let i = 1;i < 13;i++)
                                   option(value = i) #{i}
                             |
                             | 月
                             |
                             select#day(name='')
-                                - for(var i = 1;i < 32;i++)
+                                - for(let i = 1;i < 32;i++)
                                     option(value = i) #{i}
                             |
                             | 日
@@ -74,16 +74,16 @@
                     tr
                         td 性別
                         td#genderTd
-                            input(type='radio', name='gender', value='man' checked=true)
-                            | 男
-                            input(type='radio', name='gender', value='woman')
-                            | 女
-                            input(type='radio', name='gender', value='other')
-                            | その他
+                            input#man(type='radio', name='gender', value='man' checked=true)
+                            label(for="man") 男　
+                            input#woman(type='radio', name='gender', value='woman')
+                            label(for="woman") 女　
+                            input#other(type='radio', name='gender', value='other')
+                            label(for="other") その他
                     tr
                         td 組
                         td: select#party_box(name='')
-                            - for(var i = 0;i < parties.length;i++)
+                            - for(let i = 0;i < parties.length;i++)
                                 option #{parties[i].name}
                     tr
                         td 備考
