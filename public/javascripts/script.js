@@ -145,7 +145,7 @@ function insert_execute() {
     }
 
     if(window.confirm(`追加します\nよろしいですか？`)) {
-        if (page == "tea") {
+        if (page === "tea") {
             execPost('ins', '/contents/teachers/list_post', {'name': data[0], 'remarks': data[1]});
         } else {
             execPost('ins', '/contents/party/list_post', {'name': data[0], 'remarks': data[1]});

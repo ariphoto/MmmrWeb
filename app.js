@@ -5,11 +5,11 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-"use strict";
-
 const sequelize = require('./models/sequelize-loader').database;
 const mysql = require('mysql'); // MySQLを使用
 const helmet = require('helmet'); // helmet(セキュリティ対策)
+
+
 
 
 // マスタのモデルの読み込み
@@ -22,6 +22,9 @@ const attendance = require('./models/attendance');
 const goHome = require('./models/goHome');
 
 const creates = require('./creates/creates');
+
+//sessionの設定
+const session = require('express-session');
 
 sequelize.drop().then(() => {
     schoolM.sync().then(() => {
@@ -72,7 +75,9 @@ sequelize.drop().then(() => {
         });
     });
 });
-
+/*
+>>>>>>>>> Temporary merge branch 2
+*/
 //ページ用変数の宣言
 
 const login = require('./routes/login');
@@ -90,8 +95,20 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
+//sessionの設定
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie:{
+        httpOnly: true,
+        secure: false,
+        maxage: 1000 * 60 * 30
+    }
+}));
 
 //TODO:
+//ルーティングの設定
 const teachers = require('./routes/teachers');
 app.use('/contents/teachers', teachers);
 const party = require('./routes/party');
@@ -106,6 +123,7 @@ app.use('/forgotPassword', forgotPassword);
 //localhost下のurlでパス忘れたときにアクセス
 
 app.use('/login', login);
+app.use('/', index);
 app.use('/menu', menu);
 
 
