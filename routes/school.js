@@ -30,7 +30,7 @@ router.get('/end', function(req, res, next) {
            hidden_key:req.query.hidden_key
        }
    }).then(function (value) {
-       res.render('contents/school/end', {title: '本登録完了'});
+        res.render('contents/school/end', {title: '本登録完了'});
    }).catch(function (error) {
         res.render('contents/school/error', {title:'本登録失敗'});
    });

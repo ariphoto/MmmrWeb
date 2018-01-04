@@ -11,9 +11,9 @@ const gmailAuth =require('../auth/gmail');
  * GET home page.
  */
 //TODO:
-router.get('/end', function(req, res, next) {
-    res.render('forgotPassword/end', { title: '変更完了' });
-});
+router.get('/edit', function(req, res, next) {
+    res.render('forgotPassword/edit', { title: '変更完了' });
+});e
 
 router.get('/inputAddress', function(req, res, next) {
     res.render('forgotPassword/inputAddress', { title: 'メールアドレス入力' });
@@ -29,12 +29,14 @@ router.post("/inputAddress", (req, res, next)=>{
     const userID = req.body.userID;
     const userURL = req.body.userURL;
 
+
     if(userID && userURL){
         schoolM.findById(userID).then(model =>{
             if(model && model.mailAddress===userURL){
                 console.error(model.mailAddress);
                 //成功したらメール送信
                 //送信側の設定
+                const hidden = model.hidden_key;
                 const transporter = nodemailer.createTransport( smtpTransport({
                     host: 'smtp.gmail.com',
                     port: 465,
@@ -46,11 +48,11 @@ router.post("/inputAddress", (req, res, next)=>{
                 const mailOptions = {
                     from    : 'みまもるくん公式 <oic.mmmrkn@gmail.com>', // 送信元アドレス
                     // to      : model.mailAddress ,// 送信するアドレス
-                    to      :'tuosoxm@gmail.com'  ,// 送信テストアドレス
+                    to      :'oic.s.tomosue@gmail.com'  ,// 送信テストアドレス
                     subject : 'パスワード変更のURLを送信しました', // タイトル
-                    text    : model.name + '様。' +
-                    '次のURLにアクセスしてください' +
-                    '--メールURLをここに記述--'
+                    text    : model.name + '様。\n' +
+                    '次のURLにアクセスしてください\n' +
+                    ` http://localhost:3000/forgotPassword/edit?hidden_key=${hidden}\n`
                 };
 
                 transporter.sendMail( mailOptions, function( error, info ){
