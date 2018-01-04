@@ -7,7 +7,9 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const mysql = require('mysql'); // MySQLを使用
 const helmet = require('helmet'); // helmet(セキュリティ対策)
+
 // マスタのモデルの読み込み
 const schoolM = require('./models/school');
 const teacherM = require('./models/teacher');
@@ -125,6 +127,14 @@ const student = require('./routes/student');
 app.use('/contents/student', student);
 const school = require('./routes/school');
 app.use('/contents/school', school);
+const forgotPassword = require('./routes/forgotPassword');
+app.use('/forgotPassword', forgotPassword);
+
+//localhost下のurlでパス忘れたときにアクセス
+
+app.use('/login', login);
+app.use('/', index);
+app.use('/menu', menu);
 
 
 // catch 404 and forward to error handler
@@ -139,7 +149,6 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.render('error');

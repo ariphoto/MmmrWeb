@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const sequelize = require('../models/sequelize-loader').database;
 // 画像投稿用
 const multer = require('multer');
@@ -100,7 +100,7 @@ router.get('/list', function(req, res, next) {
 });
 router.post('/list', function(req, res, next) {
     const Op = sequelize.Op;
-    var input = [];
+    let input = [];
     input[0] = req.body.name;
     input[1] = req.body.gender;
     input[2] = req.body.partyName;
@@ -155,7 +155,7 @@ router.post('/list', function(req, res, next) {
 router.post('/list_post', function(req, res, next) {
     switch (req.body.order){
         case "del":
-            var id = req.body.studentId.split(",");
+            let id = req.body.studentId.split(",");
             studentM.destroy({
                 where: {
                     studentId: [id]

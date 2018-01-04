@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const sequelize = require('../models/sequelize-loader').database;
 
 const uuidv4 = require('uuid/v4');
@@ -24,7 +24,7 @@ router.get('/list', function(req, res, next) {
 });
 router.post('/list', function(req, res, next) {
     const Op = sequelize.Op;
-    const input = req.body.name;
+    let input = req.body.name;
     teachersM.findAll({
         raw:true,
         where:{
@@ -40,7 +40,7 @@ router.post('/list', function(req, res, next) {
 router.post('/list_post', function(req, res, next) {
     switch (req.body.order) {
         case "del":
-            var id = req.body.teacherId.split(",");
+            let id = req.body.teacherId.split(",");
             console.log(req.body.teacherId);
             teachersM.destroy({
                 where: {

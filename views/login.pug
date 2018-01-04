@@ -9,7 +9,7 @@ block content
             .col-xs-8.col-xs-offset-2.col-md-4.col-md-offset-4.text-right
                 if (message)
                     .alert.alert-danger(role="alert") #{message}
-                button.btn.btn-danger.btn-lg.btn-original 新規登録
+                button.btn.btn-danger.btn-lg.btn-original(onclick='location.href="contents/school/add"') 新規登録
         .row
             .col-xs-12.col-md-4.col-md-offset-4.text-center(style="background-color: #e3f2fd;")
                 // 左側
@@ -19,9 +19,9 @@ block content
 
                     form#login_form(method="POST" action="/login")
                         h3 保育園ID
-                        input#schoolId(name="schoolId",required)
+                        input#schoolId(name="schoolId", required)
                         h3 パスワード
-                        input#password(name="password"  type="password",required)
+                        input#password(name="password"  type="password", required)
                         p: button#login.btn.btn-primary.btn-lg.btn-original(type="submit") ログイン
                     p.text-left: a(href="forgotPassword/inputAddress") パスワードを忘れたら
 

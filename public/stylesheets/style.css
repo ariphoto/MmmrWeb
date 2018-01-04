@@ -19,6 +19,12 @@ td.right{
 button{
   text-align: center;
   vertical-align: middle;
+  width: 60px;
+  height:40px;
+}
+button.Cancel{
+  text-align: center;
+  vertical-align: middle;
   width: 120px;
   height:40px;
 }
