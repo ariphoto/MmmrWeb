@@ -10,10 +10,29 @@ const gmailAuth =require('../auth/gmail');
 /**
  * GET home page.
  */
-//TODO:
+//TODO:editへのパスを設定する
+
 router.get('/edit', function(req, res, next) {
-    res.render('forgotPassword/edit', { title: '変更完了' });
-});e
+    //getでhidden_keyが送られているかどうか
+    if(req.hidden_key){
+        const hidden= req.hidden_key;
+        schoolM.findOne({
+            where: {
+            hidden_key: [hidden]
+        }}).then(model =>{
+            //送られたhidden_keyがデータベースに存在するかどうか
+            if(model&&hidden===model.hidden_key){
+                res.render('forgotPassword/edit', { title: '変更画面' });
+            }else{
+                res.render('/');
+            }
+        })
+    }else{
+        res.render('/');
+    }
+
+
+});
 
 router.get('/inputAddress', function(req, res, next) {
     res.render('forgotPassword/inputAddress', { title: 'メールアドレス入力' });
