@@ -3,7 +3,7 @@ function passCheck() {
     if (form.password.value === form.passwordRe.value) {
         alert('パスワード一致');
     }else {
-        alert('パスワードが違う');
+        alert('パスワードが違います');
         return false
     }
 }

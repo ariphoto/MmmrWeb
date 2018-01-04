@@ -79,7 +79,7 @@ sequelize.drop().then(() => {
 >>>>>>>>> Temporary merge branch 2
 */
 //ページ用変数の宣言
-
+const index= require('./routes/index');
 const login = require('./routes/login');
 const menu = require('./routes/menu');
 const app = express();

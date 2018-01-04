@@ -8,13 +8,13 @@ table
         td 保育園ID
         //minlengthで文字数の下限制約 満たしてないとpostするときに警告が吐かれる
         //maxlengthで文字数の上限制約 規定以上は入力できなくなる。
-        td: input(type='text', name='schoolId', size=20, required, minlength=8, maxlength=20, pattern='^[0-9A-Za-z]+$')
+        td: input(type='text', name='schoolId', size=20, required, minlength=4, maxlength=20, pattern='^[0-9A-Za-z]+$')
     tr
         td メールアドレス
         td: input(type='email', name='address', size=20, required)
     tr
         td 新規パスワード
-        td: input(type='password', name='password', size=20, required, pattern='^[0-9A-Za-z]+$')
+        td: input(type='password', name='password', size=20, required, pattern='^[0-9A-Za-z]+$', minlength=8, maxlength=20)
     tr
         td  新規パスワード（確認)
-        td: input(type='password', name='passwordRe', size=20, required, pattern='^[0-9A-Za-z]+$')
+        td: input(type='password', name='passwordRe', size=20, required, pattern='^[0-9A-Za-z]+$', minlength=8, maxlength=20)

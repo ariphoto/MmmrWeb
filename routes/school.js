@@ -19,24 +19,24 @@ router.get('/edit', function(req, res, next) {
 //本登録
 
 router.get('/end', function(req, res, next) {
-    res.render('contents/school/end', {title: '本登録完了'});
-    // console.log("hidden_key:"+ req.query.hidden_key);
     //DB更新
-    //todo 結果が一件もなかったときのcatchを書く
+    //todo 結果が一件もなかったときのcatchを書く　trueで本登録完了画面　falseでエラー画面
    schoolM.update({
        provisional_flg:true
-   },{
+   },
+       {
        where:{
            provisional_flg:false,
            hidden_key:req.query.hidden_key
        }
+   }).then(function (value) {
+       res.render('contents/school/end', {title: '本登録完了'});
+   }).catch(function (error) {
+        res.render('contents/school/error', {title:'本登録失敗'});
    });
 });
 
 
-router.get('/Provisional', function(req, res, next) {
-
-});
 router.post('/provisional', function(req, res, next){
 
     //hiddenkeyの発行
