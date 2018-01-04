@@ -127,14 +127,6 @@ const student = require('./routes/student');
 app.use('/contents/student', student);
 const school = require('./routes/school');
 app.use('/contents/school', school);
-const forgotPassword = require('./routes/forgotPassword');
-app.use('/forgotPassword', forgotPassword);
-
-//localhost下のurlでパス忘れたときにアクセス
-
-app.use('/login', login);
-app.use('/', index);
-app.use('/menu', menu);
 
 
 // catch 404 and forward to error handler
