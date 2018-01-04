@@ -5,6 +5,7 @@ const router = express.Router();
 const schoolM = require('../models/school');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
+const gmailAuth =require('../auth/gmail');
 
 /**
  * GET home page.
@@ -38,12 +39,7 @@ router.post("/inputAddress", (req, res, next)=>{
                     host: 'smtp.gmail.com',
                     port: 465,
                     secure: true, // SSL
-                    auth: {
-                        //送信元のgmailアドレス
-                        user: '-----',
-                        //送信元のgmailアカウントのパスワード
-                        pass: '----'
-                    }
+                    auth: gmailAuth
                 }));
 
                 //送信されるメール
