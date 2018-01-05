@@ -24,12 +24,20 @@ const school = loader.database.define('school', {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
-            len: [8,60]
+            len: [8,20]
         }
     },
     salt: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    provisional_flg:{
+        type: Sequelize.BOOLEAN,
+        allowNull:false
+    },
+    hidden_key:{
+        type: Sequelize.UUID,
+        allowNull:false
     }
 },{charset: 'utf8mb4',collate: 'utf8mb4_general_ci'});
 module.exports = school;

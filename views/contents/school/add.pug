@@ -1,6 +1,13 @@
-extends ../../layout_template/contents/add
+extends ../../layout_template/layout
 block content
-    title 保育園追加
-    h1= title
-    include template
+    title=title
+    script(src='/javascripts/school_Validate.js')
+
+    //保育園データの入力
+        passcheckはパスワード入力、再入力での照合チェック。
+    form(id='schoolAdd' method='post', action='/contents/school/provisional', onsubmit='return passCheck();')
+
+        include template
+
+        button(class='', type='submit',  onclick='') 送信
 

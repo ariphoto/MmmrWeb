@@ -10,7 +10,6 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql'); // MySQLを使用
 const helmet = require('helmet'); // helmet(セキュリティ対策)
 
-
 // マスタのモデルの読み込み
 const schoolM = require('./models/school');
 const teacherM = require('./models/teacher');
@@ -19,9 +18,12 @@ const studentM = require('./models/student');
 // トランザクションのモデルの読み込み
 const attendance = require('./models/attendance');
 const goHome = require('./models/goHome');
-
 const creates = require('./creates/creates');
+//sessionの設定
+const session = require('express-session');
 
+
+//sequelizeデータベースへの接続
 sequelize.drop().then(() => {
     schoolM.sync().then(() => {
         creates.schools(schoolM);
@@ -71,14 +73,10 @@ sequelize.drop().then(() => {
         });
     });
 });
-
 //ページ用変数の宣言
 
-const login = require('./routes/login');
-const menu = require('./routes/menu');
 
 const app = express();
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -91,10 +89,38 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
+//sessionの設定
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie:{
+        httpOnly: true,
+        secure: false,
+        maxage: 1000 * 60 * 30
+    }
+}));
 
 //TODO:
+/**
+ * ルーティングの設定
+ */
+//ログイン
+const login = require('./routes/login');
+app.use('/login', login);
+const forgotPassword = require('./routes/forgotPassword');
+app.use('/forgotPassword', forgotPassword);
+//セッションチェック
+const sessionCheck = require('./routes/sessionCheck');
+app.use(sessionCheck);
+const menu = require('./routes/menu');
+app.use('/',menu);
+//これ以降ログインが必要
+app.use('/menu',sessionCheck,menu);
 const teachers = require('./routes/teachers');
 app.use('/contents/teachers', teachers);
+const logout = require('./routes/logout');
+app.use('/logout',logout);
 const party = require('./routes/party');
 app.use('/contents/party', party);
 const student = require('./routes/student');
@@ -102,30 +128,23 @@ app.use('/contents/student', student);
 const school = require('./routes/school');
 app.use('/contents/school', school);
 
-const forgotPassword = require('./routes/forgotPassword');
-app.use('/forgotPassword', forgotPassword);
-//localhost下のurlでパス忘れたときにアクセス
-
 app.use('/login', login);
 app.use('/menu', menu);
 
-
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    const err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+app.use(function(req, res, next) {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // error handler
-app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
-
 module.exports = app;
