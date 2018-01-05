@@ -9,7 +9,7 @@ html
         .container
             include ../list/list_header
             block content
-            p
+            p#under
                 .col-md-5.col-xs-5.text-right
                     - if(title === '園児編集')
                         button(class='btn btn-default btn-lg active', type='button', onclick='location.href="/contents/student/list"') キャンセル
@@ -19,4 +19,5 @@ html
                     - if(title === '園児編集')
                         button(class='btn btn-primary btn-lg active', onclick='send();') 変更
                     - else
-                        button(class='btn btn-primary btn-lg active' onclick='school_form.submit()') 変更
+                        // 保育園編集のとき
+                        button(class='btn btn-primary btn-lg active' onclick='schoolPasswordEdit()') 変更

@@ -54,8 +54,8 @@
                         td: |
                             select#year(name='')
                                 - const thisYear = new Date().getFullYear()
-                                - for(let target = thisYear - 5;thisYear >= target;target++)
-                                    option(value = i) #{target}
+                                - for(let target = thisYear - 6;thisYear >= target;target++)
+                                    option(value = target) #{target}
                             |
                             | 年
                             |

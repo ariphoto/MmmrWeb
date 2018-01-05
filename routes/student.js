@@ -10,6 +10,8 @@ const partyM = require('../models/party');
 const multer = require('multer');
 const uuidv4 = require('uuid/v4');
 
+const connectionError = 'connection error.'; //接続エラーメッセージ
+
 // バイナリファイルをROMに保存する設定
 const storage = multer.diskStorage({
     destination: (req, file, cb)=> {
@@ -37,6 +39,9 @@ router.get('/add', function(req, res, next) {
         required:true
     }).then(parties => {
         res.render('contents/student/add', {title: '園児追加', 'parties': parties, newId: uuidv4()});
+    }).catch(function(err) {
+        if(err)
+            res.status(500).send(connectionError);
     });
 });
 
@@ -68,7 +73,13 @@ router.post('/edit', function(req, res, next) {
             }
         }).then(models => {
             res.render('contents/student/edit', { title: '園児編集' , 'data': models, 'parties': parties});
+        }).catch(function(err) {
+            if(err)
+                res.status(500).send(connectionError);
         });
+    }).catch(function(err) {
+        if(err)
+            res.status(500).send(connectionError);
     });
 });
 
@@ -97,8 +108,14 @@ router.get('/list', function(req, res, next) {
                 }
             ]
         }).then(models => {
-            res.render('contents/student/list', { title: '園児一覧' , 'data': models, 'parties': parties});
+            res.render('contents/student/list', {title: '園児一覧', 'data': models, 'parties': parties});
+        }).catch(function(err) {
+                if(err)
+                    res.status(500).send(connectionError);
         });
+    }).catch(function(err) {
+        if(err)
+            res.status(500).send(connectionError);
     });
 });
 
@@ -152,11 +169,17 @@ router.post('/list', function(req, res, next) {
             }
         }).then(models => {
             res.render('contents/student/list', {title: '園児一覧', 'data': models, 'inputData': input, 'parties': parties});
+        }).catch(function(err) {
+            if(err)
+                res.status(500).send(connectionError);
         });
+    }).catch(function(err) {
+        if(err)
+            res.status(500).send(connectionError);
     });
 });
 
-// studentテーブルに対する追加・更新・削除
+// studentsテーブルに対する追加・更新・削除
 router.post('/list_post', function(req, res, next) {
     switch (req.body.order){
         // 削除
@@ -168,6 +191,9 @@ router.post('/list_post', function(req, res, next) {
                 }
             }).then(result => {
                 return res.redirect('/contents/student/list');
+            }).catch(function(err) {
+                if(err)
+                    res.status(500).send(connectionError);
             });
             break;
         // 更新
@@ -193,9 +219,14 @@ router.post('/list_post', function(req, res, next) {
                         studentId: req.body.id
                     }
                 }).then(result => {
-
                     return res.redirect('/contents/student/list');
+                }).catch(function(err) {
+                    if(err)
+                        res.status(500).send(connectionError);
                 });
+            }).catch(function(err) {
+                if(err)
+                    res.status(500).send(connectionError);
             });
             break;
         // 追加
@@ -219,7 +250,13 @@ router.post('/list_post', function(req, res, next) {
                     remarks: req.body.remarks
                 }).then(result => {
                     return res.redirect('/contents/student/list');
+                }).catch(function(err) {
+                    if(err)
+                        res.status(500).send(connectionError);
                 });
+            }).catch(function(err) {
+                if(err)
+                    res.status(500).send(connectionError);
             });
     }
 });

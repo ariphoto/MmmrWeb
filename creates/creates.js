@@ -113,7 +113,7 @@ const bara = {
 	name: "ばら",
 	schoolId: takahashi.schoolId,
     remarks: "ba"
-}; 
+};
 
 const fuji = {
 	partyId: 'f53a2baa-a22e-4d92-8e88-877c2df1096b',
