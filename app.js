@@ -1,14 +1,16 @@
 "use strict";
-/*jshint esversion: 6 */
-const sequelize = require('./models/sequelize-loader').database;
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const mysql = require('mysql'); // MySQLを使用
+
 const helmet = require('helmet'); // helmet(セキュリティ対策)
+const sequelize = require('./models/sequelize-loader').database;
+
+
+
 
 // マスタのモデルの読み込み
 const schoolM = require('./models/school');
@@ -128,8 +130,7 @@ app.use('/contents/student', student);
 const school = require('./routes/school');
 app.use('/contents/school', school);
 
-app.use('/login', login);
-app.use('/menu', menu);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
