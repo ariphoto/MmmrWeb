@@ -50,6 +50,14 @@ block content
                                 - for(let i = 0;i < 7;i++)
                                     option(value=i) #{i}
 
+                    // プルダウン群
+                    .row(style="margin:0%")
+                        label(onclick="getElementById('graduation').click();") 卒園者含む
+                        - if(inputData && inputData[4] === "true")
+                            input#graduation(type='checkbox' checked='true')
+                        - else
+                            input#graduation(type='checkbox')
+
                 //　右部分
                 .col-md-3.refine-student-btn
                     button(onclick="filter()").btn.btn-info.pull-left 実行

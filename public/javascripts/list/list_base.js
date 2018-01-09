@@ -157,6 +157,11 @@ function filter(){
         filterData.gender = $('#gender_box').val();
         filterData.partyName = $('#party_box').val();
         filterData.age = $('#age_box').val();
+        if(document.getElementById('graduation').checked){
+            filterData.graduation = true;
+        } else {
+            filterData.graduation = false;
+        }
     }
 
     if(document.title === "園児一覧"){

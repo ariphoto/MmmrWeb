@@ -80,6 +80,7 @@ $(function() {
 
 // 園児情報を取得・送信
 function send(){
+
     let msg = "更新";
     if(document.title === "園児追加"){
         msg = "追加";
@@ -102,14 +103,12 @@ function send(){
             });
         }
 
-        let data = []
+        let data = [];
         data.id = document.getElementById("id_h").value;
         data.name = document.getElementById("name_box").value;
         data.phonetic = document.getElementById("phonetic_box").value;
         data.remarks = document.getElementById("remarks_box").value;
-        let targetYear = document.getElementById("year");
-        let numYear = targetYear.selectedIndex;
-        let year = targetYear.getElementsByTagName('option')[numYear].value;
+        let year = document.getElementById('year').value;
         let targetMonth = document.getElementById("month");
         let numMonth = targetMonth.selectedIndex;
         let month = targetMonth.getElementsByTagName('option')[numMonth].value;
@@ -117,6 +116,12 @@ function send(){
         let numDay = targetDay.selectedIndex;
         let day = targetDay.getElementsByTagName('option')[numDay].value;
         data.birthDay = new Date(year, month - 1, day).toISOString();
+        const now = new Date();
+        // 誕生日の妥当性チェック
+        if(year <= 1900 || data.birthDay > now.toISOString()){
+            alert("誕生日が正しくありません");
+            return;
+        }
         let option = document.getElementById("genderTd").getElementsByTagName('input');
         for (let i = 0; i < option.length; i++) {
             if (option[i].checked === true) {
@@ -132,3 +137,10 @@ function send(){
         }
     }
 }
+
+// 年 セレクトボックスで選択された場合
+$(function() {
+    $('#yearSelect').on("change", function(e) {
+        document.getElementById('year').value = document.getElementById('yearSelect').value; // テキストボックスに反映する
+    });
+});

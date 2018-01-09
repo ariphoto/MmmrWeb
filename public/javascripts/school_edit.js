@@ -41,10 +41,10 @@ function schoolPasswordEdit() {
         infoBar.appendChild(message);
         if(data === '更新しました') {
             document.getElementById('id_h').value = document.getElementById('schoolIdBox').value // 新IDを保持しておく
-            infoBar.classList.remove('alert', 'alert-danger')
+            infoBar.classList.remove('alert', 'alert-danger');
             infoBar.classList.add('alert', 'alert-info')
         } else {
-            infoBar.classList.remove('alert', 'alert-info')
+            infoBar.classList.remove('alert', 'alert-info');
             infoBar.classList.add('alert', 'alert-danger')
         }
     })
