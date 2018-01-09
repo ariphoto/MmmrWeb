@@ -75,7 +75,6 @@ sequelize.drop().then(() => {
 >>>>>>>>> Temporary merge branch 2
 */
 //ページ用変数の宣言
-const index= require('./routes/index');
 const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -110,6 +109,8 @@ const login = require('./routes/login');
 app.use('/login', login);
 const forgotPassword = require('./routes/forgotPassword');
 app.use('/forgotPassword', forgotPassword);
+const school = require('./routes/school');
+app.use('/contents/school', school);
 //セッションチェック
 const sessionCheck = require('./routes/sessionCheck');
 app.use(sessionCheck);
@@ -125,8 +126,7 @@ const party = require('./routes/party');
 app.use('/contents/party', party);
 const student = require('./routes/student');
 app.use('/contents/student', student);
-const school = require('./routes/school');
-app.use('/contents/school', school);
+
 
 
 // catch 404 and forward to error handler

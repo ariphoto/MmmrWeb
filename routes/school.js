@@ -21,6 +21,29 @@ router.get('/edit', function(req, res, next) {
 router.get('/end', function(req, res, next) {
     //DB更新
     //todo 結果が一件もなかったときのcatchを書く　trueで本登録完了画面　falseでエラー画面
+
+    schoolM.findOne({where:{
+        hidden_key:req.query.hidden_key
+    }}).then(function (value) {
+        res.render('contents/school/end', {title: '成功'});
+        schoolM.update(
+            {
+                provisional_flg:true
+            },
+            {
+                where:{
+                    provisional_flg:false,
+                    hidden_key:req.query.hidden_key
+                }
+            }
+        )
+    }).catch(function (error) {
+        res.render('contents/school/error', {title:'失敗'});
+    });
+    /*
+
+
+
    schoolM.update({
        provisional_flg:true
    },
@@ -29,11 +52,13 @@ router.get('/end', function(req, res, next) {
            provisional_flg:false,
            hidden_key:req.query.hidden_key
        }
-   }).then(function (value) {
-       res.render('contents/school/end', {title: '本登録完了'});
-   }).catch(function (error) {
-        res.render('contents/school/error', {title:'本登録失敗'});
+   }).then(function (schoolM) {
+       res.render('contents/school/end', {title: '成功'});
+   }).error(function (error) {
+        res.render('contents/school/error', {title:'失敗'});
    });
+   */
+
 });
 
 
