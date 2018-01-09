@@ -1,13 +1,10 @@
 doctype html
-center
-  html
-    head
-      block meta
-      title= title
-      include bootstrap
-      link(rel='stylesheet', href='/stylesheets/style.css')
-      block script
-      body(onload="init();")
-        block content
-
-
+html
+  head
+    title= title
+    include bootstrap
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    block meta
+    block script
+  body
+    block content

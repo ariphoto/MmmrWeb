@@ -1,5 +1,7 @@
 extends ../../layout_template/layout
-
+block script
+    script(src="/javascripts/list/list_base.js")
+    script(src="/javascripts/list/list_onRows.js")
 block content
     .container.text-center
         include ../../layout_template/list/list_header
@@ -43,11 +45,12 @@ block content
                 table#list_table.table.table-bordered.table-striped
                     thead
                         tr
-                            th.col-md-1
-                            th.col-md-5 名前
-                            th.col-md-4 備考
-                            th.col-md-1 編集
-                            th.col-md-1 削除
+                            .row
+                                th.col-md-1
+                                th.col-md-5 名前
+                                th.col-md-4 備考
+                                th.col-md-1 編集
+                                th.col-md-1 削除
                     tbody
-                    - var cols = 2 // テキスト表示する項目数
+                    - const cols = 2 // テキスト表示する項目数
                     include ../../layout_template/list/show_data

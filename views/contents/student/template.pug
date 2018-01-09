@@ -1,83 +1,89 @@
-
+block script
+    script(src="/javascripts/list/list_base.js")
+    script(src="/javascripts/list/list_studentEdit.js")
 .row
-    form#student_form(action="#" method="post" enctype="multipart/form-data")
-        .col-md-2.col-md-offset-2.col-xs-2.col-xs-offset-2.text-right
-            label
-                input#picCheck(type='checkbox', name='checked', value='1', checked='checked' onclick="javascript:defPic();")
-                |現在の画像を使用
+    .col-md-2.col-md-offset-2.col-xs-2.col-xs-offset-2.text-right
+        form#picture_form(action="/contents/student/test" method="post" enctype="multipart/form-data")
+            - if(data)
+                input(type='hidden' name='order' value='upd')
+                input#id_h(type="hidden" name='id' value = data.studentId)
+                label
+                    input#picCheck(type='checkbox', name='checked', value='1', checked='checked' onclick="javascript:defPic();")
+                    |現在の画像を使用
+            - else
+                input#id_h(type="hidden" name='id' value = newId)
+
             br
-            label
+            #preview
                 - if(data)
-                    img#studentPicture(src = `/image/${data[0].picturePath}`, class='uploaded thumb', alt='')
-                - else
-                    img#studentPicture(src='', class='uploaded thumb', alt='')
+                    img#studentPicture(src=`/image/${data.studentId}.jpg`, class='uploaded thumb', alt='')
 
-                label.button
-                    |ファイルを選択
-                    input#pictureSelect(type='file', name='image', style='display:none;' accept="image/*" disabled=true)
+            label.button
+                |ファイルを選択
+                input#pictureSelect(type='file', name='image', style='display:none;' accept="image/*")
 
-        .col-md-offset-5.text-left
-            table
+    .col-md-offset-5.text-left
+        form#student_form(action="/contents/student/test" method="post" enctype="multipart/form-data")
+            table(style='border-spacing : 5px; border-collapse : separate ;')
                 tbody
                     tr
                         td 名前
                         td
                             - if(data)
-                                input#name_box(type='text', name='name', size=20 value = data[0].name)
-                                input#id_h(type="hidden" value = data[0].studentId)
-                                input#birthDay_h(type="hidden" value = data[0].birthDay)
-                                input#gender_h(type="hidden" value = data[0].gender)
-                                input#party_h(type="hidden" value = data[0]['party.name'])
-                                input#path_h(type="hidden" value = data[0].picturePath)
+                                input#name_box(type='text', name='name', size=20 value = data.name)
+                                input#birthDay_h(type="hidden" value = data.birthDay)
+                                input#gender_h(type="hidden" value = data.gender)
+                                input#party_h(type="hidden" value = data['party.name'])
+                                input#path_h(type="hidden" value = data.picturePath)
                             - else
                                 input#name_box(type='text', name='name', size=20)
                     tr
                         td ふりがな
                         td
                             - if(data)
-                                input#phonetic_box(type='text', name='name', size=20 value = data[0].phonetic)
+                                input#phonetic_box(type='text', name='name', size=20 value = data.phonetic)
                             - else
                                 input#phonetic_box(type='text', name='name', size=20)
-                    tr
-                        td あだ名
-                        td
-                            - if(data)
-                                input#nickname_box(type='text', name='name', size=20 value = data[0].nickname)
-                            - else
-                                input#nickname_box(type='text', name='name', size=20)
                     tr
                         td 誕生日
                         td: |
                             select#year(name='')
-                                - var thisYear = new Date().getFullYear()
-                                - for(var target = thisYear - 5;thisYear >= target;target++)
-                                    option #{target}
+                                - const thisYear = new Date().getFullYear()
+                                - for(let target = thisYear - 6;thisYear >= target;target++)
+                                    option(value = target) #{target}
                             |
                             | 年
                             |
                             select#month(name='')
-                               - for(var i = 1;i < 13;i++)
-                                  option #{i}
+                               - for(let i = 1;i < 13;i++)
+                                  option(value = i) #{i}
                             |
                             | 月
                             |
                             select#day(name='')
                                 - for(let i = 1;i < 32;i++)
-                                    option #{i}
+                                    option(value = i) #{i}
                             |
                             | 日
                             |
                     tr
                         td 性別
                         td#genderTd
-                            input(type='radio', name='sex', value="man" checked=true)
-                            | 男
-                            input(type='radio', name='sex', value="woman")
-                            | 女
-                            input(type='radio', name='sex', value="other")
-                            | その他
+                            input#man(type='radio', name='gender', value='man' checked=true)
+                            label(for="man") 男　
+                            input#woman(type='radio', name='gender', value='woman')
+                            label(for="woman") 女　
+                            input#other(type='radio', name='gender', value='other')
+                            label(for="other") その他
                     tr
                         td 組
                         td: select#party_box(name='')
                             - for(let i = 0;i < parties.length;i++)
                                 option #{parties[i].name}
+                    tr
+                        td 備考
+                        td
+                            - if(data)
+                                textarea#remarks_box #{data.remarks}
+                            - else
+                                textarea#remarks_box

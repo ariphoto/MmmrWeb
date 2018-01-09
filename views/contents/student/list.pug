@@ -1,5 +1,7 @@
 extends ../../layout_template/layout
-
+block script
+    script(src="/javascripts/list/list_base.js")
+    script(src="/javascripts/list/list_studentEdit.js")
 block content
     .container.text-center(onload = "javascript:init();")
         include ../../layout_template/list/list_header
@@ -34,19 +36,19 @@ block content
                     .row(style="margin:0%")
                         p
                             .col-md-3.pull-left(style="padding:0%"): select#gender_box
-                                option 性別
-                                option 男
-                                option 女
-                                option その他
+                                option(value='') 性別
+                                option(value='man') 男
+                                option(value='woman') 女
+                                option(value='other') その他
 
                             .col-md-6: select#party_box
-                                option 組
-                                - for(var i = 0;i < parties.length;i++)
-                                    option #{parties[i].name}
+                                option(value='') 組
+                                - for(let i = 0;i < parties.length;i++)
+                                    option(value=parties[i].name) #{parties[i].name}
                             .col-md-3(style="padding:0%"): select.text-right#age_box
-                                option 年齢
-                                - for(var i = 0;i < 6;i++)
-                                    option #{i}
+                                option(value='') 年齢
+                                - for(let i = 0;i < 7;i++)
+                                    option(value=i) #{i}
 
                 //　右部分
                 .col-md-3.refine-student-btn
@@ -54,26 +56,24 @@ block content
 
         .row
             .col-md-10.col-md-offset-1
-                .pull-left: button.btn.btn-success.btn-original 新規追加
+                .pull-left: button.btn.btn-success.btn-original(onclick="location.href='add'") 新規追加
                 .pull-right 選択した項目を
                     button(onclick="delete_multi()").btn.btn-danger.btn-original 削除
 
         .row
             .col-md-10.col-md-offset-1
                 // リスト表示用テーブル
-                table#list_table.table.table-bordered.table-striped
+                table#list_table.table.table-bordered.table-striped(style='table-layout:fixed')
                     thead
                         tr
-                            th
-                            th.col-md-2 写真
-                            th.col-md-3 名前
-                            th.col-md-3 ふりがな
-                            th.col-md-1 性別
-                            th.col-md-1 組
-                            th.col-md-1 年齢
-                            th.col-md-3 備考
-                            th 編集
-                            th 削除
+                            .row
+                                th.col-md-1
+                                th.col-md-2 写真
+                                th.col-md-2 名前
+                                th.col-md-2 組
+                                th.col-md-1 年齢
+                                th.col-md-2 編集
+                                th.col-md-2 削除
                     tbody
-                    - let cols = 6 // テキスト表示する項目数
+                    - const cols = 3 // テキスト表示する項目数
                     include ../../layout_template/list/show_data
