@@ -14,24 +14,26 @@ const gmailAuth =require('../auth/gmail');
 
 router.get('/edit', function(req, res, next) {
     //getでhidden_keyが送られているかどうか
-    if(req.hidden_key){
-        const hidden= req.hidden_key;
+    if(req.query.hidden_key){
+        console.log(req.query.hidden_key);
+        console.log('キー送信成功');
+        const hidden = req.query.hidden_key;
         schoolM.findOne({
             where: {
             hidden_key: [hidden]
         }}).then(model =>{
             //送られたhidden_keyがデータベースに存在するかどうか
             if(model&&hidden===model.hidden_key){
-                res.render('forgotPassword/edit', { title: '変更画面' });
+                res.render('forgotPassword/edit', { title: 'パスワード変更画面' });
             }else{
-                res.render('/');
+                console.log('キーがありません');
+                res.render('/', { title: 'キーが存在しない' });
             }
         })
     }else{
-        res.render('/');
+        console.log('キー送信失敗');
+        res.render('/', { title: 'キーがゲットされていない' });
     }
-
-
 });
 
 router.get('/inputAddress', function(req, res, next) {
