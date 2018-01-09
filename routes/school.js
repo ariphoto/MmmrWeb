@@ -23,8 +23,7 @@ router.get('/end', function(req, res, next) {
     //todo 結果が一件もなかったときのcatchを書く　trueで本登録完了画面　falseでエラー画面
    schoolM.update({
        provisional_flg:true
-   },
-       {
+   }, {
        where:{
            provisional_flg:false,
            hidden_key:req.query.hidden_key
