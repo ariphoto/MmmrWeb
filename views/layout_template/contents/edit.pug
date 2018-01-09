@@ -3,9 +3,9 @@ html
     head
         include ../bootstrap
         link(rel='stylesheet', href='/stylesheets/style.css')
-        script(src="/javascripts/script.js")
         title= title
-    body(onload = "javascript:init();")
+        block script
+    body
         .container
             include ../list/list_header
             block content

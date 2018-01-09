@@ -10,10 +10,6 @@ const student = loader.database.define('student', {
 		type: Sequelize.STRING,
 		allowNull: false
 	},
-	nickname: {
-		type: Sequelize.STRING,
-		allowNull: true
-	},
 	phonetic: {
 		type: Sequelize.STRING,
 		allowNull: false

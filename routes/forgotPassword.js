@@ -5,14 +5,14 @@ const router = express.Router();
 const schoolM = require('../models/school');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
-const gmailAuth =require('../auth/gmail');
+//const gmailAuth =require('../auth/gmail');
 
 /**
  * GET home page.
  */
 //TODO:editへのパスを設定する
 
-router.get('/edit', function(req, res, next) {
+/*router.get('/edit', function(req, res, next) {
     //getでhidden_keyが送られているかどうか
     if(req.hidden_key){
         const hidden= req.hidden_key;
@@ -95,5 +95,5 @@ router.post("/inputAddress", (req, res, next)=>{
         res.render('forgotPassword/inputAddress',{message: "IDとURLを入力してください"})
     }
 
-});
+});*/
 module.exports = router;

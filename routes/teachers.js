@@ -19,10 +19,10 @@ router.get('/list', function(req, res, next) {
     teachersM.findAll({
         raw:true,
         where:{
-            schoolId : "takahashi"
+            schoolId : req.session.schoolId
         }
     }).then(models => {
-        res.render('contents/teachers/list', { title: '保育士一覧' , 'data': models});
+        res.render('contents/teachers/list', { title: '保育士一覧' , schoolName:req.session.name, 'data': models});
     }).catch(function(err) {
         if(err)
             res.status(500).send(connectionError);
@@ -36,13 +36,13 @@ router.post('/list', function(req, res, next) {
     teachersM.findAll({
         raw:true,
         where:{
-            schoolId : "takahashi",
+            schoolId : req.session.schoolId,
             name: {
                 [Op.like]: `%${input}%`
             }
         }
     }).then(models => {
-        res.render('contents/teachers/list', {title: '保育士一覧', 'data': models, 'inputData': input});
+        res.render('contents/teachers/list', {title: '保育士一覧', schoolName:req.session.name, 'data': models, 'inputData': input});
     }).catch(function(err) {
         if(err)
             res.status(500).send(connectionError);
@@ -89,7 +89,7 @@ router.post('/list_post', function(req, res, next) {
                 teacherId: uuidv4(),
                 name: req.body.name,
                 remarks: req.body.remarks,
-                schoolId: "takahashi"
+                schoolId: req.session.schoolId
             }).then(result => {
                 return res.redirect('/contents/teachers/list');
             }).catch(function(err) {

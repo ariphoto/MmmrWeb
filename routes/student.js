@@ -8,6 +8,7 @@ const partyM = require('../models/party');
 // 画像投稿用
 const multer = require('multer');
 const uuidv4 = require('uuid/v4');
+const Op = sequelize.Op;
 
 const connectionError = 'connection error.'; //接続エラーメッセージ
 
@@ -33,11 +34,11 @@ router.get('/add', function(req, res, next) {
     partyM.findAll({
         raw:true,
         where:{
-            schoolId : "takahashi"
+            schoolId : req.session.schoolId
         },
         required:true
     }).then(parties => {
-        res.render('contents/student/add', {title: '園児追加', 'parties': parties, newId: uuidv4()});
+        res.render('contents/student/add', {title: '園児追加',schoolName:req.session.name, 'parties': parties, newId: uuidv4()});
     }).catch(function(err) {
         if(err)
             res.status(500).send(connectionError);
@@ -50,7 +51,7 @@ router.post('/edit', function(req, res, next) {
     partyM.findAll({
         raw:true,
         where:{
-            schoolId : "takahashi"
+            schoolId : req.session.schoolId
         },
         required:true
     }).then(parties => {
@@ -61,7 +62,7 @@ router.post('/edit', function(req, res, next) {
                 {
                     model:partyM,
                     where:{
-                        schoolId : "takahashi"
+                        schoolId : req.session.schoolId
                     },
                     attributes: ["name"],
                     required:true
@@ -71,7 +72,7 @@ router.post('/edit', function(req, res, next) {
                 studentId : req.body.studentId
             }
         }).then(models => {
-            res.render('contents/student/edit', { title: '園児編集' , 'data': models, 'parties': parties});
+            res.render('contents/student/edit', { title: '園児編集', schoolName:req.session.name, 'data': models, 'parties': parties});
         }).catch(function(err) {
             if(err)
                 res.status(500).send(connectionError);
@@ -88,7 +89,7 @@ router.get('/list', function(req, res, next) {
     partyM.findAll({
         raw:true,
         where:{
-            schoolId : "takahashi"
+            schoolId : req.session.schoolId
         },
         required:true
     }).then(parties => {
@@ -100,14 +101,14 @@ router.get('/list', function(req, res, next) {
                 {
                     model:partyM,
                     where:{
-                        schoolId : "takahashi"
+                        schoolId : req.session.schoolId
                     },
                     attributes: ["name"],
                     required:true
                 }
             ]
         }).then(models => {
-            res.render('contents/student/list', {title: '園児一覧', 'data': models, 'parties': parties});
+            res.render('contents/student/list', {title: '園児一覧', schoolName:req.session.name, 'data': models, 'parties': parties});
         }).catch(function(err) {
                 if(err)
                     res.status(500).send(connectionError);
@@ -127,7 +128,7 @@ router.post('/list', function(req, res, next) {
     partyM.findAll({
         raw:true,
         where:{
-            schoolId : "takahashi"
+            schoolId : req.session.schoolId
         },
         required:true
     }).then(parties => {
@@ -139,7 +140,7 @@ router.post('/list', function(req, res, next) {
                 {
                     model: partyM,
                     where: {
-                        schoolId: "takahashi",
+                        schoolId: req.session.schoolId,
                         name: {
                             [Op.like]: `%${input[2]}%`
                         }
@@ -167,7 +168,7 @@ router.post('/list', function(req, res, next) {
                 }
             }
         }).then(models => {
-            res.render('contents/student/list', {title: '園児一覧', 'data': models, 'inputData': input, 'parties': parties});
+            res.render('contents/student/list', {title: '園児一覧', schoolName:req.session.name, 'data': models, 'inputData': input, 'parties': parties});
         }).catch(function(err) {
             if(err)
                 res.status(500).send(connectionError);

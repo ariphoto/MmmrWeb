@@ -1,12 +1,10 @@
 // ページ表示時、データをセットする(プルダウンの選択含む)
-function init() {
+window.onload = function init() {
 
     let gender = "";
     let party = "";
     let birthDay = "";
     let age = "";
-    let pulldown_option;
-
     if (document.title === "園児編集" || (document.title === "園児一覧" && document.getElementById('age_h'))) {
         gender = document.getElementById("gender_h").value;
         party = document.getElementById("party_h").value;
@@ -31,12 +29,17 @@ function init() {
         $("#party_box").val(party);
         $("#age_box").val(age);
     }
+
+    // 初期選択
+    if (document.title === "園児追加") {
+        document.getElementById('party_box').getElementsByTagName('option')[0].selected = true;
+    }
 }
 
 // 園児編集画面 源氏の画像のチェックボックスの処理
 function defPic(){
-    let checkbox = document.getElementById("picCheck")
-    let pictureSelect = document.getElementById("pictureSelect")
+    let checkbox = document.getElementById("picCheck");
+    let pictureSelect = document.getElementById("pictureSelect");
     if(checkbox.checked === false){
         pictureSelect.removeAttribute('disabled') // 新規追加ボタンを有効化する
     } else {
@@ -83,7 +86,7 @@ function send(){
     }
     if(window.confirm(`${msg}します\nよろしいですか？`)) {
         let formData = new FormData(document.getElementById('picture_form'));
-        let checkbox = document.getElementById("picCheck")
+        let checkbox = document.getElementById("picCheck");
         // 画像を既存のものから変更する場合、新規追加の場合
         if( document.title === "園児追加" || checkbox.checked === false){
             $.ajax({
@@ -103,7 +106,6 @@ function send(){
         data.id = document.getElementById("id_h").value;
         data.name = document.getElementById("name_box").value;
         data.phonetic = document.getElementById("phonetic_box").value;
-        data.nickname = document.getElementById("nickname_box").value;
         data.remarks = document.getElementById("remarks_box").value;
         let targetYear = document.getElementById("year");
         let numYear = targetYear.selectedIndex;

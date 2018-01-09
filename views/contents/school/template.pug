@@ -28,9 +28,9 @@ form#school_form(method='post' action='/contents/school/edit')
                     input#schoolAddressBox(type='email', name='address', size=20, required)
         tr
             td 新規パスワード
-            td: input#schoolPassBox(type='password', name='password', size=20, required, pattern='^[0-9A-Za-z]+$', minlength=8, maxlength=20)
+            td: input#schoolPassBox(type='password', name='password', size=20, pattern='^[0-9A-Za-z]+$', minlength=8, maxlength=20)
         tr
             td  新規パスワード（確認）
             td
-                input#schoolPassConfBox(type='password', name='passwordRe', size=20)
-                input#oldPassBox(style='display: none' , name='oldPass', size=20, required, pattern='^[0-9A-Za-z]+$', minlength=8, maxlength=20)
+                input#schoolPassConfBox(type='password', name='passwordRe', size=20, pattern='^[0-9A-Za-z]+$', minlength=8, maxlength=20)
+                input#oldPassBox(style='display: none' , name='oldPass', size=20)

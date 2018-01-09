@@ -24,7 +24,7 @@ const school = loader.database.define('school', {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
-            len: [8,20]
+            len: [8,60]
         }
     },
     salt: {
