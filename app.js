@@ -8,8 +8,6 @@ const bodyParser = require('body-parser');
 
 const helmet = require('helmet'); // helmet(セキュリティ対策)
 const sequelize = require('./models/sequelize-loader').database;
-const mysql = require('mysql'); // MySQLを使用
-const helmet = require('helmet'); // helmet(セキュリティ対策)
 
 
 
