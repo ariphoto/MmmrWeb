@@ -1,12 +1,12 @@
 "use strict";
-/*jshint esversion: 6 */
-const sequelize = require('./models/sequelize-loader').database;
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+
+const helmet = require('helmet'); // helmet(セキュリティ対策)
 const sequelize = require('./models/sequelize-loader').database;
 const mysql = require('mysql'); // MySQLを使用
 const helmet = require('helmet'); // helmet(セキュリティ対策)
@@ -22,12 +22,12 @@ const studentM = require('./models/student');
 // トランザクションのモデルの読み込み
 const attendance = require('./models/attendance');
 const goHome = require('./models/goHome');
-
 const creates = require('./creates/creates');
-
 //sessionの設定
 const session = require('express-session');
 
+
+//sequelizeデータベースへの接続
 sequelize.drop().then(() => {
     schoolM.sync().then(() => {
         creates.schools(schoolM);
@@ -77,9 +77,6 @@ sequelize.drop().then(() => {
         });
     });
 });
-/*
->>>>>>>>> Temporary merge branch 2
-*/
 //ページ用変数の宣言
 
 

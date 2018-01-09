@@ -1,3 +1,4 @@
+"use strict";
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
@@ -8,6 +9,8 @@ const salt = 'shio';
 const uuidv4 = require('uuid/v4');
 const gmailAuth =require('../auth/gmail');
 
+const connectionError = 'connection error.'; //接続エラーメッセージ
+//TODO:
 
 router.get('/add', function(req, res, next) {
     res.render('contents/school/add', { title: '保育園追加' });
@@ -107,7 +110,6 @@ router.post('/edit', function(req, res, next) {
 router.get('/end', function(req, res, next) {
     //DB更新
     //todo 結果が一件もなかったときのcatchを書く　trueで本登録完了画面　falseでエラー画面
-
    schoolM.update({
        provisional_flg:true
    },
@@ -116,10 +118,10 @@ router.get('/end', function(req, res, next) {
            provisional_flg:false,
            hidden_key:req.query.hidden_key
        }
-   }).then(function (schoolM) {
-       res.render('contents/school/end', {title: '成功'});
-   }).error(function (error) {
-        res.render('contents/school/error', {title:'失敗'});
+   }).then(function (value) {
+       res.render('contents/school/end', {title: '本登録完了'});
+   }).catch(function (error) {
+        res.render('contents/school/error', {title:'本登録失敗'});
    });
 });
 
@@ -140,7 +142,7 @@ router.post('/provisional', function(req, res, next){
         provisional_flg:false,
         hidden_key:hidden
     }).then(result =>{
-        res.render('contents/school/Provisional', { title: '仮登録完了' , schoolName:req.session.name, destination: req.body.address});
+        res.render('contents/school/Provisional', { title: '仮登録完了' , destination: req.body.address});
         //成功したらメール送信
         const transporter = nodemailer.createTransport( smtpTransport({
             host: 'smtp.gmail.com',
@@ -169,6 +171,8 @@ router.post('/provisional', function(req, res, next){
 
         });
     });
+
+
 });
 
 module.exports = router;
