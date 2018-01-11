@@ -22,6 +22,7 @@ function insertRow() {
                 break;
             // 追加 ボタン
             case 3:
+                td.classList.add('text-center');
                 let btnInsert = document.createElement('button');
                 btnInsert.classList.add('btn','btn-info','btn-original');
                 btnInsert.setAttribute('onclick','location.href="javascript:insert_execute();"');
@@ -31,6 +32,7 @@ function insertRow() {
                 break;
             // キャンセル ボタン
             case 4:
+                td.classList.add('text-center');
                 let btnCancel = document.createElement('button');
                 btnCancel.classList.add('btn','btn-default','btn-default');
                 btnCancel.setAttribute('onclick','location.href="javascript:insert_cancel();"');

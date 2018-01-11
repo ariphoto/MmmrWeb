@@ -33,30 +33,30 @@ block content
                                 input#name_box(style="width: 100%" placeholder="名前")
 
                     // プルダウン群
-                    .row(style="margin:0%")
-                        p
-                            .col-md-3.pull-left(style="padding:0%"): select#gender_box
-                                option(value='') 性別
-                                option(value='man') 男
-                                option(value='woman') 女
-                                option(value='other') その他
+                    .row
+                        .col-md-3: select#gender_box
+                            option(value='') 性別
+                            option(value='man') 男
+                            option(value='woman') 女
+                            option(value='other') その他
 
-                            .col-md-6: select#party_box
-                                option(value='') 組
-                                - for(let i = 0;i < parties.length;i++)
-                                    option(value=parties[i].name) #{parties[i].name}
-                            .col-md-3(style="padding:0%"): select.text-right#age_box
-                                option(value='') 年齢
-                                - for(let i = 0;i < 7;i++)
-                                    option(value=i) #{i}
+                        .col-md-5.text-center: select#party_box
+                            option(value='') 組
+                            - for(let i = 0;i < parties.length;i++)
+                                option(value=parties[i].name) #{parties[i].name}
+                        .col-md-4.text-right: select#age_box
+                            option(value='') 年齢
+                            - for(let i = 0;i < 7;i++)
+                                option(value=i) #{i}
 
-                    // プルダウン群
-                    .row(style="margin:0%")
-                        label(onclick="getElementById('graduation').click();") 卒園者含む
-                        - if(inputData && inputData[4] === "true")
-                            input#graduation(type='checkbox' checked='true')
-                        - else
-                            input#graduation(type='checkbox')
+                    // 卒園 チェックボックス
+                    .row
+                        .col-md-12.text-left
+                            - if(inputData && inputData[4] === "true")
+                                input#graduation(type='checkbox' checked='true')
+                            - else
+                                input#graduation(type='checkbox')
+                            label(onclick="getElementById('graduation').click();") 卒園者含む
 
                 //　右部分
                 .col-md-3.refine-student-btn

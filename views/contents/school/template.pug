@@ -1,4 +1,4 @@
-form#school_form(method='post' action='/contents/school/edit')
+form#school_form.center(method='post' action='/contents/school/edit')
     table
         tr
             //要素内にrequiredを宣言することでnullを許さないマンと化す
@@ -33,4 +33,19 @@ form#school_form(method='post' action='/contents/school/edit')
             td  新規パスワード（確認）
             td
                 input#schoolPassConfBox(type='password', name='passwordRe', size=20, pattern='^[0-9A-Za-z]+$', minlength=8, maxlength=20)
-                input#oldPassBox(style='display: none' , name='oldPass', size=20)
+
+    // モーダルの配置
+    .modal#modal-pass
+        .modal-dialog
+            // モーダルのコンテンツ
+            .modal-content
+                // モーダルのヘッダ
+                .modal-header
+                // モーダルのボディ
+                .modal-body
+                    | 現在のパスワードを入力してください。
+                    input#oldPassBox(type='password' name='oldPass')
+                // モーダルのフッタ
+                .modal-footer
+                    button.btn.btn-default(type="button" data-dismiss="modal") キャンセル
+                    button.btn.btn-primary(type="button" onclick='oldPassSubmit();') OK
