@@ -25,7 +25,8 @@ router.post('/', (req, res, next) =>{
     if(userId && password) {
         schoolM.findById(userId).then(model => {
             //ソルトを使用したリクエスト内のパスワードのハッシュ化
-            if (model && hasher(password, model.salt) === model.password) {
+            if (model && model.provisional_flg==true && hasher(password, model.salt) === model.password) {
+
                 console.error(model.name);
                 //セッションの発行
                 req.session.schoolId = req.body.schoolId;

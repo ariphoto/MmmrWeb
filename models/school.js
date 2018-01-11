@@ -33,7 +33,7 @@ const school = loader.database.define('school', {
     },
     provisional_flg:{
         type: Sequelize.BOOLEAN,
-        allowNull:false
+        allowNull: false
     },
     hidden_key:{
         type: Sequelize.UUID,

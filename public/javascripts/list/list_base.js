@@ -34,7 +34,7 @@ function insertRow() {
             case 4:
                 td.classList.add('text-center');
                 let btnCancel = document.createElement('button');
-                btnCancel.classList.add('btn','btn-default','btn-default');
+                btnCancel.classList.add('btn','btn-default','btn-default','long120');
                 btnCancel.setAttribute('onclick','location.href="javascript:insert_cancel();"');
                 let txtCancel = document.createTextNode("キャンセル");
                 btnCancel.appendChild(txtCancel);
@@ -80,7 +80,7 @@ function edit_row(idNum, page){
         let btn2 = tdBtn2.getElementsByTagName('button')[0]; // 削除ボタンを取得
         btn2.classList.add('hidden');
         let newButton2 = document.createElement('button'); // ボタンを定義
-        newButton2.classList.add('btn', 'btn-default', 'btn-original');
+        newButton2.classList.add('btn', 'btn-default', 'btn-original','long120');
         newButton2.setAttribute('onclick', 'location.href="javascript:edit_cancel(' + idNum + ');"');
         let newTxt2 = document.createTextNode("キャンセル");
         newButton2.appendChild(newTxt2);
