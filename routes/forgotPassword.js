@@ -6,7 +6,7 @@ const schoolM = require('../models/school');
 const nodemailer = require('nodemailer');
 const hasher =require('../utils/hasher');
 const smtpTransport = require('nodemailer-smtp-transport');
-//const gmailAuth =require('../auth/gmail');
+const gmailAuth =require('../auth/gmail');
 
 /**
  * GET home page.
