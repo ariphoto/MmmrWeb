@@ -156,12 +156,12 @@ router.post("/edit", (req, res, next)=> {
        }else{
            //todo
            console.error('パスワードが６文字以上ではない');
-           res.render('forgotPassword/edit', { title: 'パスワード変更画面' ,hiddenKey: hiddenKey});
+           res.render('forgotPassword/edit', { title: 'パスワード変更画面' ,hiddenKey: hiddenKey,message:'６文字以上のパスワードを設定してください'});
        }
    }else {
        //todo
        console.error('同じ値が入力されていない');
-       res.render('forgotPassword/edit', { title: 'パスワード変更画面' ,hiddenKey: hiddenKey});
+       res.render('forgotPassword/edit', { title: 'パスワード変更画面' ,hiddenKey: hiddenKey,message:'確認用パスワードと一致しません'});
 
    }
 });

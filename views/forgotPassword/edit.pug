@@ -2,6 +2,10 @@ extends ../layout_template/layout
 
 block content
     title=title
+    if (message)
+        if (message)
+            .alert.alert-danger(role="alert") #{message}
+
     p(style={color: "red", "font-weight": "bolder", "font-size": "xx-large"}) 新規パスワード入力画面
     br
 
