@@ -47,10 +47,12 @@ block script
                     tr
                         td 誕生日
                         td: |
-                            select#year(name='')
+                            input#year(type="text" size="6")
+                            select#yearSelect(style='width:7%')
                                 - const thisYear = new Date().getFullYear()
                                 - for(let target = thisYear - 6;thisYear >= target;target++)
                                     option(value = target) #{target}
+
                             |
                             | 年
                             |
