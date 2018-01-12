@@ -19,9 +19,9 @@ block content
 
                     form#login_form(method="POST" action="/login")
                         h3 保育園ID
-                        input#schoolId(name="schoolId", required)
+                        input#schoolId(name="schoolId", required,value="guriko")
                         h3 パスワード
-                        input#password(name="password"  type="password", required)
+                        input#password(name="password"  type="password", required,value="guriko")
                         p: button#login.btn.btn-primary.btn-lg.btn-original.long120(type="submit") ログイン
                     p.text-left: a(href="forgotPassword/inputAddress") パスワードを忘れたら
 
