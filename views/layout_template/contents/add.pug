@@ -4,15 +4,20 @@ html
         include ../bootstrap
         link(rel='stylesheet', href='/stylesheets/style.css')
         title= title
-    body
-        .container
-            include ../list/list_header
-            block content
-            p
-                .col-md-5.col-xs-5.text-right
-                    - if(title === '園児追加')
-                        button(class='btn btn-default btn-lg active', type='button', onclick='location.href="/contents/student/list"') キャンセル
-                    - else
-                        button(class='btn btn-default btn-lg active', type='button') キャンセル
-                .col-md-3.col-xs-3.text-right
-                    button(class='btn btn-primary btn-lg active', type='button', onclick='send()') 追加
+    body.skin-blue
+            .wrapper
+                include ../list/list_header
+                .content-wrapper
+                    // コンテンツヘッダ
+                    section.content-header.text-center: h1 #{title}
+                    // メインコンテンツ
+                    section.content
+                        block content
+                        p
+                            .col-md-5.col-xs-5.text-right
+                                - if(title === '園児追加')
+                                    button(class='btn btn-default btn-lg active', type='button', onclick='location.href="/contents/student/list"') キャンセル
+                                - else
+                                    button(class='btn btn-default btn-lg active', type='button') キャンセル
+                            .col-md-3.col-xs-3.text-right
+                                button(class='btn btn-primary btn-lg active', type='button', onclick='send()') 追加

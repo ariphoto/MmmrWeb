@@ -36,14 +36,14 @@ router.post('/', (req, res, next) =>{
             } else {
                 const  err = 'data is wrong';
                 console.log('パスワードが違います');
-                res.render('login',{message: "パスワードが違います"});
+                res.render('login',{title: 'ログイン画面', message: "パスワードが違います"});
             }
         }).catch(err => {
             res.render("server_error")
         });
     }else {
         //ユーザIDとパスワードのどちらか一つでも入力されていなかった場合
-        res.render('login',{message: "IDとパスワードを入力してください"})
+        res.render('login',{title: 'ログイン画面', message: "IDとパスワードを入力してください"})
     }
 });
 
