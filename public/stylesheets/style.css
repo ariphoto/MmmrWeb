@@ -24,6 +24,8 @@ button{
   vertical-align: middle;
   width: 60px;
   height:40px;
+  background-image: none !important;
+  background-repeat: no-repeat !important;
 }
 button.long120{
   text-align: center;

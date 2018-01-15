@@ -1,16 +1,7 @@
-//nav.navbar.navbar-light(style="background-color: #e3f2fd;")
-//    p: h3.text-left #{schoolName}
-//    a.navbar-brand(href="/menu") トップページ
-//    a.navbar-brand(href="/contents/student/list") 園児リスト
-//    a.navbar-brand(href="/contents/teachers/list") 保育士リスト
-//    a.navbar-brand(href="/contents/party/list") 組リスト
-//    a.navbar-brand(href="/contents/school/edit") 設定
-//    a.navbar-brand.pull-right(href="/logout" style="color:red") ログアウト
-
 // トップメニュー
 header.main-header
     // ロゴ
-    a.logo(href="/menu") こどもスタンプ
+    a.logo(href="/menu"): img(src='/image/logos/transparentNofaceCropped.png' width='35%' alt='こどもスタンプ')
     // トップメニュー
     nav.navbar.navbar-static-top(role="navigation")
         // メニュー項目
@@ -33,4 +24,4 @@ aside.main-sidebar
             li: a(href="/contents/student/list"): i.fa.fa-circle-o 園児リスト
             li: a(href="/contents/teachers/list"): i.fa.fa-circle-o 保育士リスト
             li: a(href="/contents/party/list"): i.fa.fa-circle-o 組リスト
-            li: a(href="/contents/attendances/output_logs"): i.fa.fa-circle-o 出席記録
+            li: a(href="/contents/attendances/output_logs"): i.fa.fa-circle-o 出席リスト

@@ -41,7 +41,7 @@
     - link_delete += "javascript:delete_row(" + (i + 1) + ", " + page + ");\'"
     // ID名を動的に生成
     tr(id="row" + (i + 1))
-        td(onclick="getElementById('cb" + (i + 1) + "').click();")
+        td.text-center
             // 1列目のチェックボックス表示
             input(type="checkbox" id='cb' + (i + 1))
             // 隠し項目

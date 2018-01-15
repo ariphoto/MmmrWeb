@@ -24,7 +24,7 @@ router.get('/edit', function(req, res, next) {
             schoolId : req.session.schoolId
         }
     }).then(models => {
-        res.render('contents/school/edit', { title: '保育園編集' , schoolName:req.session.name, 'data': models});
+        res.render('contents/school/edit', { title: '設定' , schoolName:req.session.name, 'data': models});
     }).catch(function(err) {
         if(err) {
             res.status(500).send(connectionError);
