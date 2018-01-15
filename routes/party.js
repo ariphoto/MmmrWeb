@@ -89,4 +89,9 @@ router.post('/list_post', function(req, res, next) {
     }
 });
 
+//attendancesLogの出力ページ
+router.post('/attendanceslog',function(req, res, next){
+    res.render('contents/party/attendanceslog', { title: '出席ログ出力'})
+});
+
 module.exports = router;
