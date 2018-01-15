@@ -12,7 +12,10 @@ html
   - else if(title === 'ログアウト画面')
     body
       block content
-  - else
+  - else if(schoolName)
     body.skin-blue
       .wrapper
         block content
+  - else
+    body
+      block content

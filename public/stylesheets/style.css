@@ -113,3 +113,7 @@ form img.thumb {
   max-width: 160px;
   vertical-align: bottom;
 }
+/* リスト内のチェックボックスを大きくする */
+#list_table input[type=checkbox] {
+  transform: scale(1.5);
+}

@@ -40,11 +40,11 @@ block content
                                                 option(value='woman') 女
                                                 option(value='other') その他
 
-                                            .col-md-5.text-center: select#party_box
+                                            .col-md-5: select#party_box
                                                 option(value='') 組
                                                 - for(let i = 0;i < parties.length;i++)
                                                     option(value=parties[i].name) #{parties[i].name}
-                                            .col-md-4.text-right: select#age_box
+                                            .col-md-4: select#age_box
                                                 option(value='') 年齢
                                                 - for(let i = 0;i < 7;i++)
                                                     option(value=i) #{i}
@@ -60,7 +60,7 @@ block content
 
                                     //　右部分
                                     .col-md-3
-                                        button(onclick="filter()").btn.btn-info.pull-left 実行
+                                        button(onclick="filter()").btn.bg-purple.pull-left 実行
 
                 .row
                     .col-md-10.col-md-offset-1
