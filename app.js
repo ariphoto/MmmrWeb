@@ -132,8 +132,8 @@ const student = require('./routes/student');
 app.use('/contents/student', student);
 const school = require('./routes/school');
 app.use('/contents/school', school);
-
-
+const attendances = require('./routes/attendances');
+app.use('/contents/attendances',attendances);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
