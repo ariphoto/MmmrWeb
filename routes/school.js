@@ -7,7 +7,7 @@ const schoolM = require('../models/school');
 const hasher =require('../utils/hasher');
 const salt = 'shio';
 const uuidv4 = require('uuid/v4');
-//const gmailAuth =require('../auth/gmail');
+const gmailAuth =require('../auth/gmail');
 const sequelize = require('../models/sequelize-loader').database;
 
 const connectionError = 'connection error.'; //接続エラーメッセージ
