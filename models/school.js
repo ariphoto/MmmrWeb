@@ -6,7 +6,7 @@ const school = loader.database.define('school', {
         type: Sequelize.STRING(128),
         primaryKey: true,
         validate: {
-            len: [8,20]
+            len: [4,20]
         }
     },
     mailAddress: {

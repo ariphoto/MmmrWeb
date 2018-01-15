@@ -3,64 +3,64 @@ block script
     script(src="/javascripts/list/list_base.js")
     script(src="/javascripts/list/list_studentEdit.js")
 block content
-    .container.text-center(onload = "javascript:init();")
+    div(onload = "javascript:init();")
         include ../../layout_template/list/list_header
+        .content-wrapper
+            // コンテンツヘッダ
+            section.content-header: h1.text-center #{title}
+            // メインコンテンツ
+            section.content
+                .row
+                    // 絞り込みのボックス
+                    .col-xs-10.col-xs-offset-1.col-md-6.col-md-offset-3
+                        .box.box-default.color-palette-box
+                            .box-header.with-border
+                                h3.box-title: i.fa.fa-search 絞り込み
+                            .box-body
+                                .row
+                                    // 左部分
+                                    .col-md-5.col-md-offset-2
 
-        .row
-            .col-md-8.col-md-offset-2
-                h1.text-center #{title}
+                                        // 名前ボックス
+                                        .row
+                                            .col-md-12
+                                                - if(inputData)
+                                                    input#name_box(style="width: 100%" placeholder="名前" value = inputData[0])
+                                                    input#gender_h(type="hidden" value = inputData[1])
+                                                    input#party_h(type="hidden" value = inputData[2])
+                                                    input#age_h(type="hidden" value = inputData[3])
+                                                - else
+                                                    input#name_box(style="width: 100%" placeholder="名前")
 
-        .row
-            // 絞り込みのボックス
-            .col-xs-10.col-xs-offset-1.col-md-6.col-md-offset-3.refineBox
+                                        // プルダウン群
+                                        .row
+                                            .col-md-3: select#gender_box
+                                                option(value='') 性別
+                                                option(value='man') 男
+                                                option(value='woman') 女
+                                                option(value='other') その他
 
-                // 左部分
-                .col-md-3.refine-other
-                    p 絞り込み
+                                            .col-md-5.text-center: select#party_box
+                                                option(value='') 組
+                                                - for(let i = 0;i < parties.length;i++)
+                                                    option(value=parties[i].name) #{parties[i].name}
+                                            .col-md-4.text-right: select#age_box
+                                                option(value='') 年齢
+                                                - for(let i = 0;i < 7;i++)
+                                                    option(value=i) #{i}
 
-                // 中央部分
-                .col-md-6.refine-other
+                                        // 卒園 チェックボックス
+                                        .row
+                                            .col-md-12.text-left
+                                                - if(inputData && inputData[4] === "true")
+                                                    input#graduation(type='checkbox' checked='true')
+                                                - else
+                                                    input#graduation(type='checkbox')
+                                                label(onclick="getElementById('graduation').click();") 卒園者含む
 
-                    // 名前ボックス
-                    .row
-                        .col-md-12
-                            - if(inputData)
-                                input#name_box(style="width: 100%" placeholder="名前" value = inputData[0])
-                                input#gender_h(type="hidden" value = inputData[1])
-                                input#party_h(type="hidden" value = inputData[2])
-                                input#age_h(type="hidden" value = inputData[3])
-                            - else
-                                input#name_box(style="width: 100%" placeholder="名前")
-
-                    // プルダウン群
-                    .row
-                        .col-md-3: select#gender_box
-                            option(value='') 性別
-                            option(value='man') 男
-                            option(value='woman') 女
-                            option(value='other') その他
-
-                        .col-md-5.text-center: select#party_box
-                            option(value='') 組
-                            - for(let i = 0;i < parties.length;i++)
-                                option(value=parties[i].name) #{parties[i].name}
-                        .col-md-4.text-right: select#age_box
-                            option(value='') 年齢
-                            - for(let i = 0;i < 7;i++)
-                                option(value=i) #{i}
-
-                    // 卒園 チェックボックス
-                    .row
-                        .col-md-12.text-left
-                            - if(inputData && inputData[4] === "true")
-                                input#graduation(type='checkbox' checked='true')
-                            - else
-                                input#graduation(type='checkbox')
-                            label(onclick="getElementById('graduation').click();") 卒園者含む
-
-                //　右部分
-                .col-md-3.refine-student-btn
-                    button(onclick="filter()").btn.btn-info.pull-left 実行
+                                    //　右部分
+                                    .col-md-3
+                                        button(onclick="filter()").btn.btn-info.pull-left 実行
 
         .row
             .col-md-10.col-md-offset-1
@@ -68,20 +68,23 @@ block content
                 .pull-right 選択した項目を
                     button(onclick="delete_multi()").btn.btn-danger.btn-original 削除
 
-        .row
-            .col-md-10.col-md-offset-1
-                // リスト表示用テーブル
-                table#list_table.table.table-bordered.table-striped(style='table-layout:fixed')
-                    thead
-                        tr
-                            .row
-                                th.col-md-1
-                                th.col-md-2 写真
-                                th.col-md-2 名前
-                                th.col-md-2 組
-                                th.col-md-1 年齢
-                                th.col-md-2 編集
-                                th.col-md-2 削除
-                    tbody
-                    - const cols = 3 // テキスト表示する項目数
-                    include ../../layout_template/list/show_data
+                .row
+                    .col-md-10.col-md-offset-1
+                        .box
+                            .box-body
+                                #example2_wrapper.dataTables_wrapper.form-inline.dt-bootstrap
+                                    // リスト表示用テーブル
+                                    table#list_table.table.table-bordered.table-striped.dataTable(style='table-layout:fixed' role="grid" aria-describedby="example2_info")
+                                        thead
+                                            tr
+                                                .row
+                                                    th.col-md-1
+                                                    th.col-md-2 写真
+                                                    th.col-md-2 名前
+                                                    th.col-md-2 組
+                                                    th.col-md-1 年齢
+                                                    th.col-md-2 編集
+                                                    th.col-md-2 削除
+                                        tbody
+                                        - const cols = 3 // テキスト表示する項目数
+                                        include ../../layout_template/list/show_data

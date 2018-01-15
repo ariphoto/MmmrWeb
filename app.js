@@ -90,6 +90,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+//bootstrapのテンプレート
+app.use('/admin-lte', express.static(__dirname + '/node_modules/admin-lte/dist'));
 app.use(helmet());
 //sessionの設定
 app.use(session({
@@ -112,6 +115,8 @@ const login = require('./routes/login');
 app.use('/login', login);
 const forgotPassword = require('./routes/forgotPassword');
 app.use('/forgotPassword', forgotPassword);
+const school = require('./routes/school');
+app.use('/contents/school', school);
 //セッションチェック
 const sessionCheck = require('./routes/sessionCheck');
 app.use(sessionCheck);
@@ -127,8 +132,6 @@ const party = require('./routes/party');
 app.use('/contents/party', party);
 const student = require('./routes/student');
 app.use('/contents/student', student);
-const school = require('./routes/school');
-app.use('/contents/school', school);
 const attendances = require('./routes/attendances');
 app.use('/contents/attendances',attendances);
 

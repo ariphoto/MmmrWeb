@@ -1,11 +1,14 @@
 extends layout_template/layout
 block content
-    .container.text-center
-        include layout_template/list/list_header
-
-        .row
-            .col-md-6.col-md-offset-3
-                .panel.panel-primary
-                    .panel-heading: h2.panel-title お知らせ
-                    .panel-body
-                        p
+    include layout_template/list/list_header
+    .content-wrapper
+        // コンテンツヘッダ
+        //section.content-header: h1 #{title}
+        // メインコンテンツ
+        section.content
+            .row
+                .col-md-6.col-md-offset-3
+                    .panel.panel-primary
+                        .panel-heading: h2.panel-title お知らせ
+                        .panel-body
+                            p

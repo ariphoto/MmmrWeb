@@ -2,8 +2,10 @@ extends ../../layout_template/contents/edit
 block script
     script(src="/javascripts/school_edit.js")
 block content
-    .text-center.row
-        p(style={color: "", "font-weight": "bolder", "font-size": "xx-large"}) 設定
-    .text-center.row
-        .col-md-6.col-md-offset-3
-            include template
+    .content-wrapper
+        // コンテンツヘッダ
+        // メインコンテンツ
+        section.content
+            .col-md-6.col-md-offset-3.text-center.row
+                form#school_form(method='post' action='/contents/school/edit')
+                    include template

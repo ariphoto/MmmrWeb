@@ -1,7 +1,10 @@
 body {
 
+  /*
   padding: 20px;
   font: italic normal bold 200%/200% "Lucida Grande", Helvetica, Arial, sans-serif;
+  */
+  font-family: "メイリオ", sans-serif;
 }
 table{
   border-collapse: separate;
@@ -112,4 +115,3 @@ form img.thumb {
   max-width: 160px;
   vertical-align: bottom;
 }
-
