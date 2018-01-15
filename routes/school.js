@@ -113,7 +113,7 @@ router.get('/end', function(req, res, next) {
     //todo 結果が一件もなかったときのcatchを書く　trueで本登録完了画面　falseでエラー画面
     console.log('ヒドゥンキー' + req.query.hidden_key);
     schoolM.findAll(
-        
+
         ).then(model => {
         console.log(model);
         res.render('contents/school/end');
