@@ -63,10 +63,16 @@ const dateUtil = require('../utils/dateEditor');
 router.get('/output_logs', function (req, res, next) {
     const Op = sequelize.Op;
     // const input = req.query.name;
-    const studentName = req.query.studentName;
-    const toDate = req.query.toDate;
-    const fromDate = req.query.fromDate;
+    const studentName = req.query.student;
     const partyName = req.query.party;
+    const year = req.query.year;
+    const month = req.query.month;
+    const week = req.query.week;
+    console.error(year);
+    console.error(month);
+    console.error(week);
+    console.error(partyName);
+
     const attendanceQuery = {
 
         where:{},
@@ -101,20 +107,42 @@ router.get('/output_logs', function (req, res, next) {
         }
     }
 
-    if (toDate && fromDate) {
-        attendanceQuery.where.time = {
-            [Op.between]: [new Date(fromDate), new Date(toDate)]
+    if (year && month && week) {
+        //TODO:時差を考慮する
+        //月の始まりの日付
+        const startMonthDate = new Date(year, month - 1, 1);
+        //月の終わりの日付
+        const endMonthDate = new Date(year, month, 0);
+        //第2週の始まりの日付
+        const secondWeekStartDate = new Date(startMonthDate);
+        secondWeekStartDate.setDate(1 + (7 - secondWeekStartDate.getDay()));
+        //始まりの日付
+        let startDate;
+        //終わりの日付
+        let endDate;
+        if (week === "1") {
+            startDate = startMonthDate;
+            endDate = secondWeekStartDate;
+        } else {
+            startDate = new Date(secondWeekStartDate);
+            startDate.setDate(startDate.getDate() + 7 * (week - 2));
+            const endWeekDate = new Date(startDate);
+            if (endMonthDate.getTime() < endWeekDate.getTime()) {
+                endDate = endMonthDate;
+            } else {
+                endDate = endWeekDate;
+            }
         }
-    } else if (toDate) {
-        attendanceQuery.where.time = {
-            [Op.between]: [dateUtil.getStart(toDate), dateUtil.getEnd(toDate)]
+        if (startDate && endDate) {
+            attendanceQuery.where.time = {
+                [Op.between]: [startDate, dateUtil.getEnd(endDate)]
+            };
+        }else{
+            console.log(startDate);
+            console.log(endDate);
         }
-    } else if (fromDate) {
-        attendanceQuery.where.time = {
-            [Op.between]: [dateUtil.getStart(fromDate), dateUtil.getEnd(fromDate)]
-        }
-    }
 
+    }
 
     // 選択された組に対するpartyIdを取得
     Promise.all([
@@ -129,9 +157,9 @@ router.get('/output_logs', function (req, res, next) {
         res.render('contents/attendances/output_logs', {
             title: '出席記録',
             schoolName: req.session.name,
-            //'inputData': input,
-            'data':models,
-            'parties': models[0]
+            // inputData: input,
+            data:models,
+            parties: models[0]
         });
     }).catch(function (err) {
         if (err)
