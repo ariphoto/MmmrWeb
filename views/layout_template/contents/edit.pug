@@ -17,12 +17,12 @@ html
                     p#under
                         .col-md-5.col-xs-5.text-right
                             - if(title === '園児編集')
-                                button(class='btn btn-default btn-lg active', type='button', onclick='location.href="/contents/student/list"') キャンセル
+                                button(class='btn btn-default btn-lg active long120', type='button', onclick='location.href="/contents/student/list"') キャンセル
                             - else
                                 // button(class='btn btn-default btn-lg active', type='button') キャンセル
                         .col-md-3.col-xs-3.text-right
                             - if(title === '園児編集')
-                                button(class='btn btn-primary btn-lg active', onclick='send();') 変更
+                                button(class='btn btn-primary active', onclick='send();') 変更
                             - else
                                 // 保育園編集のとき
-                                button(class='btn btn-primary btn-lg active' onclick='schoolPasswordEdit()') 変更
+                                button(class='btn btn-primary active' onclick='schoolPasswordEdit()') 変更

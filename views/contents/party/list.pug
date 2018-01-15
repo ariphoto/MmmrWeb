@@ -15,26 +15,26 @@ block content
                     .box.box-default.color-palette-box
                         .box-header.with-border
                             h3.box-title: i.fa.fa-search 絞り込み
-                                .box-body
-                                    .row
-                                        // 左部分
-                                        .col-md-5.col-md-offset-2
+                        .box-body
+                            .row
+                                // 左部分
+                                .col-md-5.col-md-offset-2
 
-                                            // 名前ボックス
-                                            - if(inputData)
-                                                input#name_box(style="width: 100%" placeholder="名前" value = inputData)
-                                            - else
-                                                input#name_box(style="width: 100%" placeholder="名前")
+                                    // 名前ボックス
+                                    - if(inputData)
+                                        input#name_box(style="width: 100%" placeholder="名前" value = inputData)
+                                    - else
+                                        input#name_box(style="width: 100%" placeholder="名前")
 
-                                        //　右部分
-                                        .col-md-3
-                                            button(onclick="filter()").btn.btn.btn-info.pull-left 実行
+                                //　右部分
+                                .col-md-3
+                                    button(onclick="filter()").btn.btn.btn-info.pull-left 実行
 
-        .row
-            .col-md-10.col-md-offset-1
-                .pull-left: button#btn_insert(onclick="insertRow()").btn.btn-success.btn-original.long120 新規追加
-                .pull-right 選択した項目を
-                    button(onclick="delete_multi()").btn.btn-danger.btn-original 削除
+            .row
+                .col-md-10.col-md-offset-1
+                    .pull-left: button#btn_insert(onclick="insertRow()").btn.btn-success.btn-original.long120 新規追加
+                    .pull-right 選択した項目を
+                        button(onclick="delete_multi()").btn.btn-danger.btn-original 削除
 
             .row
                 .col-md-10.col-md-offset-1
