@@ -3,53 +3,54 @@ block script
     script(src="/javascripts/list/list_base.js")
     script(src="/javascripts/list/list_onRows.js")
 block content
-    .container.text-center
-        include ../../layout_template/list/list_header
+    include ../../layout_template/list/list_header
+    .content-wrapper
+        // コンテンツヘッダ
+        section.content-header: h1.text-center #{title}
+        // メインコンテンツ
+        section.content
+            .row
+                //絞り込みボックス
+                form.col-xs-10.col-xs-offset-1.col-md-6.col-md-offset-3(method="get")
+                    // 絞り込みのボックス
+                    .box.box-default.color-palette-box
+                        .box-header.with-border
+                            h3.box-title: i.fa.fa-search 絞り込み
+                        .box-body
+                            .row
+                                // 左部分
+                                .col-md-5.col-md-offset-2
 
-        .row
-            .col-md-8.col-md-offset-2
-                h1.text-center #{title}
-        .row
-            //絞り込みボックス
-            form.col-xs-10.col-xs-offset-1.col-md-6.col-md-offset-3.refineBox(method="get")
+                                    //名前ボックス
+                                    .row
+                                        .col-md-12
 
-                //左部分
-                .col-md-3.refine-other
-                    p 絞り込み
+                                            -if(inputData)
+                                                input#name_box(style="width: 100%" placeholder="名前" value = inputData[0])
+                                                input#gender_h(type="hidden" value = inputData[1])
+                                                input#party_h(type="hidden" value = inputData[2])
+                                                input#age_h(type="hidden" value = inputData[3])
+                                            - else
+                                                input#name_box(name="student" style="width: 100%" placeholder="名前")
 
-                //中央部分
-                .col-md-6.refine-other
+                                    //プルダウン群
+                                    .row
+                                        .col-md-4.text-center: select#year_box(name="year")
+                                            option(value=2018) 2018年
 
-                    //名前ボックス
-                    .row
-                        .col-md-12
+                                        .col-md-4.text-center: select#month_box(name="month")
+                                            - for (let i = 1;i<13 ;i++)
+                                                option(value=i) #{i}月
 
-                            -if(inputData)
-                                input#name_box(style="width: 100%" placeholder="名前" value = inputData[0])
-                                input#gender_h(type="hidden" value = inputData[1])
-                                input#party_h(type="hidden" value = inputData[2])
-                                input#age_h(type="hidden" value = inputData[3])
-                            - else
-                                input#name_box(name="student" style="width: 100%" placeholder="名前")
+                                        .col-md-4.text-center: select#week_box(name="week")
+                                            - for (let i = 1;i<6 ;i++)
+                                                option(value=i) 第#{i}週
 
-                    //プルダウン群
-                    .row
-                        .col-md-4.text-center: select#year_box(name="year")
-                            option(value=2018) 2018年
-
-                        .col-md-4.text-center: select#month_box(name="month")
-                            - for (let i = 1;i<13 ;i++)
-                                option(value=i) #{i}月
-
-                        .col-md-4.text-center: select#week_box(name="week")
-                            - for (let i = 1;i<6 ;i++)
-                                option(value=i) 第#{i}週
-
-                //右部分
-                .col-md-3.refine-student-btn
-                    .row
-                        .col-md-5.text-center: select#party_box(name="party")
-                            - for(let i = 0;i < parties.length;i++)
-                                option(value=parties[i].name) #{parties[i].name}
-                    .row
-                        button(type="submit").btn.btn-info.pull-left 実行
+                                //　右部分
+                                .col-md-3
+                                    .row
+                                        .col-md-5.text-center: select#party_box(name="party")
+                                            - for(let i = 0;i < parties.length;i++)
+                                                option(value=parties[i].name) #{parties[i].name}
+                                    .row
+                                        button(type="submit").btn.bg-purple.pull-left 実行
