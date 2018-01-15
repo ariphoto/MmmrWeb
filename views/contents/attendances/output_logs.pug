@@ -53,3 +53,9 @@ block content
                                 option(value=parties[i].name) #{parties[i].name}
                     .row
                         button(type="submit").btn.btn-info.pull-left 実行
+
+        .row
+            .col-md-10.col-md-offset-1
+                .col-md-2: p #{inputYear}年
+                .col-md-2: p #{inputMonth}月
+                .col-md-2: p 第#{inputMonth}週目

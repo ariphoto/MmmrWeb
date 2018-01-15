@@ -15,50 +15,6 @@ const dateUtil = require('../utils/dateEditor');
 
 //TODO:
 // リストページ初回表示
-// router.get('/output_logs', function (req, res, next) {
-//     partyM.findAll({
-//         raw: true,
-//         where: {
-//             schoolId: req.session.schoolId
-//         }
-//     }).then(parties => {
-//         // 全データ取得
-//         studentM.findAll({
-//             raw: true,
-//             attributes: {include: [[sequelize.fn('timestampdiff', sequelize.literal('year'), sequelize.col('birthDay'), sequelize.fn('CURDATE')), 'age']]},
-//             where: {
-//                 birthDay: {
-//                     [Op.between]: [thisYear - 6 + '-01-01', thisYear + '-03-31']
-//                 }
-//             },
-//             include: [
-//                 {
-//                     model: partyM,
-//                     where: {
-//                         schoolId: req.session.schoolId
-//                     },
-//                     attributes: ["name"],
-//                     required: true
-//                 }
-//             ]
-//         }).then(models => {
-//             res.render('contents/attendances/output_logs', {
-//                 title: '出席ログ',
-//                 schoolName: req.session.name,
-//                 'data': models,
-//                 'parties': parties
-//             });
-//         }).catch(function (err) {
-//             if (err)
-//                 console.error(err);
-//             res.status(500).send(connectionError);
-//         });
-//     }).catch(function (err) {
-//         if (err)
-//             res.status(500).send(connectionError);
-//     });
-// });
-
 // 絞り込みが行われた場合
 router.get('/output_logs', function (req, res, next) {
     const Op = sequelize.Op;
@@ -159,7 +115,10 @@ router.get('/output_logs', function (req, res, next) {
             schoolName: req.session.name,
             // inputData: input,
             data:models,
-            parties: models[0]
+            parties: models[0],
+            inputYear:year,
+            inputMonth:month,
+            inputWeek:week
         });
     }).catch(function (err) {
         if (err)

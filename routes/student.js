@@ -116,7 +116,12 @@ router.get('/list', function(req, res, next) {
                 }
             ]
         }).then(models => {
-            res.render('contents/student/list', {title: '園児一覧', schoolName:req.session.name, 'data': models, 'parties': parties});
+            res.render('contents/student/list', {
+                title: '園児一覧',
+                schoolName:req.session.name,
+                'data': models,
+                'parties': parties
+            });
         }).catch(function(err) {
                 if(err)
                     res.status(500).send(connectionError);
@@ -149,7 +154,15 @@ router.post('/list', function(req, res, next) {
         // studentテーブルから抽出する
         studentM.findAll({
             raw: true,
-            attributes: {include: [[sequelize.fn('timestampdiff', sequelize.literal('year'), sequelize.col('birthDay'), sequelize.fn('CURDATE')), 'age']]},
+            attributes: {
+                include: [[
+                    sequelize.fn('timestampdiff',
+                    sequelize.literal('year'),
+                    sequelize.col('birthDay'),
+                    sequelize.fn('CURDATE')),
+                    'age'
+                ]]
+            },
             include: [
                 {
                     model: partyM,
@@ -185,7 +198,13 @@ router.post('/list', function(req, res, next) {
                 }
             }
         }).then(models => {
-            res.render('contents/student/list', {title: '園児一覧', schoolName:req.session.name, 'data': models, 'inputData': input, 'parties': parties});
+            res.render('contents/student/list', {
+                title: '園児一覧',
+                schoolName:req.session.name,
+                'data': models,
+                'inputData': input,
+                'parties': parties
+            });
         }).catch(function(err) {
             if(err)
                 res.status(500).send(connectionError);
