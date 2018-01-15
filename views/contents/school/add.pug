@@ -6,8 +6,12 @@ block content
     //保育園データの入力
         passcheckはパスワード入力、再入力での照合チェック。
     form(id='schoolAdd' method='post', action='/contents/school/provisional', onsubmit='return passCheck();')
+    .content-wrapper
+        // コンテンツヘッダ
+        // メインコンテンツ
+        section.content
+            .col-md-6.col-md-offset-3.text-center.row
+                include template
 
-        include template
-
-        button(class='', type='submit',  onclick='') 送信
+                button(class='', type='submit',  onclick='') 送信
 
