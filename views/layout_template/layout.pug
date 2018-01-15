@@ -1,13 +1,18 @@
 doctype html
-center
-  html
-    head
-      block meta
-      title= title
-      include bootstrap
-      link(rel='stylesheet', href='/stylesheets/style.css')
-      block script
-      body(onload="init();")
+html
+  head
+    title= title
+    include bootstrap
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    block meta
+    block script
+  - if(title === 'ログイン画面')
+    body.login-page
+      block content
+  - else if(title === 'ログアウト画面')
+    body
+      block content
+  - else
+    body.skin-blue
+      .wrapper
         block content
-
-

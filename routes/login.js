@@ -25,7 +25,8 @@ router.post('/', (req, res, next) =>{
     if(userId && password) {
         schoolM.findById(userId).then(model => {
             //ソルトを使用したリクエスト内のパスワードのハッシュ化
-            if (model && hasher(password, model.salt) === model.password) {
+            if (model && model.provisional_flg==true && hasher(password, model.salt) === model.password) {
+
                 console.error(model.name);
                 //セッションの発行
                 req.session.schoolId = req.body.schoolId;
@@ -36,14 +37,14 @@ router.post('/', (req, res, next) =>{
             } else {
                 const  err = 'data is wrong';
                 console.log('パスワードが違います');
-                res.render('login',{message: "パスワードが違います"});
+                res.render('login',{title: 'ログイン画面', message: "パスワードが違います"});
             }
         }).catch(err => {
             res.render("server_error")
         });
     }else {
         //ユーザIDとパスワードのどちらか一つでも入力されていなかった場合
-        res.render('login',{message: "IDとパスワードを入力してください"})
+        res.render('login',{title: 'ログイン画面', message: "IDとパスワードを入力してください"})
     }
 });
 

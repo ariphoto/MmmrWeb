@@ -6,7 +6,7 @@ const school = loader.database.define('school', {
         type: Sequelize.STRING(128),
         primaryKey: true,
         validate: {
-            len: [8,20]
+            len: [4,20]
         }
     },
     mailAddress: {
@@ -24,7 +24,7 @@ const school = loader.database.define('school', {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
-             len: [44,45]
+            len: [8,60]
         }
     },
     salt: {
@@ -32,10 +32,12 @@ const school = loader.database.define('school', {
         allowNull: false
     },
     provisional_flg:{
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false
     },
     hidden_key:{
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
+        allowNull:false
     }
 },{charset: 'utf8mb4',collate: 'utf8mb4_general_ci'});
 module.exports = school;

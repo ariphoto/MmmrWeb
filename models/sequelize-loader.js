@@ -1,6 +1,5 @@
 'use strict';
 const Sequelize = require('sequelize');
-
 const host = "localhost";
 const db = "node_base";
 const user = "root";

@@ -1,32 +1,37 @@
-- var rows = data.length // データの件数
-- var dataRow = [] // 1行のデータを項目ごとに保持する
+- const rows = data.length // データの件数
+- const dataRow = [] // 1行のデータを項目ごとに保持する
 
-- for (var i = 0; i < rows; i++)
 
-    - var link_edit = "location.href=\'" // リンク先
-    - var link_delete = "location.href=\'" // リンク先
-    - var page = ""
+- for (let i = 0; i < rows; i++)
 
-    - if(title == "園児一覧")
+    - let link_edit = "location.href=\'" // リンク先
+    - let link_delete = "location.href=\'" // リンク先
+    - let page = ""
+    - const genderColor = {man: 'blue', woman: 'red', other: 'green'}; // 性別を色で表す
+
+    - if(title === "園児一覧")
         - page = '"stu"'
         - dataRow[0] = data[i].studentId
-        - dataRow[1] = data[i].picturePath
-        - dataRow[2] = data[i].name
-        - dataRow[3] = data[i].phonetic
-        - if(data[i].gender == "man")
-            - dataRow[4] = "男"
-        - else if(data[i].gender == "woman")
-            - dataRow[4] = "女"
+        - dataRow[1] = data[i].name
+        - if(data[i].gender === "man")
+            - dataRow[5] = "男"
+        - else if(data[i].gender === "woman")
+            - dataRow[5] = "女"
         - else
-            - dataRow[4] = "その他"
+            - dataRow[5] = "その他"
 
-        - dataRow[5] = data[i]['party.name']
-        - dataRow[6] = data[i].age
+        - dataRow[2] = data[i]['party.name']
+        - dataRow[3] = data[i].age
+    -else if(title ==="出席記録")
+        - page ='"att"'
+        - dataRow[0] = data[i].studentId
+        - dataRow[1] = data[i].name
+        - dataRow[2] = data[i]['party.name']
     - else
         - dataRow[1] = data[i].name
         - dataRow[2] = data[i].remarks
 
-        - if(title == "保育士一覧")
+        - if(title === "保育士一覧")
             - page = '"tea"'
             - dataRow[0] = data[i].teacherId
         - else
@@ -36,24 +41,21 @@
     - link_delete += "javascript:delete_row(" + (i + 1) + ", " + page + ");\'"
     // ID名を動的に生成
     tr(id="row" + (i + 1))
-        td
+        td(onclick="getElementById('cb" + (i + 1) + "').click();")
             // 1列目のチェックボックス表示
-            input(type="checkbox")
+            input(type="checkbox" id='cb' + (i + 1))
             // 隠し項目
             input(type="hidden" value = dataRow[0])
 
-        - if(title == "園児一覧")
-            td: img(src= "/image/" + dataRow[1])
-            - var j = 2; // dataRowの開始位置
-        - else
-            - var j = 1; // dataRowの開始位置
+        - if(title === "園児一覧")
+            td: img.img-circle(src= "/image/" + dataRow[0] + ".jpg" style="border: solid 5px " + genderColor[data[i].gender])
 
         - link_edit += "javascript:edit_row(" + (i + 1) + ", " + page + ");\'"
 
-        - for (var k = 0; k < cols + 2; k++)
-            - if(k == cols)
-                td: button.btn.btn-warning.btn-original(onclick= link_edit) 編集
-            -else if(k == cols + 1)
-                td: button.btn.btn-danger.btn-original(onclick= link_delete) 削除
+        - for (let k = 0; k < cols + 2; k++)
+            - if(k === cols)
+                td.text-center: button.btn.btn-warning.btn-original(onclick= link_edit) 編集
+            -else if(k === cols + 1)
+                td.text-center: button.btn.btn-danger.btn-original(onclick= link_delete) 削除
             - else
-                td: span #{dataRow[j + k]}
+                td.text-center(style='overflow:hidden'): span #{dataRow[k + 1]}

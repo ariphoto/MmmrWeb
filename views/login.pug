@@ -4,24 +4,33 @@ block script
     script (src="/javascripts/login/")
 
 block content
-    .container
-        .row
-            .col-xs-8.col-xs-offset-2.col-md-4.col-md-offset-4.text-right
-                if (message)
-                    .alert.alert-danger(role="alert") #{message}
-                button.btn.btn-danger.btn-lg.btn-original 新規登録
-        .row
-            .col-xs-12.col-md-4.col-md-offset-4.text-center(style="background-color: #e3f2fd;")
-                // 左側
-                h2 管理システム
-                // 右側
-                .login-form.center-block
-
+    .row
+        .col-xs-8.col-xs-offset-2.col-md-4.col-md-offset-4.text-center
+            .login-box
+                .login-logo
+                    h1 こどもスタンプ
+                .login-box-body
+                    .login-logo
+                    //.row
+                    //    .col-xs-12.col-md-4.col-md-offset-4.text-center(style="background-color: #e3f2fd;")
+                    //        // 左側
+                    //        h2 管理システム
+                    //        // 右側
+                    //        .login-form.center-block
+                    if (message)
+                        .alert.alert-danger(role="alert") #{message}
                     form#login_form(method="POST" action="/login")
-                        h3 保育園ID
-                        input#schoolId(name="schoolId",required)
-                        h3 パスワード
-                        input#password(name="password"  type="password",required)
-                        p: button#login.btn.btn-primary.btn-lg.btn-original(type="submit") ログイン
+                        // ID
+                        .form-group.has-feedback
+                            input.form-control#schoolId(name="schoolId", required placeholder="保育園ID")
+                            span.fa.fa-user.form-control-feedback
+                        // パスワード
+                        .form-group.has-feedback
+                            input.form-control#password(name="password"  type="password", required placeholder="パスワード")
+                            span.glyphicon.glyphicon-lock.form-control-feedback
+
+                        p: button#login.btn.btn-primary.btn-lg.btn-original.long120(type="submit") ログイン
                     p.text-left: a(href="forgotPassword/inputAddress") パスワードを忘れたら
+                    p(style='width:100%; border:solid 1px black')
+                    p.text-left: a(href="contents/school/add") アカウントをお持ちではありませんか？
 

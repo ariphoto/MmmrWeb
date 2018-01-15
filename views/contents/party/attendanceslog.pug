@@ -1,0 +1,11 @@
+extends ../../layout_template/layout
+block script
+    script(src="/javascripts/list/list_base.js")
+    script(src="/javascripts/list/list_onRows.js")
+block content
+    .container.text-center
+        include ../../layout_template/list/list_header
+
+        .row
+            .col-md-8.col-md-offset-2
+                h1.text-center #{title}

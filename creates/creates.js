@@ -13,14 +13,18 @@ const takahashi = {
 	mailAddress:"takahashi@hoiku.en.jp",
 	name:"たかはし保育園",
 	password:hasher('takahashi',salt),
-	salt:salt
+	salt:salt,
+	provisional_flg:true,
+	hidden_key:'66e223ff-cc9a-44f0-8303-4c8392986f2c'
 };
 const guriko = {
 	schoolId:'guriko',
 	mailAddress:"guriko@hoiku.en.jp",
 	name:"ぐりこ幼稚園",
 	password:hasher('guriko',salt),
-	salt:salt
+	salt:salt,
+	provisional_flg:true,
+	hidden_key:'281d2dfa-5816-474e-9058-451070ff638d'
 };
 const kirara = {
     schoolId:'kirara',
@@ -28,14 +32,14 @@ const kirara = {
     name:"きらら保育園",
     password:hasher('kirara',salt),
     salt:salt,
-    provisional_flg:false,
-	hidden_key:823784798
+    provisional_flg:true,
+	hidden_key:'e7b2afe3-1cb8-47e0-9651-32ad3dd22080'
 };
 const schoolCreate = (model) => {
 	model.bulkCreate([
-		takahashi,
+		kirara,
 		guriko,
-		kirara
+		takahashi
 	],{
 		updateOnDuplicate:true
 	});
@@ -123,7 +127,7 @@ const bara = {
 	name: "ばら",
 	schoolId: takahashi.schoolId,
     remarks: "ba"
-}; 
+};
 
 const fuji = {
 	partyId: 'f53a2baa-a22e-4d92-8e88-877c2df1096b',
@@ -162,7 +166,6 @@ const studentCreate = (model) => {
 			nickname: "ゆき",
 			phonetic: "きたじまゆきこ",
 			gender: "woman",
-			picturePath: "y_kitajima.jpg",
 			birthDay: Date.UTC(2012, 4, 5),
 			partyId: bara.partyId
 		}, {
@@ -171,7 +174,6 @@ const studentCreate = (model) => {
 			nickname: "みのぶ",
 			phonetic: "ほしみのぶ",
 			gender: "man",
-			picturePath: "m_hoshi.jpg",
 			birthDay: Date.UTC(2012, 6, 7),
 			partyId: bara.partyId
 		}, {
@@ -180,7 +182,6 @@ const studentCreate = (model) => {
 			nickname: "しょう",
 			phonetic: "かくたしょうぞう",
 			gender: "man",
-			picturePath: "s_kakuta.jpg",
 			birthDay: Date.UTC(2012, 8, 20),
 			partyId: bara.partyId
 		}, {
@@ -189,7 +190,6 @@ const studentCreate = (model) => {
 			nickname: "ときお",
 			phonetic: "たかやまときお",
 			gender: "man",
-			picturePath: "t_takayama.jpg",
 			birthDay: Date.UTC(2012, 9, 17),
 			partyId: bara.partyId
 		}, {
@@ -198,7 +198,6 @@ const studentCreate = (model) => {
 			nickname: "よし",
 			phonetic: "のざわよしひさ",
 			gender: "man",
-			picturePath: "y_nozawa.jpg",
 			birthDay: Date.UTC(2012, 3, 5),
 			partyId: bara.partyId
 		}, {
@@ -207,7 +206,6 @@ const studentCreate = (model) => {
 			nickname: "ちえ",
 			phonetic: "くろきちえこ",
 			gender: "woman",
-			picturePath: "c_kuroki.jpg",
 			birthDay: Date.UTC(2012, 1, 23),
 			partyId: bara.partyId
 		}, {
@@ -216,7 +214,6 @@ const studentCreate = (model) => {
 			nickname: "きょう",
 			phonetic: "ねもときょうじ",
 			gender: "man",
-			picturePath: "k_nemoto.jpg",
 			birthDay: Date.UTC(2012, 7, 5),
 			partyId: bara.partyId
 		}, {
@@ -225,7 +222,6 @@ const studentCreate = (model) => {
 			nickname: "とし",
 			phonetic: "しもむらとしひこ",
 			gender: "man",
-			picturePath: "t_shimomura.jpg",
 			birthDay: Date.UTC(2015, 10, 20),
 			partyId: fuji.partyId
 		}, {
@@ -234,7 +230,6 @@ const studentCreate = (model) => {
 			nickname: "ひさ",
 			phonetic: "おくむらひさえ",
 			gender: "woman",
-			picturePath: "h_okumura.jpg",
 			birthDay: Date.UTC(2013, 11, 6),
 			partyId: tampopo.partyId
 		}, {
@@ -243,7 +238,6 @@ const studentCreate = (model) => {
 			nickname: "つばさ",
 			phonetic: "おぎのつばさ",
 			gender: "man",
-			picturePath: "t_ogino.jpg",
 			birthDay: Date.UTC(2013, 8, 3),
 			partyId: tampopo.partyId
 		}, {
@@ -252,7 +246,6 @@ const studentCreate = (model) => {
 			nickname: "ゆう",
 			phonetic: "ひがゆうこ",
 			gender: "woman",
-			picturePath: "y_higa.jpg",
 			birthDay: Date.UTC(2014, 3, 27),
 			partyId: sumire.partyId
 		}, {
@@ -261,7 +254,6 @@ const studentCreate = (model) => {
 			nickname: "とも",
 			phonetic: "ふくいともかつ",
 			gender: "man",
-			picturePath: "t_hukui.jpg",
 			birthDay: Date.UTC(2014, 2, 15),
 			partyId: sumire.partyId
 
@@ -271,7 +263,6 @@ const studentCreate = (model) => {
 			nickname: "やす",
 			phonetic: "まつおかやすひで",
 			gender: "man",
-			picturePath: "y_matsuoka.jpg",
 			birthDay: Date.UTC(2014, 8, 1),
 			partyId: sumire.partyId
 		}

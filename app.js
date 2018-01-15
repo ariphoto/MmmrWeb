@@ -1,13 +1,17 @@
 "use strict";
-
-const sequelize = require('./models/sequelize-loader').database;
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+
 const helmet = require('helmet'); // helmet(セキュリティ対策)
+const sequelize = require('./models/sequelize-loader').database;
+
+
+
+
 // マスタのモデルの読み込み
 const schoolM = require('./models/school');
 const teacherM = require('./models/teacher');
@@ -86,6 +90,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+//bootstrapのテンプレート
+app.use('/admin-lte', express.static(__dirname + '/node_modules/admin-lte/dist'));
 app.use(helmet());
 //sessionの設定
 app.use(session({
@@ -108,6 +115,8 @@ const login = require('./routes/login');
 app.use('/login', login);
 const forgotPassword = require('./routes/forgotPassword');
 app.use('/forgotPassword', forgotPassword);
+const school = require('./routes/school');
+app.use('/contents/school', school);
 //セッションチェック
 const sessionCheck = require('./routes/sessionCheck');
 app.use(sessionCheck);
@@ -123,9 +132,8 @@ const party = require('./routes/party');
 app.use('/contents/party', party);
 const student = require('./routes/student');
 app.use('/contents/student', student);
-const school = require('./routes/school');
-app.use('/contents/school', school);
-
+const attendances = require('./routes/attendances');
+app.use('/contents/attendances',attendances);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -139,7 +147,6 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.render('error');
