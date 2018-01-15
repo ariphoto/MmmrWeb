@@ -1,6 +1,7 @@
 - const rows = data.length // データの件数
 - const dataRow = [] // 1行のデータを項目ごとに保持する
 
+
 - for (let i = 0; i < rows; i++)
 
     - let link_edit = "location.href=\'" // リンク先
@@ -21,6 +22,11 @@
 
         - dataRow[2] = data[i]['party.name']
         - dataRow[3] = data[i].age
+    -else if(title ==="出席記録")
+        - page ='"att"'
+        - dataRow[0] = data[i].studentId
+        - dataRow[1] = data[i].name
+        - dataRow[2] = data[i]['party.name']
     - else
         - dataRow[1] = data[i].name
         - dataRow[2] = data[i].remarks

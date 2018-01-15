@@ -58,6 +58,10 @@ label.button{
   padding:2% 0%;
   font-size: 18px;
 }
+/* 絞り込み用ボックスの余白margi */
+.refineBox.margin-bot42 {
+  margin-bottom: 42px;
+}
 
 /* 絞り込み実行ボタン以外の絞り込みボックス */
 .refine-other {

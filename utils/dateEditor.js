@@ -29,7 +29,7 @@ const todayQuery = (date) => {
 
 module.exports = {
 	isValidDate: isValidDate,
-	// getStart: getStart,
-	// getEnd: getEnd,
+	getStart: getStart,
+	getEnd: getEnd,
 	todayQuery: todayQuery
 };
