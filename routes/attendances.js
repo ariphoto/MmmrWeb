@@ -67,7 +67,6 @@ router.get('/output_logs', function (req, res, next) {
     const toDate = req.query.toDate;
     const fromDate = req.query.fromDate;
     const partyName = req.query.party;
-
     const attendanceQuery = {
 
         where:{},
@@ -127,14 +126,16 @@ router.get('/output_logs', function (req, res, next) {
         attendancesM.findAll(attendanceQuery)
     ]).then(models => {
         console.log(JSON.stringify(models[1]));
-        res.render('contents/student/list', {
-            title: '園児一覧',
+        res.render('contents/attendances/output_logs', {
+            title: '出席記録',
             schoolName: req.session.name,
-            'inputData': input,
+            //'inputData': input,
+            'data':models,
             'parties': models[0]
         });
     }).catch(function (err) {
         if (err)
+            console.error(err);
             res.status(500).send(connectionError);
     });
 

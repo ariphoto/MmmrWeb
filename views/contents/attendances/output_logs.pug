@@ -33,26 +33,22 @@ block content
 
                     //プルダウン群
                     .row
-                        .col-md-3: select#month_box
-                            option(value='') 選択月
-
                         .col-md-5.text-center: select#party_box
                             option(value='') 組
                             - for(let i = 0;i < parties.length;i++)
                                 option(value=parties[i].name) #{parties[i].name}
-                        .col-md-4.text-right: select#age_box
-                            option(value='') 年齢
-                            - for(let i = 0;i < 7;i++)
-                                option(value=i) #{i}
 
-                    //卒園 チェックボックス
-                    .row
-                        .col-md-12.text-left
-                            -if(inputData && inputData[4] === "true")
-                                input#graduation(type='checkbox' checked='true')
-                            -else
-                                input#graduation(type='checkbox')
-                            label(onclick="getElementById('graduation').click();") 卒園者含む
+                        .col-md-3: select#month_box
+                            option(value='') 月選択
+                            - for (let i = 1;i<13 ;i++)
+                                option(value=i) #{i}月
+                        .col-md-3: select#week_box
+                            option(value='') 週選択
+                            - for (let i = 1;i<5 ;i++)
+                                option(value=i) 第#{i}週
+
+
+
                 //右部分
                 .col-md-3.refine-student-btn
                     button(onclick="output_logs").btn.btn-info.pull-left 実行
