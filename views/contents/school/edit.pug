@@ -2,7 +2,9 @@ extends ../../layout_template/contents/edit
 block script
     script(src="/javascripts/school_edit.js")
 block content
-    title 保育園編集
-    p(style={color: "", "font-weight": "bolder", "font-size": "xx-large"}) 保育園編集画面
-    form#school_form(method='post' action='/contents/school/edit')
-        include template
+    .text-center.row
+        p(style={color: "", "font-weight": "bolder", "font-size": "xx-large"}) 設定
+    .text-center.row
+        .col-md-6.col-md-offset-3
+            form#school_form(method='post' action='/contents/school/edit')
+                include template

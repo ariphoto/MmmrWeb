@@ -7,10 +7,14 @@ const partyM = require('../models/party');
 
 // 画像投稿用
 const multer = require('multer');
+
 const uuidv4 = require('uuid/v4');
 const Op = sequelize.Op;
 
 const connectionError = 'connection error.'; //接続エラーメッセージ
+const date = new Date();
+const thisYear = date.getFullYear(); // 今年の西暦
+let startYear = thisYear - 6; // 絞り込み開始年 (今年の6年前)
 
 // バイナリファイルをROMに保存する設定
 const storage = multer.diskStorage({
@@ -97,6 +101,11 @@ router.get('/list', function(req, res, next) {
         studentM.findAll({
             raw:true,
             attributes: { include: [[sequelize.fn('timestampdiff', sequelize.literal('year'), sequelize.col('birthDay'), sequelize.fn('CURDATE')), 'age']] },
+            where: {
+                birthDay: {
+                        [Op.between]: [thisYear-6 + '-01-01',  thisYear + '-03-31']
+                }
+            },
             include:[
                 {
                     model:partyM,
@@ -122,7 +131,7 @@ router.get('/list', function(req, res, next) {
 // 絞り込みが行われた場合
 router.post('/list', function(req, res, next) {
     const Op = sequelize.Op;
-    const input = [req.body.name,req.body.gender,req.body.partyName,req.body.age];
+    const input = [req.body.name,req.body.gender,req.body.partyName,req.body.age,req.body.graduation];
 
     // 選択された組に対するpartyIdを取得
     partyM.findAll({
@@ -132,6 +141,12 @@ router.post('/list', function(req, res, next) {
         },
         required:true
     }).then(parties => {
+        // 卒業生を含ませる場合、生年月日の範囲を変更する
+        if(req.body.graduation === 'true'){
+            startYear = 1900;
+        } else {
+            startYear = thisYear - 6;
+        }
         // studentテーブルから抽出する
         studentM.findAll({
             raw: true,
@@ -161,6 +176,9 @@ router.post('/list', function(req, res, next) {
                 gender: {
                     [Op.like]: `${input[1]}%`
                 },
+                birthDay: {
+                    [Op.between]: [startYear + '-01-01',  thisYear + '-03-31']
+                }
             },
             having: {
                 age: {
