@@ -1,26 +1,32 @@
 extends ../layout_template/layout
 
 block content
-    title パスワード
-    if (message)
-        if (message)
-            .alert.alert-danger(role="alert") #{message}
-
-    p(style={color: "red", "font-weight": "bolder", "font-size": "xx-large"}) パスワード変更
-    p
-    br
-    |変更用のリンクを送信しますのでメールアドレスの記入後下の「送信」クリックをお願いします
-
-    form#forgotPassword_form(method="POST" action="/forgotPassword/inputAddress")
-        table(class='type1')
-            tr
-                td
-                    |保育園ID
-                td
-                    input(name='userID',required)
-            tr
-                td
-                    |メールアドレス
-                td
-                    input(name='userURL',required)
-        p: button(type='submit') 送信
+    .container
+        .row
+            if (message)
+                if (message)
+                    .alert.alert-danger(role="alert") #{message}
+        .row
+            .col-xs-12.col-md-4.col-md-offset-4.text-center(style="background-color: #e3f2fd;")
+                p(style={color: "red", "font-weight": "bolder", "font-size": "xx-large"}) パスワード変更
+                    p
+                    br
+                    |変更用のリンクを送信しますので
+                    br
+                    |メールアドレスの記入後
+                    br
+                    |下の「送信」クリックをお願いします
+                    .login-form.center-block
+                        form#forgotPassword_form(method="POST" action="/forgotPassword/inputAddress")
+                            table(class='type1')
+                                tr
+                                    td
+                                        |保育園ID
+                                    td
+                                        input(name='userID',required)
+                                tr
+                                    td
+                                        |メールアドレス
+                                    td
+                                        input(type="email",name='userURL',required)
+                            p: button(type='submit') 送信

@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const sequelize = require('../models/sequelize-loader').database;
-
 const studentM = require('../models/student');
 const partyM = require('../models/party');
 

@@ -1,47 +1,35 @@
-nav.navbar.navbar-light(style="background-color: #e3f2fd;")
-    p: h3.text-left #{schoolName}
-    a.navbar-brand(href="/menu") トップページ
-    a.navbar-brand(href="/contents/student/list") 園児リスト
-    a.navbar-brand(href="/contents/teachers/list") 保育士リスト
-    a.navbar-brand(href="/contents/party/list") 組リスト
-    a.navbar-brand(href="/contents/school/edit") 設定
-    a.navbar-brand.pull-right(href="/logout" style="color:red") ログアウト
-//.navbar.navbar-fixed-top(data-activeslide="1")
-//    .container
-//
-//        // .navbar-toggle is used as the toggle for collapsed navbar content
-//        button(type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse")
-//            span(class="icon-bar")
-//            span(class="icon-bar")
-//            span(class="icon-bar")
-//        .nav-collapse.collapse.navbar-responsive-collapse
-//            ul.nav.row
-//                li(data-slide="1" class="col-12 col-sm-2")
-//                    a(id="menu-link-1" href="#slide-1" title="Next Section")
-//                        span(class="icon icon-home")
-//                        span(class="text") HOME
-//                li(data-slide="2" class="col-12 col-sm-2")
-//                    a(id="menu-link-2" href="#slide-2" title="Next Section")
-//                        span(class="icon icon-user")
-//                        span class="text">ABOUT US
-//                li(data-slide="3" class="col-12 col-sm-2")
-//                    a(id="menu-link-3" href="#slide-3" title="Next Section")
-//                        span(class="icon icon-briefase")
-//                        span class="text">PORTFOLIO
-//                li(data-slide="4" class="col-12 col-sm-2")
-//                    a(id="menu-link-4" href="#slide-4" title="Next Section")
-//                        span(class="icon icon-gears")
-//                        span class="text">PROCESS
-//                li(data-slide="5" class="col-12 col-sm-2")
-//                    a(id="menu-link-5" href="#slide-5" title="Next Section")
-//                        span(class="icon icon-heart")
-//                        span class="text">CLIENTS
-//                li(data-slide="6" class="col-12 col-sm-2")
-//                    a(id="menu-link-6" href="#slide-6" title="Next Section")
-//                        span(class="icon icon-envelpe")
-//                        span class="text">CONTACT
-//            div(class="row")
-//                .col-sm-2.active-menu
-//        //.nav-collapse
-//    //.container
-////.navbar
+//nav.navbar.navbar-light(style="background-color: #e3f2fd;")
+//    p: h3.text-left #{schoolName}
+//    a.navbar-brand(href="/menu") トップページ
+//    a.navbar-brand(href="/contents/student/list") 園児リスト
+//    a.navbar-brand(href="/contents/teachers/list") 保育士リスト
+//    a.navbar-brand(href="/contents/party/list") 組リスト
+//    a.navbar-brand(href="/contents/school/edit") 設定
+//    a.navbar-brand.pull-right(href="/logout" style="color:red") ログアウト
+
+// トップメニュー
+header.main-header
+    // ロゴ
+    a.logo(href="/menu") こどもスタンプ
+    // トップメニュー
+    nav.navbar.navbar-static-top(role="navigation")
+        // メニュー項目
+        // 小さくなった時に消す
+        .collapse.navbar-collapse#navbar-collapse
+            ul.nav.navbar-nav: li.text-left: a #{schoolName}
+            // 右に寄せるメニュ :navbar-rightとかもあるが、マージが無い
+            .navbar-custom-menu
+                ul.nav.navbar-nav
+                    li: a(href="/contents/school/edit"): i.fa.fa-gears 設定
+                ul.nav.navbar-nav
+                    li: a(href="/logout"): i.fa.fa-sign-out ログアウト
+// end header
+// サイドバー
+aside.main-sidebar
+    section.sidebar
+        ul.sidebar-menu
+            // メニュー項目
+            li: a(href="/menu"): i.fa.fa-circle-o トップページ
+            li: a(href="/contents/student/list"): i.fa.fa-circle-o 園児リスト
+            li: a(href="/contents/teachers/list"): i.fa.fa-circle-o 保育士リスト
+            li: a(href="/contents/party/list"): i.fa.fa-circle-o 組リスト

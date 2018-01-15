@@ -90,6 +90,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+//bootstrapのテンプレート
+app.use('/admin-lte', express.static(__dirname + '/node_modules/admin-lte/dist'));
 app.use(helmet());
 //sessionの設定
 app.use(session({
@@ -119,7 +122,6 @@ const sessionCheck = require('./routes/sessionCheck');
 app.use(sessionCheck);
 const menu = require('./routes/menu');
 app.use('/',menu);
-
 //これ以降ログインが必要
 app.use('/menu',sessionCheck,menu);
 const teachers = require('./routes/teachers');
@@ -130,9 +132,8 @@ const party = require('./routes/party');
 app.use('/contents/party', party);
 const student = require('./routes/student');
 app.use('/contents/student', student);
-
-
-
+const attendances = require('./routes/attendances');
+app.use('/contents/attendances',attendances);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

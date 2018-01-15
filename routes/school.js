@@ -114,7 +114,7 @@ router.get('/end', function(req, res, next) {
     console.log('ヒドゥンキー' + req.query.hidden_key);
     schoolM.findAll(
 
-        ).then(model => {
+    ).then(model => {
         console.log(model);
         res.render('contents/school/end');
         console.log('ID一致')
@@ -138,23 +138,23 @@ router.post('/provisional', function(req, res, next){
             console.log('被り')
         }else{
         }
-    }).catch(function(){
+    }).catch(function() {
         console.log('被りなし');
 
         //重複するIDがないならデータベースに仮登録
         schoolM.upsert({
-            schoolId:req.body.schoolId,
-            mailAddress:req.body.address,
-            name:req.body.name,
-            password:hasher(req.body.password,salt),
-            salt:salt,
-            provisional_flg:false,
-            hidden_key:hidden
-        }).then(result =>{
+            schoolId: req.body.schoolId,
+            mailAddress: req.body.address,
+            name: req.body.name,
+            password: hasher(req.body.password, salt),
+            salt: salt,
+            provisional_flg: false,
+            hidden_key: hidden
+        }).then(result => {
 
-            res.render('contents/school/Provisional', { title: '仮登録完了' , destination: req.body.address});
+            res.render('contents/school/Provisional', {title: '仮登録完了', destination: req.body.address});
             //成功したらメール送信
-            const transporter = nodemailer.createTransport( smtpTransport({
+            const transporter = nodemailer.createTransport(smtpTransport({
                 host: 'smtp.gmail.com',
                 port: 465,
                 secure: true, // SSL
@@ -163,29 +163,22 @@ router.post('/provisional', function(req, res, next){
 
             //todo urlを動的に
             const mailOptions = {
-                from    : 'みまもるくん公式 <oic.mmmrkn@gmail.com>', // 送信元アドレス
-                to      : req.body.address ,// 送信するアドレス
-                subject : 'ご登録ありがとうございます。', // タイトル
-                text    :
+                from: 'みまもるくん公式 <oic.mmmrkn@gmail.com>', // 送信元アドレス
+                to: req.body.address,// 送信するアドレス
+                subject: 'ご登録ありがとうございます。', // タイトル
+                text:
                     ` ${req.body.name}様　ご登録ありがとうございます。
                   下記のURLにアクセスしていただくことで本登録が完了します。
                   http://localhost:3000/contents/school/end?hidden_key=${hidden}`
-
             };
-
-            transporter.sendMail( mailOptions, function( error, info ){
-                if( error ){
-                    return console.log( error );
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    return console.log(error);
                 }
                 console.log('Message sent: ');
-
             });
-
         });
-
     });
-
-
 });
 
 module.exports = router;

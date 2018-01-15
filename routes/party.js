@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const sequelize = require('../models/sequelize-loader').database;
-
 const uuidv4 = require('uuid/v4');
 const partyM = require('../models/party');
-
 const connectionError = 'connection error.'; //接続エラーメッセージ
 
 //TODO:

@@ -14,7 +14,7 @@ const takahashi = {
 	name:"たかはし保育園",
 	password:hasher('takahashi',salt),
 	salt:salt,
-	provisional_flg:false,
+	provisional_flg:true,
 	hidden_key:'66e223ff-cc9a-44f0-8303-4c8392986f2c'
 };
 const guriko = {
