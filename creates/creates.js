@@ -23,7 +23,7 @@ const guriko = {
 	name:"ぐりこ幼稚園",
 	password:hasher('guriko',salt),
 	salt:salt,
-	provisional_flg:false,
+	provisional_flg:true,
 	hidden_key:'281d2dfa-5816-474e-9058-451070ff638d'
 };
 const kirara = {
@@ -32,7 +32,7 @@ const kirara = {
     name:"きらら保育園",
     password:hasher('kirara',salt),
     salt:salt,
-    provisional_flg:false,
+    provisional_flg:true,
 	hidden_key:'e7b2afe3-1cb8-47e0-9651-32ad3dd22080'
 };
 const schoolCreate = (model) => {

@@ -32,7 +32,7 @@ function schoolPasswordEdit() {
         data: jsonObject
     })
     .done(function(data) {
-        const infoBar = document.getElementById('under')
+        const infoBar = document.getElementById('under');
         if(infoBar.childNodes[0]) {
             const removeTxt = infoBar.childNodes[0];
             infoBar.removeChild(removeTxt);
