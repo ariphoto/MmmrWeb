@@ -1,7 +1,12 @@
 extends ../../layout_template/layout
 block content
     center
-        p そのIDは使用されています。
-        | 下記ボタンから登録画面へ戻ってください。
-        br
-        button(class='', type='button', onclick=onclick="location.href='/contents/school/add'", style='') 登録画面へ
+        .content-wrapper
+            // コンテンツヘッダ
+            // メインコンテンツ
+            section.content
+                .col-md-6.col-md-offset-3.text-center.row
+                    p そのIDは使用されています。
+                    | 下記ボタンから登録画面へ戻ってください。
+                    br
+                    button(class='', type='button', onclick="location.href='/contents/school/add'", style='') 登録画面へ

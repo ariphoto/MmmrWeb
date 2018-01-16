@@ -10,7 +10,7 @@
 // トップメニュー
 header.main-header
     // ロゴ
-    a.logo(href="/menu"): img(src='/image/logos/transparentNofaceCropped.png' width='35%' alt='こどもスタンプ')
+    a.logo(href="/menu" style="background-color:white"): img(src='/image/logos/transparentNofaceCropped.png' width='35%' alt='こどもスタンプ')
     // トップメニュー
     nav.navbar.navbar-static-top(role="navigation")
         // メニュー項目
@@ -19,7 +19,7 @@ header.main-header
             ul.nav.navbar-nav: li.text-left: a #{schoolName}
             // 右に寄せるメニュ :navbar-rightとかもあるが、マージが無い
             .navbar-custom-menu
-                ul.nav.navbar-nav
+        ul.nav.navbar-nav
                     li: a(href="/contents/school/edit"): i.fa.fa-gears 設定
                 ul.nav.navbar-nav
                     li: a(href="/logout"): i.fa.fa-sign-out ログアウト

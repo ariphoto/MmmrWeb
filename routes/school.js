@@ -112,13 +112,16 @@ router.get('/end', function(req, res, next) {
     //DB更新
     //todo 結果が一件もなかったときのcatchを書く　trueで本登録完了画面　falseでエラー画面
     console.log('ヒドゥンキー' + req.query.hidden_key);
-    schoolM.findAll(
-
-    ).then(model => {
-        console.log(model);
+    schoolM.find({
+        where:{
+            hidden_key : req.query.hidden_key
+        }
+    }).then(model => {
+        model.update({
+            provisional_flg: true
+        });
         res.render('contents/school/end');
         console.log('ID一致')
-
 
     }).catch(function(){
         res.render('contents/school/error');
