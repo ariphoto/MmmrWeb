@@ -1,9 +1,13 @@
 extends ../../layout_template/layout
 
 block content
-    title=title
-    p(style={color: "red", "font-weight": "bolder", "font-size": "xx-large"}) 本登録が完了しました。
-    br
-    p 下の「ログイン」をクリックしてログイン画面へ飛びます。
-    button(class='', type='button', onclick=onclick="location.href='/login'", style='') ログイン画面へ
+    center
+        .content-wrapper
+            // メインコンテンツ
+            section.content
+                title=title
+                p(style={color: "red", "font-weight": "bolder", "font-size": "xx-large"}) 本登録が完了しました。
+                br
+                p 下の「ログイン」をクリックしてログイン画面へ飛びます。
+                button(class='btn btn-primary', type='button', onclick=onclick="location.href='/login'", style='') ログイン画面へ
 
