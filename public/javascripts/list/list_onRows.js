@@ -55,6 +55,11 @@ function insert_execute() {
         let input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
         data[i] = input.value;
     }
+    // 名前が未入力・連続空白の場合は終了する
+    if(checkSpace(data[0]) && checkSpace(data[0])){
+        alert("入力内容が正しくありません");
+        return false;
+    }
 
     if(window.confirm(`追加します\nよろしいですか？`)) {
         if (page  ==="tea") {
@@ -77,6 +82,11 @@ function edit_execute(idNum, page){
         let span = td.getElementsByTagName('span')[0]; // td内のspan
         let input = td.getElementsByTagName('input')[0]; // テキストボックスを定義
         data[i] = input.value
+    }
+    // 名前が未入力・連続空白の場合は終了する
+    if(checkSpace(data[0]) && checkSpace(data[0])){
+        alert("入力内容が正しくありません");
+        return false;
     }
 
     if(window.confirm(`更新します\nよろしいですか？`)) {

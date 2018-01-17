@@ -1,5 +1,17 @@
 // 保育園編集画面 変更ボタンの処理
 function schoolPasswordEdit() {
+    const schoolName = document.getElementById('schoolNameBox').value;
+    const address = document.getElementById('schoolAddressBox').value;
+    // 保育園名の入力チェック
+    if(checkSpace(schoolName)){
+        alert("保育園名が正しくありません");
+        return false;
+    }
+    // メールアドレスの入力チェック
+    if(checkSpace(address) || !checkAddress(address)){
+        alert("メールアドレスが正しくありません");
+        return false;
+    }
     // パスワードも変更する場合
     if (document.getElementById('schoolPassBox').value !== '') {
         $('#modal-pass').modal(); // 旧パスワード入力モーダルを表示する
@@ -49,7 +61,6 @@ function schoolEditSubmit(){
         const message = document.createTextNode(data);
         infoBar.appendChild(message);
         if(data === '更新しました') {
-            document.getElementById('id_h').value = document.getElementById('schoolIdBox').value; // 新IDを保持しておく
             infoBar.classList.remove('alert', 'alert-danger');
             infoBar.classList.add('alert', 'alert-info');
         } else {
@@ -61,4 +72,22 @@ function schoolEditSubmit(){
     .fail(function() {
         alert('error');
     });
+}
+
+// 未入力・連続空白のチェック
+function checkSpace(string){
+    const reg = /^(\s|　)/;
+    if(string === '' || string.match(reg)){
+        return true;
+    }
+    return false;
+}
+
+// 未入力・連続空白のチェック
+function checkAddress(string){
+    const reg = /^[A-Za-z0-9]+[\w-]+@[\w\.-]+\.\w{2,}$/;
+    if(string.match(reg)){
+        return true;
+    }
+    return false;
 }

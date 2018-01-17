@@ -10,4 +10,5 @@ block content
                     .col-md-6.col-md-offset-3
                         .box
                             .box-body
-                                include template
+                                form#school_form(method='post' action='/contents/school/edit')
+                                    include template

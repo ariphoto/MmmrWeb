@@ -6,12 +6,11 @@ block content
     .row
         .col-xs-8.col-xs-offset-2.col-md-4.col-md-offset-4.text-center
             .login-box
-                .login-logo
-                    img(src='/image/logos/transparent.png' width='50%' 'こどもスタンプ')
                 .login-box-body
                     .login-logo
+                        img(src='/image/logos/transparent.png' width='50%' 'こどもスタンプ')
                     if (message)
-                        .alert.alert-danger(role="alert") #{message}
+                        .alert.alert-danger(role="alert" style="color:black !important") #{message}
                     form#login_form(method="POST" action="/login")
                         // ID
                         .form-group.has-feedback

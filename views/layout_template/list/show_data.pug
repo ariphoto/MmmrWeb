@@ -7,19 +7,12 @@
     - let link_edit = "location.href=\'" // リンク先
     - let link_delete = "location.href=\'" // リンク先
     - let page = ""
-    - const genderColor = {man: 'blue', woman: 'red', other: 'green'}; // 性別を色で表す
+    - const genderColor = {man: '#3c8dbc', woman: '#d73925', other: '#008d4c'} // 性別を色で表す
 
     - if(title === "園児一覧")
         - page = '"stu"'
         - dataRow[0] = data[i].studentId
         - dataRow[1] = data[i].name
-        - if(data[i].gender === "man")
-            - dataRow[5] = "男"
-        - else if(data[i].gender === "woman")
-            - dataRow[5] = "女"
-        - else
-            - dataRow[5] = "その他"
-
         - dataRow[2] = data[i]['party.name']
         - dataRow[3] = data[i].age
     -else if(title ==="出席記録")

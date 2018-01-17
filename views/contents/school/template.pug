@@ -4,7 +4,6 @@ table
         td 保育園名
         td
            - if(data)
-               input#id_h(style='display: none' name='id' value = data.schoolId)
                input#schoolNameBox(type='text', name='name', size=20 value=data.name)
            - else
                input(type='text', name='name', size=20 , required)
