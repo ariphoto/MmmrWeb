@@ -177,7 +177,7 @@ router.post('/provisional', function(req, res, next){
 
             //todo urlを動的に
             const mailOptions = {
-                from: 'みまもるくん公式 <oic.mmmrkn@gmail.com>', // 送信元アドレス
+                from: 'こどもスタンプ公式 <oic.mmmrkn@gmail.com>', // 送信元アドレス
                 to: req.body.address,// 送信するアドレス
                 subject: 'ご登録ありがとうございます。', // タイトル
                 text:

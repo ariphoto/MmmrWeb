@@ -41,7 +41,7 @@
             input(type="hidden" value = dataRow[0])
 
         - if(title === "園児一覧")
-            td: img.img-circle(src= "/image/" + dataRow[0] + ".jpg" style="border: solid 5px " + genderColor[data[i].gender])
+            td: img.img-circle(src= "/image/" + dataRow[0] + ".jpg" style="border: solid 5px " + genderColor[data[i].gender] onerror="this.src='/image/noimage.jpg';")
 
         - link_edit += "javascript:edit_row(" + (i + 1) + ", " + page + ");\'"
 

@@ -6,13 +6,14 @@ block content
     //保育園データの入力
         passcheckはパスワード入力、再入力での照合チェック。
 
-    .content-wrapper
-        section.content-header: h1.text-center #{title}
-        // メインコンテンツ
-        section.content
-            .col-md-6.col-md-offset-3.text-center.row
-                form(id='schoolAdd' method='post', action='/contents/school/provisional', onsubmit='return passCheck();')
-                    include template
-                    button(class='', type='button', onclick="location.href='/login'", style='') 戻る
-                    button(class='btn btn-primary', type='submit',  onclick='') 送信
+    .container
+            .col-md-6.col-md-offset-3.text-center(style="background-color: #e3f2fd;")
+                .row
+                    h1.text-center #{title}
+                .row
+                    .col-md-12
+                        form(id='schoolAdd' method='post', action='/contents/school/provisional', onsubmit='return passCheck();')
+                            include template
+                            button(class='', type='button', onclick="location.href='/login'", style='') 戻る
+                            button(class='btn btn-primary', type='submit',  onclick='') 送信
 

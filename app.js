@@ -90,9 +90,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
 //bootstrapのテンプレート
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/admin-lte', express.static(__dirname + '/node_modules/admin-lte/dist'));
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(helmet());
 //sessionの設定
 app.use(session({

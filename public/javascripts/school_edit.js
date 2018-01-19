@@ -16,6 +16,7 @@ function schoolPasswordEdit() {
     if (document.getElementById('schoolPassBox').value !== '') {
         $('#modal-pass').modal(); // 旧パスワード入力モーダルを表示する
         $('#oldPassBox').val('');
+        $('#oldPassBox').val('').focus();
     } else {
         if (!window.confirm(`更新します\nよろしいですか？`)) {
             // キャンセルの場合は何もしない
@@ -90,4 +91,14 @@ function checkAddress(string){
         return true;
     }
     return false;
+}
+
+// Enterキーの判定
+function keyPress(code)
+{
+    //エンターキー押下なら
+    if(13 === code)
+    {
+        oldPassSubmit();
+    }
 }

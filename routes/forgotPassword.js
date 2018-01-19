@@ -64,10 +64,10 @@ router.post("/inputAddress", (req, res, next)=>{
 
                 //送信されるメール
                 const mailOptions = {
-                    from    : 'みまもるくん公式 <oic.mmmrkn@gmail.com>', // 送信元アドレス
-                    // to      : model.mailAddress ,// 送信するアドレス
+                    from    : 'こどもスタンプ公式 <oic.mmmrkn@gmail.com>', // 送信元アドレス
+                     to      : model.mailAddress ,// 送信するアドレス
                     //TODO 送信アドレスを本番用に
-                    to      :'oic.s.tomosue@gmail.com'  ,// 送信テストアドレス
+                    //to      :'oic.s.tomosue@gmail.com'  ,// 送信テストアドレス
                     subject : 'パスワード変更のURLを送信しました', // タイトル
                     text    : model.name + '様。\n' +
                     '次のURLにアクセスしてください\n' +

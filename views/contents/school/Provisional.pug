@@ -1,12 +1,12 @@
 extends ../../layout_template/layout
 
 block content
-    center
-        .content-wrapper
-            // メインコンテンツ
-            section.content
-                p(style={color: "red", "font-weight": "bolder", "font-size": "xx-large"}) まだ登録が終わっていません。
-                br
-                p(style={"font-weight": "bolder"})= destination
-                    |にメールを送信しました。
-                p 送信されたメールに添付されたURLにアクセスしたら登録完了です。
+    .container
+        .col-md-6.col-md-offset-3.text-center(style="background-color: #e3f2fd;")
+            .row
+                .col-md-12
+                    p(style={color: "red", "font-weight": "bolder", "font-size": "xx-large"}) まだ登録が終わっていません。
+                    br
+                    p(style={"font-weight": "bolder"})= destination
+                        |にメールを送信しました。
+                    p 送信されたメールに添付されたURLにアクセスしたら登録完了です。

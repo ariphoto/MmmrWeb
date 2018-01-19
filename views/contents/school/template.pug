@@ -44,7 +44,7 @@ table
                     .row
                         .col-md-6.col-md-offset-3
                             p 現在のパスワードを入力してください。
-                            p.text-center: input#oldPassBox(type='password' name='oldPass')
+                            p.text-center: input#oldPassBox(type='password' name='oldPass' onkeypress="keyPress(event.keyCode);")
                 // モーダルのフッタ
                 .modal-footer
                     button.btn.btn-default.long120(type="button" data-dismiss="modal") キャンセル

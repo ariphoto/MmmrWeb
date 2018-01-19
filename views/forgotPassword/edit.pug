@@ -1,25 +1,28 @@
 extends ../layout_template/layout
 
 block content
-    title=title
-    if (message)
-        if (message)
-            .alert.alert-danger(role="alert") #{message}
+    .container
+        .row
+            if (message)
+                if (message)
+                    .alert.alert-danger(role="alert" style='color:black !important') #{message}
 
-    p(style={color: "red", "font-weight": "bolder", "font-size": "xx-large"}) 新規パスワード入力画面
-    br
+        .row
+            .col-xs-12.col-md-6.col-md-offset-3.text-center(style="background-color: #e3f2fd;")
+                p(style={color: "red", "font-weight": "bolder", "font-size": "xx-large"}) 新規パスワード入力画面
+                br
 
-    form#passwordEdit_form(method="POST" action="/forgotPassword/edit")
-        table(class='type1')
-            tr
-                td
-                    |新しいパスワード
-                td
-                    input(name='newPass', type='password',required)
-            tr
-                td
-                    |新しいパスワード(再入力)
-                td
-                    input(name='newPassCheck', type='password',required)
-        input(name='hidden_key',type='hidden',value=hiddenKey)
-        p: button(type='submit') 変更
+                form#passwordEdit_form(method="POST" action="/forgotPassword/edit")
+                    table(class='type1')
+                        tr
+                            td
+                                |新しいパスワード
+                            td
+                                input(name='newPass', type='password',required)
+                        tr
+                            td
+                                |新しいパスワード(再入力)
+                            td
+                                input(name='newPassCheck', type='password',required)
+                    input(name='hidden_key',type='hidden',value=hiddenKey)
+                    p: button(type='submit') 変更
