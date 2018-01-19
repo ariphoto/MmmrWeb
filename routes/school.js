@@ -110,22 +110,20 @@ router.post('/edit', function(req, res, next) {
 
 router.get('/end', function(req, res, next) {
     //DB更新
-    //todo 結果が一件もなかったときのcatchを書く　trueで本登録完了画面　falseでエラー画面
-    console.log('ヒドゥンキー' + req.query.hidden_key);
+    //パラメーターに入れられたhidden_keyを参照に該当データがあるか検証
     schoolM.find({
         where:{
             hidden_key : req.query.hidden_key
         }
+        //見つかった場合該当データの仮登録フラグをfalseからtrueへ、登録完了画面を出す
     }).then(model => {
         model.update({
             provisional_flg: true
         });
         res.render('contents/school/end');
-        console.log('ID一致')
-
+        //見つからなかった場合見つからなかったとページに表示する
     }).catch(function(){
         res.render('contents/school/error');
-        console.log('ID不一致')
     });
 
 });
@@ -138,11 +136,9 @@ router.post('/provisional', function(req, res, next){
     schoolM.findById(req.body.schoolId).then(model => {
         if(req.body.schoolId === model.schoolId){
             res.render('contents/school/suffer');
-            console.log('被り')
         }else{
         }
     }).catch(function() {
-        console.log('被りなし');
 
         //重複するIDがないならデータベースに仮登録
         schoolM.upsert({
@@ -166,7 +162,7 @@ router.post('/provisional', function(req, res, next){
 
             //todo urlを動的に
             const mailOptions = {
-                from: 'みまもるくん公式 <oic.mmmrkn@gmail.com>', // 送信元アドレス
+                from: 'こどもスタンプ公式 <oic.mmmrkn@gmail.com>', // 送信元アドレス
                 to: req.body.address,// 送信するアドレス
                 subject: 'ご登録ありがとうございます。', // タイトル
                 text:

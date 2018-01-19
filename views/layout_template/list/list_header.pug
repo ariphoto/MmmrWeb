@@ -19,10 +19,10 @@ header.main-header
             ul.nav.navbar-nav: li.text-left: a #{schoolName}
             // 右に寄せるメニュ :navbar-rightとかもあるが、マージが無い
             .navbar-custom-menu
-        ul.nav.navbar-nav
-                    li: a(href="/contents/school/edit"): i.fa.fa-gears 設定
                 ul.nav.navbar-nav
-                    li: a(href="/logout"): i.fa.fa-sign-out ログアウト
+                            li: a(href="/contents/school/edit"): i.fa.fa-gears 設定
+                ul.nav.navbar-nav
+                            li: a(href="/logout"): i.fa.fa-sign-out ログアウト
 // end header
 // サイドバー
 aside.main-sidebar
