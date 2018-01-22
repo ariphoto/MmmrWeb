@@ -2,13 +2,10 @@ extends ../../layout_template/contents/edit
 block script
     script(src="/javascripts/school_edit.js")
 block content
-    .content-wrapper(style="margin:0")
-        // メインコンテンツ
-        section.content
-            .container
-                .row
-                    .col-md-6.col-md-offset-3
-                        .box
-                            .box-body
-                                form#school_form(method='post' action='/contents/school/edit')
-                                    include template
+    .container
+        .row
+            .col-md-6.col-md-offset-3
+                .box
+                    .box-body
+                        form#school_form(method='post' action='/contents/school/edit')
+                            include template
