@@ -203,3 +203,12 @@ function execPost(order, link, data) { // order…実行する命令 link…送�
     // submit
     form.submit();
 }
+
+// 未入力・連続空白のチェック
+function checkSpace(string){
+    const reg = /^(\s|　)/;
+    if(string === '' || string.match(reg)){
+        return true;
+    }
+    return false;
+}

@@ -2,7 +2,10 @@ extends ../layout_template/layout
 
 block content
     title=title
-    p(style={color: "red", "font-weight": "bolder", "font-size": "xx-large"}) パスワードを変更しました。
-    br
-    p 下の「トップ画面へ」をクリックして業務に戻れます
-    button.long180(class='', type='button', onclick="location.href='/menu'") トップ画面へ
+    .container
+        .row
+            .col-xs-12.col-md-6.col-md-offset-3.text-center(style="background-color: #e3f2fd;")
+                p(style={color: "red", "font-weight": "bolder", "font-size": "xx-large"}) パスワードを変更しました。
+                br
+                p 下の「トップ画面へ」をクリックして業務に戻れます
+                button.long180(class='', type='button', onclick="location.href='/menu'") トップ画面へ

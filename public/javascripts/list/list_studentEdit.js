@@ -106,6 +106,10 @@ function send(){
         let data = [];
         data.id = document.getElementById("id_h").value;
         data.name = document.getElementById("name_box").value;
+        if(checkSpace(data.name) && checkSpace(data.name)){
+            alert("入力内容が正しくありません");
+            return false;
+        }
         data.phonetic = document.getElementById("phonetic_box").value;
         data.remarks = document.getElementById("remarks_box").value;
         let year = document.getElementById('year').value;
@@ -118,7 +122,7 @@ function send(){
         data.birthDay = new Date(year, month - 1, day).toISOString();
         const now = new Date();
         // 誕生日の妥当性チェック
-        if(year <= 1900 || data.birthDay > now.toISOString()){
+        if(year <= 1999 || data.birthDay > now.toISOString()){
             alert("誕生日が正しくありません");
             return;
         }

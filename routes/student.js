@@ -142,7 +142,7 @@ router.post('/list', function(req, res, next) {
     }).then(parties => {
         // 卒業生を含ませる場合、生年月日の範囲を変更する
         if(req.body.graduation === 'true'){
-            startYear = 1900;
+            startYear = 2000;
         } else {
             startYear = thisYear - 6;
         }

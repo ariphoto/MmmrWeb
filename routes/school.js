@@ -11,12 +11,18 @@ const gmailAuth =require('../auth/gmail');
 const sequelize = require('../models/sequelize-loader').database;
 
 const connectionError = 'connection error.'; //接続エラーメッセージ
+const reg = /^[a-z\d]{8,20}$/i; // ID・パスワードのパターン
 //TODO:
 
 router.get('/add', function(req, res, next) {
     res.render('contents/school/add', { title: '保育園追加' });
 });
 router.get('/edit', function(req, res, next) {
+    // セッションがない場合はログインへ
+    if (!req.session.schoolId) {
+        res.redirect('/login');
+        return;
+    }
     // 園のデータを取得
     schoolM.findOne({
         raw:true,
@@ -34,13 +40,18 @@ router.get('/edit', function(req, res, next) {
 
 // 保育園情報更新
 router.post('/edit', function(req, res, next) {
-    // チェックがOKで、新規パスワードが入力されている場合
+    // 入力したIDが不正な場合
+    if(!req.body.schoolId.match(reg)){
+        res.end('このIDは使用できません');
+        return;
+    }
+    // 新規パスワードが入力されている場合
     if (req.body.password !== '') {
-        schoolM.findById(req.body.id).then(model => {
+        schoolM.findById(req.session.schoolId).then(model => {
             //ソルトを使用したリクエスト内のパスワードのハッシュ化 現在のパスワードが一致した場合
             if (model && hasher(req.body.oldPass, model.salt) === model.password) {
                 // 新規パスワード2つが一致している場合
-                if (req.body.password === req.body.passwordRe) {
+                if (req.body.password === req.body.passwordRe && req.body.password.match(reg)) {
                     console.log("一致");
                     schoolM.update({
                         schoolId: req.body.schoolId,
@@ -50,7 +61,7 @@ router.post('/edit', function(req, res, next) {
                         password: hasher(req.body.password, model.salt)
                     }, {
                         where: {
-                            schoolId: req.body.id
+                            schoolId: req.session.schoolId
                         }
                     }).then(result => {
                         // セッション情報の上書き
@@ -70,7 +81,7 @@ router.post('/edit', function(req, res, next) {
                     });
                 } else {
                     console.log("不一致");
-                    res.end('新規パスワードが一致しません');
+                    res.end('新規パスワードが正しくありません');
                 }
             } else {
                 console.log("現在パス");
@@ -86,7 +97,7 @@ router.post('/edit', function(req, res, next) {
             mailAddress: req.body.address,
         }, {
             where: {
-                schoolId: req.body.id
+                schoolId: req.session.schoolId
             }
         }).then(result => {
             // セッション情報の上書き
