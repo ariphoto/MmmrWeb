@@ -19,38 +19,67 @@ block content
                         .box-body
                             .row
                                 // 左部分
-                                .col-md-5.col-md-offset-2
+                                .col-md-6.col-md-offset-2
 
                                     //名前ボックス
                                     .row
-                                        .col-md-12
-
-                                            -if(inputData)
-                                                input#name_box(style="width: 100%" placeholder="名前" value = inputData[0])
-                                                input#gender_h(type="hidden" value = inputData[1])
-                                                input#party_h(type="hidden" value = inputData[2])
-                                                input#age_h(type="hidden" value = inputData[3])
-                                            - else
-                                                input#name_box(name="student" style="width: 100%" placeholder="名前")
+                                            input#name_box(name="student" placeholder="名前" value = inputData.studentName).col-md-5
+                                            select#party_box(name="party").col-md-5.col-md-offset-2.text-center
+                                                for party in parties
+                                                    option(value=party.name, selected=inputData.partyName === party.name) #{party.name}
 
                                     //プルダウン群
                                     .row
-                                        .col-md-4.text-center: select#year_box(name="year")
+                                        select#year_box(name="year").col-md-4.text-center
                                             option(value=2018) 2018年
 
-                                        .col-md-4.text-center: select#month_box(name="month")
-                                            - for (let i = 1;i<13 ;i++)
-                                                option(value=i) #{i}月
+                                        select#month_box(name="month").col-md-4.text-center
+                                            - var i = 1
+                                            while i < 13
+                                                option(value=i, selected=inputData.month == i) #{i++}月
 
-                                        .col-md-4.text-center: select#week_box(name="week")
-                                            - for (let i = 1;i<6 ;i++)
-                                                option(value=i) 第#{i}週
+                                        select#week_box(name="week").col-md-4.text-center
+                                            - i = 1
+                                            while i < 6
+                                                option(value=i, selected=inputData.week == i) 第#{i++}週
 
-                                //　右部分
-                                .col-md-3
-                                    .row
-                                        .col-md-5.text-center: select#party_box(name="party")
-                                            - for(let i = 0;i < parties.length;i++)
-                                                option(value=parties[i].name) #{parties[i].name}
-                                    .row
-                                        button(type="submit").btn.bg-purple.pull-left 実行
+                                    //　右部分
+                                .row
+                                    .col-md-2
+                                        button(type="submit").btn.bg-purple.pull-right 実行
+
+            .row
+                .col-md-10.col-md-offset-1
+                    .box
+                        .box-body
+                            #example2_wrapper.dataTables_wrapper.form-inli1ne.dt-bootstrap
+                                // リスト表示用テーブル
+                                table#list_table.table.table-bordered.table-striped.dataTable(style='table-layout:fixed' role="grid" aria-describedby="example2_info")
+                                    thead
+                                        tr
+                                            th.col-md-1 名前
+                                                - var colNum = endDate - startDate + 1;
+                                                - var rest = 0;
+                                                - var dateIdx = startDate;
+                                                while dateIdx <= endDate
+                                                    th.col-md-1 #{dateIdx++}
+                                                    - rest++;
+                                                while rest < 7
+                                                    th.col-md-1
+                                                    - rest++;
+                                    tbody
+                                        for student in results
+                                            tr
+                                                td #{student.name}
+                                                - var colIdx = 0;
+                                                - var arrayIdx = 0;
+                                                while colIdx < colNum
+                                                    - var attendance = student.attendances[arrayIdx];
+                                                    - console.log(colIdx)
+                                                    - console.log(attendance)
+                                                    if attendance != null && attendance.dataValues.formed == (colIdx + startDate)
+                                                        td.text-center.bg-blue ○
+                                                        - arrayIdx++;
+                                                    else
+                                                        td.text-center.bg-red ×
+                                                    - colIdx++;
