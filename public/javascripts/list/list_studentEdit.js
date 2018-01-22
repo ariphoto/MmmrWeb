@@ -148,3 +148,13 @@ $(function() {
         document.getElementById('year').value = document.getElementById('yearSelect').value; // テキストボックスに反映する
     });
 });
+
+// 園児のQRコード表示
+function showQr(){
+    // 初回のみQRコードを作成する
+    if(document.getElementById('qrcode').innerHTML === '') {
+        $('#qrcode').qrcode(document.getElementById('id_h').value);
+    }
+    $('#modal-qr').modal(); // QRコードのモーダルを表示する
+    return;
+}

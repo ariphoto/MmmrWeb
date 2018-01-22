@@ -25,6 +25,8 @@ block script
                         label.button
                             |ファイルを選択
                             input#pictureSelect(type='file', name='image', style='display:none;' accept="image/*")
+                        - if(title === '園児編集')
+                            p: button.long120.bg-blue(type='button' onclick='showQr();') QRコード表示
 
                 .col-md-9.text-left
                     form#student_form(action="/contents/student/test" method="post" enctype="multipart/form-data")
@@ -93,3 +95,15 @@ block script
                                             textarea#remarks_box #{data.remarks}
                                         - else
                                             textarea#remarks_box
+
+// モーダルの配置
+.modal#modal-qr
+    .modal-dialog
+        // モーダルのコンテンツ
+        .modal-content
+            // モーダルのヘッダ
+            .modal-header
+            // モーダルのボディ
+            .modal-body.text-center
+                #qrcode
+                button.btn.btn-default.long120(type="button" data-dismiss="modal") キャンセル
